@@ -36,7 +36,7 @@ fun naiveIsUniqueChars(testStr: String): Boolean {
 }
 
 /***
- *  * Assumptions:
+ *  Assumptions:
  *  - String contains only a-z symbols
  *
  * @property testStr - string that should be tested
