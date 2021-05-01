@@ -14,7 +14,7 @@
 
 5. [Bit Manipulation `Go`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/5-bit-manipulation)
 
-6. [Math and Logic Puzzles `Rust`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/6-math-logic)
+6. [Math and Logic Puzzles `Python`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/6-math-logic)
 
 7. [Object-Oriented Design `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/7-object-oriented-design)
 
