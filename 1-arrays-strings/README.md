@@ -192,6 +192,46 @@
    length of the string. (Note: If implementing in Java, please use a character array so that you can
    perform this operation in place.)
 
+   ### Solution:
+   
+   #### Complexity
+   
+   - Time Complexity: `O(N)`
+   
+   - Space Complexity: `O(1)`
+   
+   #### Implementation
+   
+   ```kotlin
+   fun inplaceURlify(chars: CharArray, length: Int): CharArray {
+      var whitespaceCounter = 0
+      for (i in IntRange(0, length - 1)) {
+         if (chars[i] == ' ') {
+            ++whitespaceCounter
+         }
+      }
+      if (whitespaceCounter == 0) {
+         return chars
+      }
+   
+      val replacedBy = "%20".toCharArray()
+      var newLength = length + whitespaceCounter *2-1
+      var i = length-1
+      while(i>=0){
+         if(chars[i] == ' '){
+            for(j in IntRange(0, replacedBy.size - 1).reversed()){
+               chars[newLength-j] = replacedBy[replacedBy.size-j-1]
+            }
+            newLength-=replacedBy.size
+         } else{
+            chars[newLength] = chars[i]
+            newLength -= 1
+         }
+         --i
+      }
+      return chars
+   }
+   ```
 <hr/>
 
 ## 4. Palindrome Permutation
