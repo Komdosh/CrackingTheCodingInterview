@@ -1,7 +1,5 @@
 # Recursion and Dynamic Programming
 
-# Linked Lists
-
 ## 1.
 .
 

@@ -1,7 +1,5 @@
 # Sorting and Searching
 
-# Linked Lists
-
 ## 1.
 .
 

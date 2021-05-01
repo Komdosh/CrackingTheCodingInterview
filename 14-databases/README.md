@@ -1,7 +1,5 @@
 # Databases
 
-# Linked Lists
-
 ## 1.
 .
 

@@ -1,7 +1,5 @@
 # System Design and Scalability
 
-# Linked Lists
-
 ## 1.
 .
 

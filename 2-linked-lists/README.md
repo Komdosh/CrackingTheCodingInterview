@@ -20,8 +20,10 @@ singly linked list, given only access to that node.
 #### Example
 
 ```
-input:the node c from the linked list a->b->c->d->e->f
-Result: nothing is returned, but the new linked list looks like a->b->d->e->f
+Input:
+    the node c from the linked list a->b->c->d->e->f
+Result:
+    nothing is returned, but the new linked list looks like a->b->d->e->f
 ```
 
 <hr/>
@@ -37,9 +39,9 @@ appear anywhere in the
 
 ```
 Input:
-3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1 [partition= 5]
+    3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1 [partition= 5]
 Output:
-3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
+    3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 ```
 
 <hr/>
@@ -54,18 +56,18 @@ digits are stored in forward order. Repeat the above problem.
 
 ```
 Input: 
-(7-> 1 -> 6) + (5 -> 9 -> 2). That is,617 + 295.
+    (7-> 1 -> 6) + (5 -> 9 -> 2). That is, 617 + 295.
 Output: 
-2 -> 1 -> 9. That is, 912. 
+    2 -> 1 -> 9. That is, 912. 
 ```
 
 #### Example
 
 ```
 Input:
-(6 -> 1 -> 7) + (2 -> 9 -> 5).That is,617 + 295.
+    (6 -> 1 -> 7) + (2 -> 9 -> 5).That is, 617 + 295.
 Output: 
-9 -> 1 -> 2. That is, 912. 
+    9 -> 1 -> 2. That is, 912. 
 ```
 
 <hr/>
@@ -97,9 +99,9 @@ list.
 
 ```
 Input:
-A -> B -> C -> D -> E -> C [the same C as earlier] 
+    A -> B -> C -> D -> E -> C [the same C as earlier] 
 Output: 
-C
+    C
 ```
 
 <hr/>

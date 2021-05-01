@@ -1,7 +1,5 @@
 # Java
 
-# Linked Lists
-
 ## 1.
 .
 

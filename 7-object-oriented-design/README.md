@@ -1,7 +1,5 @@
 # Object-Oriented Design
 
-# Linked Lists
-
 ## 1.
 .
 

@@ -1,7 +1,5 @@
 # C and C++
 
-# Linked Lists
-
 ## 1.
 .
 

@@ -1,7 +1,5 @@
 # Threads and Locks
 
-# Linked Lists
-
 ## 1.
 .
 

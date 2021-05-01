@@ -1,7 +1,5 @@
 # Bit Manipulation
 
-# Linked Lists
-
 ## 1.
 .
 

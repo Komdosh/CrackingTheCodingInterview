@@ -1,7 +1,5 @@
 # Testing
 
-# Linked Lists
-
 ## 1.
 .
 

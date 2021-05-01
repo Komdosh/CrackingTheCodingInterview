@@ -1,7 +1,5 @@
 # Math and Logic Puzzles
 
-# Linked Lists
-
 ## 1.
 
 .
