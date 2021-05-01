@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/1-arrays-strings/1-arrays-strings.iml" filepath="$PROJECT_DIR$/1-arrays-strings/1-arrays-strings.iml" />
+      <module fileurl="file://$PROJECT_DIR$/11-testing/11-testing.iml" filepath="$PROJECT_DIR$/11-testing/11-testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/13-java/13-java.iml" filepath="$PROJECT_DIR$/13-java/13-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3-stacks-queues/3-stacks-queues.iml" filepath="$PROJECT_DIR$/3-stacks-queues/3-stacks-queues.iml" />
+      <module fileurl="file://$PROJECT_DIR$/7-object-oriented-design/7-object-oriented-design.iml" filepath="$PROJECT_DIR$/7-object-oriented-design/7-object-oriented-design.iml" />
+      <module fileurl="file://$PROJECT_DIR$/9-system-design-scalability/9-system-design-scalability.iml" filepath="$PROJECT_DIR$/9-system-design-scalability/9-system-design-scalability.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CrackingTheCodingInterview.iml" filepath="$PROJECT_DIR$/.idea/CrackingTheCodingInterview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/linked-lists/linked-lists.iml" filepath="$PROJECT_DIR$/linked-lists/linked-lists.iml" />
+      <module fileurl="file://$PROJECT_DIR$/6-math-logic/math-logic.iml" filepath="$PROJECT_DIR$/6-math-logic/math-logic.iml" />
+    </modules>
+  </component>
+</project>
