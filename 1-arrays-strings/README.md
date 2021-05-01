@@ -1,10 +1,11 @@
-# Arrays and Strings
+# Arrays and Strings `Kotlin`
 
 ## 1. Is Unique
 
 Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
 
-### Naive Solution
+<details>
+<summary>Naive Solution </summary>
 
 #### Assumptions
 
@@ -34,7 +35,10 @@ Implement an algorithm to determine if a string has all unique characters. What 
 }
    ```
 
-### Optimized Solution:
+</details>
+
+<details>
+<summary>Optimized Solution </summary>
 
 #### Assumptions:
 
@@ -65,6 +69,7 @@ Implement an algorithm to determine if a string has all unique characters. What 
 }
    ```
 
+</details>
 <hr/>
 
 ## 2. Check Permutation
@@ -76,7 +81,8 @@ Given two strings, write a method to decide if one is a permutation of the other
 - String case sensitive
 - Whitespace is countable
 
-### Naive Solution
+<details>
+<summary>Naive Solution </summary>
 
 #### Complexity
 
@@ -118,7 +124,10 @@ Given two strings, write a method to decide if one is a permutation of the other
 }
    ```
 
-### Optimized Solution:
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
 
 #### Complexity
 
@@ -155,7 +164,10 @@ Given two strings, write a method to decide if one is a permutation of the other
 }
    ```
 
-### Clear Solution:
+</details>
+
+<details>
+<summary>Clear Solution</summary>
 
 #### Complexity
 
@@ -186,6 +198,8 @@ Given two strings, write a method to decide if one is a permutation of the other
 }
    ```
 
+</details>
+
 <hr/>
 
 ## 3. URLify
@@ -194,7 +208,9 @@ Write a method to replace all spaces in a string with '%20'. You may assume that
 additional characters, and that you are given the "true"
 length of the string. (Note: If implementing in Java, please use a character array so that you can perform this operation in place.)
 
-### Solution:
+
+<details>
+<summary>Solution</summary>
 
 #### Complexity
 
@@ -234,6 +250,8 @@ length of the string. (Note: If implementing in Java, please use a character arr
     return chars
 }
    ```
+
+</details>
 
 <hr/>
 

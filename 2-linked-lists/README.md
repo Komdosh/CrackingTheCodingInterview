@@ -1,4 +1,4 @@
-# Linked Lists
+# Linked Lists `Rust`
 
 ## 1. Remove Dups
 
@@ -6,7 +6,7 @@ Write code to remove duplicates from an unsorted linked list. How would you solv
 
 <hr/>
 
-## 2. Return Kth to Last
+## 2. Return K'th to Last
 
 Implement an algorithm to find the kth to last element of a singly linked list.
 
