@@ -68,7 +68,7 @@ duplicates.
 
 Implement an algorithm to print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses.
 
-#### Example
+### Example
 
 ```
 Input:
@@ -114,7 +114,7 @@ Given a boolean expression consisting of the symbols 0 (false), 1 (true), &
 (AND), I (OR), and ^ (XOR), and a desired boolean result value result, implement a function to count the number of ways of parenthesizing
 the expression such that it evaluates to result.
 
-#### Example
+### Example
 
 ```
 countEval("1^0|0|1", false) -> 2

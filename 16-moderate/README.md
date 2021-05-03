@@ -189,6 +189,8 @@ You have an integer matrix representing a plot of land, where the value at that 
 zero indicates water. A pond is a region of water connected vertically, horizontally, or diagonally. The size of the pond is the total
 number of connected water cells. Write a method to compute the sizes of all ponds in the matrix.
 
+### Example
+
 ```
 Input: 
     0 2 1 0
@@ -210,6 +212,8 @@ list of valid words (provided in whatever data structure you'd like). The mappin
 
 ![T9.png](t9.png)
 
+### Example
+
 ```
 Input: 
     8733
@@ -223,6 +227,8 @@ Output:
 ## 21. Sum Swap
 
 Given two arrays of integers, find a pair of values (one value from each array) that you can swap to give the two arrays the same sum.
+
+### Example
 
 ```
 Input: 
@@ -269,6 +275,8 @@ evict the least recently used item.
 ## 26. Calculator
 
 Given an arithmetic equation consisting of positive integers, +, -, * and / (no parentheses), compute the result.
+
+### Example
 
 ```
 Input: 

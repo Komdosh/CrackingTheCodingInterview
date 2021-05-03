@@ -21,7 +21,7 @@ Implement an algorithm to find the kth to last element of a singly linked list.
 Implement an algorithm to delete a node in the middle (i.e., any node but the first and last node, not necessarily the exact middle) of a
 singly linked list, given only access to that node.
 
-#### Example
+### Example
 
 ```
 Input:
@@ -39,7 +39,7 @@ x is contained within the list, the values of x only need to be after the elemen
 appear anywhere in the
 "right partition"; it does not need to appear between the left and right partitions.
 
-#### Example
+### Example
 
 ```
 Input:
@@ -56,7 +56,7 @@ You have two numbers represented by a linked list, where each node contains a si
 that the 1 's digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list. Suppose the
 digits are stored in forward order. Repeat the above problem.
 
-#### Example
+### Example
 
 ```
 Input: 
@@ -65,7 +65,7 @@ Output:
     2 -> 1 -> 9. That is, 912. 
 ```
 
-#### Example
+### Example
 
 ```
 Input:
@@ -99,7 +99,7 @@ Given a circular linked list, implement an algorithm that returns the node at th
 Circular linked list: A (corrupt) linked list in which a node's next pointer points to an earlier node, so as to make a loop in the linked
 list.
 
-#### Example
+### Example
 
 ```
 Input:

@@ -35,7 +35,7 @@ occurs multiple times, you may return any index.
 
 Given a sorted array of strings that is interspersed with empty strings, write a method to find the location of a given string.
 
-#### Example
+### Example
 
 ```
 Input:
@@ -80,7 +80,7 @@ less than or equal to x). Implement the data structures and algorithms to suppor
 (int x)`, which is called when each number is generated, and the method `getRankOfNumber(int x)`, which returns the number of values less
 than or equal to x (not including x itself).
 
-#### Example
+### Example
 
 ```
 Input:
@@ -99,7 +99,7 @@ In an array of integers, a "peak" is an element which is greater than or equal t
 is less than or equal to the adjacent integers. For example, in the array {5, 8, 6, 2, 3, 4, 6}, {8, 6} are peaks and {5, 2} are valleys.
 Given an array of integers, sort the array into an alternating sequence of peaks and valleys.
 
-#### Example
+### Example
 
 ```
 Input:

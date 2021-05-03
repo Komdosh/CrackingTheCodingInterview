@@ -48,7 +48,7 @@ You are given a list of projects and a list of dependencies (which is a list of 
 the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to
 be built. If there is no valid build order, return an error.
 
-#### Example
+### Example
 
 ```
 Input:
@@ -72,7 +72,7 @@ structure. NOTE: This is not necessarily a binary search tree.
 A binary search tree was created by traversing through an array from left to right and inserting each element. Given a binary search tree
 with distinct elements, print all possible arrays that could have led to this tree.
 
-#### Example
+### Example
 
 ```
 Input:

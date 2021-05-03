@@ -67,7 +67,7 @@ of type T when the reference count hits zero.
 Write an aligned malloc and free function that supports allocating memory such that the memory address returned is divisible by a specific
 power of two.
 
-#### Example
+### Example
 
 ```
 align_malloc(1000, 128) - will return a memory address that is a multiple of 128 and that points
