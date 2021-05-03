@@ -78,7 +78,7 @@ fun optimizedIsPalindromePermutation(testStr: String): Boolean {
 }
 
 /***
- * set i symbol of bit vector, which represents index of symbol in alphabet
+ * Set i symbol of bit vector, which represents index of symbol in alphabet
  *
  * @property testStr - tested string
  * @return bit vector
