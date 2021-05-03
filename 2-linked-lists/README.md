@@ -1,5 +1,9 @@
 # Linked Lists `Rust`
 
+Completed tasks:
+
+![0%](https://progress-bar.dev/0)
+
 ## 1. Remove Dups
 
 Write code to remove duplicates from an unsorted linked list. How would you solve this problem if a temporary buffer is not allowed?

@@ -1,5 +1,9 @@
 # Bit Manipulation `Go`
 
+Completed tasks:
+
+![0%](https://progress-bar.dev/0)
+
 ## 1. Insertion
 
 You are given two 32-bit numbers, `N` and `M`, and two bit positions, `i` and `j`. Write a method to insert `M` into `N` such that `M`

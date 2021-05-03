@@ -1,12 +1,16 @@
 # Testing
 
+Completed tasks:
+
+![0%](https://progress-bar.dev/0)
+
 ## 1. Mistake
 
 Find the mistake(s) in the following code:
 
-```java
+```c
 unsigned int i;
-    for(i=100;i>=0;--i)
+for(i=100;i>=0;--i)
     printf("%d\n",i);
 ```
 
@@ -16,9 +20,9 @@ unsigned int i;
 it will never stop. Unsigned int always `>= 0`. Also in formatted printing we should use `%u` instead of `%d`, because values after 2^31
 will be interpreted as negative, in case of overflow.
 
-```java
+```c
 unsigned int i;
-    for(i=100;i>0;--i)
+for(i=100;i>0;--i)
     printf("%u\n",i);
 
     printf("0"); // zero is out of for loop

@@ -1,5 +1,9 @@
 # Stacks and Queues `Java`
 
+Completed tasks:
+
+![0%](https://progress-bar.dev/0)
+
 ## 1. Three in One
 
 Describe how you could use a single array to implement three stacks.

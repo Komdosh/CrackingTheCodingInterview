@@ -1,5 +1,9 @@
 # Java
 
+Completed tasks:
+
+![0%](https://progress-bar.dev/0)
+
 ## 1.
 .
 
