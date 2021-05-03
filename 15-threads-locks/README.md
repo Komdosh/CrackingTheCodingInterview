@@ -4,62 +4,69 @@ Completed tasks:
 
 ![0%](https://progress-bar.dev/0)
 
-## 1.
+## 1. Thread vs. Process
 
-.
-
-<hr/>
-
-## 2.
-
-.
+What's the difference between a thread and a process?
 
 <hr/>
 
-## 3.
+## 2. Context Switch
 
-.
-
-<hr/>
-
-## 4.
-
-.
+How would you measure the time spent in a context switch?
 
 <hr/>
 
-## 5.
+## 3. Dining Philosophers
 
-.
-
-<hr/>
-
-## 6.
-
-.
+In the famous dining philosophers problem, a bunch of philosophers are sitting around a circular table with one chopstick between each of
+them. A philosopher needs both chopsticks to eat, and always picks up the left chopstick before the right one. A deadlock could potentially
+occur if all the philosophers reached for the left chopstick at the same time. Using threads and locks, implement a simulation of the dining
+philosophers problem that prevents deadlocks.
 
 <hr/>
 
-## 7.
+## 4. Deadlock-Free Class
 
-.
-
-<hr/>
-
-## 8.
-
-.
+Design a class which provides a lock only if there are no possible deadlocks.
 
 <hr/>
 
-## 9.
+## 5. Call In Order
 
-.
+Suppose we have the following code:
+
+```java
+public class Foo {
+    public Foo() { ...}
+
+    public void first() { ...}
+
+    public void second() { ...}
+
+    public void third() { ...}
+} 
+```
+
+The same instance of Foo will be passed to three different threads. `ThreadA` will call first,
+`threadB` will call second, and `ThreadC` will call third. Design a mechanism to ensure that first is called before second and second is
+called before third.
 
 <hr/>
 
-## 10.
+## 6. Synchronized Methods
 
-.
+You are given a class with synchronized method A and a normal method B. If you have two threads in one instance of a program, can they both
+execute A at the same time? Can they execute A and B at the same time?
+
+
+<hr/>
+
+## 7. FizzBuzz
+
+In the classic problem FizzBuzz, you are told to print the numbers from 1 to n. However, when the number is divisible by 3, print "Fizz''.
+When it is divisible by 5, print "Buzz''. When it is divisible by 3 and 5, print "FizzBuzz''. In this problem, you are asked to do this in a
+multithreaded way. Implement a multithreaded version of FizzBuzz with four threads. One thread checks for divisibility of 3 and prints "
+Fizz". Another thread is responsible for divisibility of 5 and prints "Buzz". A third thread is responsible for divisibility of 3 and 5 and
+prints "FizzBuzz''. A fourth thread does the numbers.
 
 <hr/>
