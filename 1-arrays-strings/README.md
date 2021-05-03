@@ -260,6 +260,146 @@ length of the string. (Note: If implementing in Java, please use a character arr
 Given a string, write a function to check if it is a permutation of a palindrome. A palindrome is a word or phrase that is the same forwards
 and backwards. A permutation is a rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
 
+### Assumptions
+
+- String case insensitive
+
+<details>
+<summary>Naive Solution </summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+    fun naiveIsPalindromePermutation(testStr: String): Boolean {
+        val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+        val isStrLenEven = preparedTestString.size % 2 == 0
+        val charsMap = HashMap<Char, Int>()
+        preparedTestString.forEach {
+            charsMap[it] = (charsMap[it] ?: 0) + 1
+        }
+    
+        var hasOddNumberOfChars = false
+        for (value in charsMap.values) {
+            if (value % 2 != 0) {
+                if (hasOddNumberOfChars || isStrLenEven) {
+                    return false
+                }
+                hasOddNumberOfChars = true
+            }
+        }
+        return true
+    }
+   ```
+
+</details>
+
+<details>
+<summary>Alternative Naive Solution </summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+    fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
+        val charsMap = HashMap<Char, Int>()
+        var countOdd = 0
+        testStr.toLowerCase().toCharArray().filter { it != ' ' }.forEach {
+            charsMap[it] = (charsMap[it] ?: 0) + 1
+            if(charsMap[it]!! % 2 == 1){
+                ++countOdd
+            } else{
+                --countOdd
+            }
+        }
+    
+        return countOdd <= 1
+    }
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+        fun optimizedIsPalindromePermutation(testStr: String): Boolean {
+            val bitVector = createBitVector(testStr)
+            return bitVector == 0 || checkExactlyOneBitSet(bitVector)
+        }
+
+        fun createBitVector(testStr: String): Int {
+            var bitVector = 0
+            for (char in testStr.toCharArray()) {
+                val x = getCharNumber(char)
+                bitVector = toggle(bitVector, x)
+            }
+            return bitVector
+        }
+        
+        fun getCharNumber(char: Char): Int {
+            return char.toLowerCase().toInt() - 'a'.toInt()
+        }
+        
+        fun toggle(bitVector: Int, index: Int): Int {
+            if (index < 0) return bitVector
+        
+            val mask = 1.shl(index)
+        
+            return if ((bitVector.and(mask)) == 0) {
+                bitVector.or(mask)
+            } else {
+                bitVector.and(mask.inv())
+            }
+        }
+
+        fun checkExactlyOneBitSet(bitVector: Int): Boolean {
+            return bitVector.and(bitVector - 1) == 0
+        }
+   ```
+
+</details>
+
+<details>
+<summary>Naive Solution - Kotlin Way</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+    fun isPalindromePermutationKotlinWay(testStr: String): Boolean {
+        val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+        val charsMap = preparedTestString.toTypedArray().groupingBy { it }.eachCount()
+    
+        return charsMap.values.filter { it % 2 != 0 }.count() <= 1
+    }
+   ```
+
+</details>
+
 <hr/>
 
 ## 5. One Away
