@@ -66,8 +66,6 @@ Implement an algorithm to print all valid (e.g., properly opened and closed) com
 
 #### Example
 
-#### Example
-
 ```
 Input:
     3
