@@ -4,62 +4,51 @@ Completed tasks:
 
 ![0%](https://progress-bar.dev/0)
 
-## 1.
+## 1. Multiple Apartments
 
-.
-
-<hr/>
-
-## 2.
-
-.
+Write a SOL query to get a list of tenants who are renting more than one apartment.
 
 <hr/>
 
-## 3.
+## 2. Open Requests
 
-.
-
-<hr/>
-
-## 4.
-
-.
+Write a SQL query to get a list of all buildings and the number of open requests (Requests in which status equals 'Open').
 
 <hr/>
 
-## 5.
+## 3. Close All Requests
 
-.
-
-<hr/>
-
-## 6.
-
-.
+Building #11 is undergoing a major renovation. Implement a query to close all requests from apartments in this building.
 
 <hr/>
 
-## 7.
+## 4. Joins
 
-.
-
-<hr/>
-
-## 8.
-
-.
+What are the different types of joins? Please explain how they differ and why certain types are better in certain situations.
 
 <hr/>
 
-## 9.
+## 5. Denormalization
 
-.
+What is denormalization? Explain the pros. and cons.
+
+<hr/>
+
+## 6. Entity-Relationship Diagram
+
+Draw an entity-relationship diagram for a database with companies, people, and professionals (people who work for companies).
 
 <hr/>
 
-## 10.
+## 7. Design Grade Database
 
-.
+Imagine a simple database storing information for students' grades. Design what this database might look like and provide a SQL query to
+return a list of the honor roll students (top 10%), sorted by their grade point average.
 
 <hr/>
+
+
+## Database Schema
+
+
+![database schema](database-schema.png)
