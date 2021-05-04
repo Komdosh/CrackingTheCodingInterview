@@ -17,6 +17,10 @@ fun main() {
     assertEquals("Mr%20John%20Smith", String(inplaceURlify(chars, testString.length)))
     assertEquals("Mr%20John%20Smith%20", String(inplaceURlify(chars2, testString2.length)))
     assertEquals("%20Mr%20John%20Smith", String(inplaceURlify(chars3, testString3.length)))
+
+    assertEquals("Mr%20John%20Smith", URlifyKotlinWay(testString))
+    assertEquals("Mr%20John%20Smith%20", URlifyKotlinWay(testString2))
+    assertEquals("%20Mr%20John%20Smith", URlifyKotlinWay(testString3))
 }
 
 fun getStringArray(str: String): CharArray {
@@ -50,15 +54,15 @@ fun inplaceURlify(chars: CharArray, length: Int): CharArray {
     }
 
     val replacedBy = "%20".toCharArray()
-    var newLength = length + whitespaceCounter *2-1
-    var i = length-1
-    while(i>=0){
-        if(chars[i] == ' '){
-            for(j in IntRange(0, replacedBy.size - 1).reversed()){
-                chars[newLength-j] = replacedBy[replacedBy.size-j-1]
+    var newLength = length + whitespaceCounter * 2 - 1
+    var i = length - 1
+    while (i >= 0) {
+        if (chars[i] == ' ') {
+            for (j in IntRange(0, replacedBy.size - 1).reversed()) {
+                chars[newLength - j] = replacedBy[replacedBy.size - j - 1]
             }
-            newLength-=replacedBy.size
-        } else{
+            newLength -= replacedBy.size
+        } else {
             chars[newLength] = chars[i]
             newLength -= 1
         }
@@ -66,3 +70,14 @@ fun inplaceURlify(chars: CharArray, length: Int): CharArray {
     }
     return chars
 }
+
+/***
+ * Assumptions:
+ *  - We need inplace replace
+ *  - Array size already fit for replaced string
+ *
+ * @property chars - char array with calculated size
+ * @property length - length of the original string
+ * @return edited char array with replaced whitespaces
+ */
+fun URlifyKotlinWay(str: String): String = str.replace(" ", "%20")
