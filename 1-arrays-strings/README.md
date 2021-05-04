@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![44%](https://progress-bar.dev/44)
+![55%](https://progress-bar.dev/55)
 
 ## 1. Is Unique
 
@@ -23,7 +23,7 @@ Implement an algorithm to determine if a string has all unique characters. What 
 #### Implementation
 
    ```kotlin
-   fun naiveIsUniqueChars(testStr: String): Boolean {
+fun naiveIsUniqueChars(testStr: String): Boolean {
     if (testStr.length > 128) return false
 
     val used = Array(128) { false }
@@ -56,7 +56,7 @@ Implement an algorithm to determine if a string has all unique characters. What 
 #### Implementation
 
    ```kotlin
-   fun optimizedIsUniqueChars(testStr: String): Boolean {
+fun optimizedIsUniqueChars(testStr: String): Boolean {
     if (testStr.length > 26) return false
 
     var a = 0
@@ -97,7 +97,7 @@ Given two strings, write a method to decide if one is a permutation of the other
 #### Implementation
 
    ```kotlin
-   fun naiveCheckPermutation(first: String, second: String): Boolean {
+fun naiveCheckPermutation(first: String, second: String): Boolean {
     if (first.length != second.length) {
         return false
     }
@@ -142,7 +142,7 @@ Given two strings, write a method to decide if one is a permutation of the other
 #### Implementation
 
    ```kotlin
-   fun optimizedCheckPermutation(first: String, second: String): Boolean {
+fun optimizedCheckPermutation(first: String, second: String): Boolean {
     if (first.length != second.length) {
         return false
     }
@@ -182,7 +182,7 @@ Given two strings, write a method to decide if one is a permutation of the other
 #### Implementation
 
    ```kotlin
-   fun clearCheckPermutation(first: String, second: String): Boolean {
+fun clearCheckPermutation(first: String, second: String): Boolean {
     if (first.length != second.length) {
         return false
     }
@@ -225,7 +225,7 @@ length of the string. (Note: If implementing in Java, please use a character arr
 #### Implementation
 
    ```kotlin
-   fun inplaceURlify(chars: CharArray, length: Int): CharArray {
+fun inplaceURlify(chars: CharArray, length: Int): CharArray {
     var whitespaceCounter = 0
     for (i in IntRange(0, length - 1)) {
         if (chars[i] == ' ') {
@@ -280,25 +280,25 @@ and backwards. A permutation is a rearrangement of letters. The palindrome does 
 #### Implementation
 
    ```kotlin
-    fun naiveIsPalindromePermutation(testStr: String): Boolean {
-        val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
-        val isStrLenEven = preparedTestString.size % 2 == 0
-        val charsMap = HashMap<Char, Int>()
-        preparedTestString.forEach {
-            charsMap[it] = (charsMap[it] ?: 0) + 1
-        }
-    
-        var hasOddNumberOfChars = false
-        for (value in charsMap.values) {
-            if (value % 2 != 0) {
-                if (hasOddNumberOfChars || isStrLenEven) {
-                    return false
-                }
-                hasOddNumberOfChars = true
-            }
-        }
-        return true
+fun naiveIsPalindromePermutation(testStr: String): Boolean {
+    val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+    val isStrLenEven = preparedTestString.size % 2 == 0
+    val charsMap = HashMap<Char, Int>()
+    preparedTestString.forEach {
+        charsMap[it] = (charsMap[it] ?: 0) + 1
     }
+
+    var hasOddNumberOfChars = false
+    for (value in charsMap.values) {
+        if (value % 2 != 0) {
+            if (hasOddNumberOfChars || isStrLenEven) {
+                return false
+            }
+            hasOddNumberOfChars = true
+        }
+    }
+    return true
+}
    ```
 
 </details>
@@ -315,20 +315,20 @@ and backwards. A permutation is a rearrangement of letters. The palindrome does 
 #### Implementation
 
    ```kotlin
-    fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
-        val charsMap = HashMap<Char, Int>()
-        var countOdd = 0
-        testStr.toLowerCase().toCharArray().filter { it != ' ' }.forEach {
-            charsMap[it] = (charsMap[it] ?: 0) + 1
-            if(charsMap[it]!! % 2 == 1){
-                ++countOdd
-            } else{
-                --countOdd
-            }
+fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
+    val charsMap = HashMap<Char, Int>()
+    var countOdd = 0
+    testStr.toLowerCase().toCharArray().filter { it != ' ' }.forEach {
+        charsMap[it] = (charsMap[it] ?: 0) + 1
+        if (charsMap[it]!! % 2 == 1) {
+            ++countOdd
+        } else {
+            --countOdd
         }
-    
-        return countOdd <= 1
     }
+
+    return countOdd <= 1
+}
    ```
 
 </details>
@@ -345,39 +345,39 @@ and backwards. A permutation is a rearrangement of letters. The palindrome does 
 #### Implementation
 
    ```kotlin
-        fun optimizedIsPalindromePermutation(testStr: String): Boolean {
-            val bitVector = createBitVector(testStr)
-            return bitVector == 0 || checkExactlyOneBitSet(bitVector)
-        }
+fun optimizedIsPalindromePermutation(testStr: String): Boolean {
+    val bitVector = createBitVector(testStr)
+    return bitVector == 0 || checkExactlyOneBitSet(bitVector)
+}
 
-        fun createBitVector(testStr: String): Int {
-            var bitVector = 0
-            for (char in testStr.toCharArray()) {
-                val x = getCharNumber(char)
-                bitVector = toggle(bitVector, x)
-            }
-            return bitVector
-        }
-        
-        fun getCharNumber(char: Char): Int {
-            return char.toLowerCase().toInt() - 'a'.toInt()
-        }
-        
-        fun toggle(bitVector: Int, index: Int): Int {
-            if (index < 0) return bitVector
-        
-            val mask = 1.shl(index)
-        
-            return if ((bitVector.and(mask)) == 0) {
-                bitVector.or(mask)
-            } else {
-                bitVector.and(mask.inv())
-            }
-        }
+fun createBitVector(testStr: String): Int {
+    var bitVector = 0
+    for (char in testStr.toCharArray()) {
+        val x = getCharNumber(char)
+        bitVector = toggle(bitVector, x)
+    }
+    return bitVector
+}
 
-        fun checkExactlyOneBitSet(bitVector: Int): Boolean {
-            return bitVector.and(bitVector - 1) == 0
-        }
+fun getCharNumber(char: Char): Int {
+    return char.toLowerCase().toInt() - 'a'.toInt()
+}
+
+fun toggle(bitVector: Int, index: Int): Int {
+    if (index < 0) return bitVector
+
+    val mask = 1.shl(index)
+
+    return if ((bitVector.and(mask)) == 0) {
+        bitVector.or(mask)
+    } else {
+        bitVector.and(mask.inv())
+    }
+}
+
+fun checkExactlyOneBitSet(bitVector: Int): Boolean {
+    return bitVector.and(bitVector - 1) == 0
+}
    ```
 
 </details>
@@ -394,12 +394,12 @@ and backwards. A permutation is a rearrangement of letters. The palindrome does 
 #### Implementation
 
    ```kotlin
-    fun isPalindromePermutationKotlinWay(testStr: String): Boolean {
-        val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
-        val charsMap = preparedTestString.toTypedArray().groupingBy { it }.eachCount()
-    
-        return charsMap.values.filter { it % 2 != 0 }.count() <= 1
-    }
+fun isPalindromePermutationKotlinWay(testStr: String): Boolean {
+    val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+    val charsMap = preparedTestString.toTypedArray().groupingBy { it }.eachCount()
+
+    return charsMap.values.filter { it % 2 != 0 }.count() <= 1
+}
    ```
 
 </details>
@@ -414,11 +414,201 @@ strings, write a function to check if they are one edit (or zero edits) away.
 ### Example
 
 ```
-    pale, ple -> true
-    pales, pale -> true
-    pale, bale -> true
-    pale, bake -> false
+pale, ple -> true
+pales, pale -> true
+pale, bale -> true
+pale, bake -> false
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+enum class SKIP {
+    FIRST, SECOND, BOTH
+}
+
+fun naiveOneWay(first: String, second: String): Boolean {
+    val lenDif = first.length - second.length
+    if (abs(lenDif) > 1) {
+        return false
+    }
+    val availableSkip = when (lenDif) {
+        1 -> SKIP.FIRST
+        -1 -> SKIP.SECOND
+        else -> SKIP.BOTH
+    }
+
+    var skipUsed = false
+    var firstIndex = 0
+    var secondIndex = 0
+    while (firstIndex < first.length && secondIndex < second.length) {
+
+        if (first[firstIndex] != second[secondIndex]) {
+            if (skipUsed) {
+                return false
+            }
+            skipUsed = true
+
+            when (availableSkip) {
+                SKIP.BOTH -> {
+                    ++firstIndex
+                    ++secondIndex
+                }
+                SKIP.FIRST -> ++firstIndex
+                SKIP.SECOND -> ++secondIndex
+            }
+        } else {
+            ++firstIndex
+            ++secondIndex
+        }
+    }
+
+    return true
+}
+   ```
+
+</details>
+
+<details>
+<summary>Alternative Naive Solution </summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun alternativeNaiveOneWay(first: String, second: String): Boolean {
+    return when {
+        first.length == second.length -> {
+            oneEditReplace(first, second)
+        }
+        first.length + 1 == second.length -> {
+            oneEditInsert(first, second)
+        }
+        first.length - 1 == second.length -> {
+            oneEditInsert(second, first)
+        }
+        else -> false
+    }
+}
+
+fun oneEditReplace(first: String, second: String): Boolean {
+    var foundDifference = false
+    var i = 0
+    while (i < first.length) {
+        if (first[i] != second[i]) {
+            if (foundDifference) {
+                return false
+            }
+        }
+
+        foundDifference = true
+        ++i
+    }
+
+    return true
+}
+
+fun oneEditInsert(first: String, second: String): Boolean {
+    var firstIndex = 0
+    var secondIndex = 0
+
+    while (secondIndex < second.length && firstIndex < first.length) {
+        if (first[firstIndex] != second[secondIndex]) {
+            if (firstIndex != secondIndex) {
+                return false
+            }
+
+            ++secondIndex
+        } else {
+            ++firstIndex
+            ++secondIndex
+        }
+    }
+    return true
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun optimizedOneWay(first: String, second: String): Boolean {
+    if (abs(first.length - second.length) > 1) {
+        return false
+    }
+
+    val smallestStr = if (first.length < second.length) first else second
+    val biggestStr = if (first.length < second.length) second else first
+
+    var foundDifference = false
+    var firstIndex = 0
+    var secondIndex = 0
+    while (firstIndex < first.length && secondIndex < second.length) {
+
+        if (smallestStr[firstIndex] != biggestStr[secondIndex]) {
+            if (foundDifference) {
+                return false
+            }
+            foundDifference = true
+
+            if (smallestStr.length == biggestStr.length) {
+                ++firstIndex
+            }
+        } else {
+            ++firstIndex
+        }
+        ++secondIndex
+    }
+
+    return true
+}
+   ```
+
+</details>
+
+<details>
+<summary>Naive Solution - Kotlin Way</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun oneWayKotlinWay(first: String, second: String): Boolean {
+    val intersection = first.toCharArray().toSet().intersect(second.toCharArray().toSet())
+    return abs(intersection.size - first.length) <= 1
+}
+   ```
+
+</details>
 
 <hr/>
 
