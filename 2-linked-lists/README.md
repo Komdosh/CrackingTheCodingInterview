@@ -34,10 +34,10 @@ Result:
 
 ## 4. Partition
 
-Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x. If
-x is contained within the list, the values of x only need to be after the elements less than x (see below). The partition element x can
-appear anywhere in the
-"right partition"; it does not need to appear between the left and right partitions.
+Write code to partition a linked list around a value `x`, such that all nodes less than x come before all nodes greater than or equal to `x`
+. If
+`x` is contained within the list, the values of `x` only need to be after the elements less than `x` (see below). The partition element x
+can appear anywhere in the "right partition"; it does not need to appear between the left and right partitions.
 
 ### Example
 
@@ -60,7 +60,7 @@ digits are stored in forward order. Repeat the above problem.
 
 ```
 Input: 
-    (7-> 1 -> 6) + (5 -> 9 -> 2). That is, 617 + 295.
+    (7 -> 1 -> 6) + (5 -> 9 -> 2). That is, 617 + 295.
 Output: 
     2 -> 1 -> 9. That is, 912. 
 ```
@@ -85,7 +85,7 @@ Implement a function to check if a linked list is a palindrome.
 ## 7. Intersection
 
 Given two (singly) linked lists, determine if the two lists intersect. Return the intersecting node. Note that the intersection is defined
-based on reference, not value. That is, if the kth node of the first linked list is the exact same node (by reference) as the jth node of
+based on reference, not value. That is, if the `kth` node of the first linked list is the exact same node (by reference) as the jth node of
 the second linked list, then they are intersecting.
 
 <hr/>
