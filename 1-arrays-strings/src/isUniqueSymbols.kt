@@ -11,6 +11,9 @@ fun main() {
 
     assertEquals(false, optimizedIsUniqueChars("I have a bottle of water"))
     assertEquals(true, optimizedIsUniqueChars("No idea"))
+
+    assertEquals(false, isUniqueCharsKotlinWay("I have a bottle of water"))
+    assertEquals(true, isUniqueCharsKotlinWay("No idea"))
 }
 
 /***
@@ -57,4 +60,11 @@ fun optimizedIsUniqueChars(testStr: String): Boolean {
     }
     return true
 }
+
+/***
+ * @property testStr - string that should be tested
+ * @return true if string contains only unique chars, false otherwise
+ */
+fun isUniqueCharsKotlinWay(testStr: String): Boolean =
+    testStr.toCharArray().toSet().size == testStr.length
 

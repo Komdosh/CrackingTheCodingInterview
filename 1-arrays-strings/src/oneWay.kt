@@ -31,6 +31,11 @@ enum class SKIP {
     FIRST, SECOND, BOTH
 }
 
+/***
+ * @property first - first string, that should be tested
+ * @property second - second string for test
+ * @return true if strings have only one edit, false otherwise
+ */
 fun naiveOneWay(first: String, second: String): Boolean {
     val lenDif = first.length - second.length
     if (abs(lenDif) > 1) {
@@ -70,7 +75,11 @@ fun naiveOneWay(first: String, second: String): Boolean {
     return true
 }
 
-
+/***
+ * @property first - first string, that should be tested
+ * @property second - second string for test
+ * @return true if strings have only one edit, false otherwise
+ */
 fun alternativeNaiveOneWay(first: String, second: String): Boolean {
     return when {
         first.length == second.length -> {
@@ -122,6 +131,11 @@ fun oneEditInsert(first: String, second: String): Boolean {
     return true
 }
 
+/***
+ * @property first - first string, that should be tested
+ * @property second - second string for test
+ * @return true if strings have only one edit, false otherwise
+ */
 fun optimizedOneWay(first: String, second: String): Boolean {
     if (abs(first.length - second.length) > 1) {
         return false
@@ -153,6 +167,11 @@ fun optimizedOneWay(first: String, second: String): Boolean {
     return true
 }
 
+/***
+ * @property first - first string, that should be tested
+ * @property second - second string for test
+ * @return true if strings have only one edit, false otherwise
+ */
 fun oneWayKotlinWay(first: String, second: String): Boolean {
     val intersection = first.toCharArray().toSet().intersect(second.toCharArray().toSet())
     return abs(intersection.size - first.length) <= 1
