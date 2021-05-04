@@ -15,6 +15,16 @@ fun main() {
     assertEquals(true, alternativeNaiveOneWay("pales", "pale"))
     assertEquals(true, alternativeNaiveOneWay("pale", "bale"))
     assertEquals(false, alternativeNaiveOneWay("pale", "bake"))
+
+    assertEquals(true, optimizedOneWay("pale", "ple"))
+    assertEquals(true, optimizedOneWay("pales", "pale"))
+    assertEquals(true, optimizedOneWay("pale", "bale"))
+    assertEquals(false, optimizedOneWay("pale", "bake"))
+
+    assertEquals(true, oneWayKotlinWay("pale", "ple"))
+    assertEquals(true, oneWayKotlinWay("pales", "pale"))
+    assertEquals(true, oneWayKotlinWay("pale", "bale"))
+    assertEquals(false, oneWayKotlinWay("pale", "bake"))
 }
 
 enum class SKIP {
@@ -38,24 +48,19 @@ fun naiveOneWay(first: String, second: String): Boolean {
     while (firstIndex < first.length && secondIndex < second.length) {
 
         if (first[firstIndex] != second[secondIndex]) {
-
-            if (!skipUsed) {
-
-                when (availableSkip) {
-                    SKIP.BOTH -> {
-                        ++firstIndex
-                        ++secondIndex
-                    }
-                    SKIP.FIRST -> ++firstIndex
-                    SKIP.SECOND -> ++secondIndex
-                }
-
-                skipUsed = true
-
-            } else {
+            if (skipUsed) {
                 return false
             }
+            skipUsed = true
 
+            when (availableSkip) {
+                SKIP.BOTH -> {
+                    ++firstIndex
+                    ++secondIndex
+                }
+                SKIP.FIRST -> ++firstIndex
+                SKIP.SECOND -> ++secondIndex
+            }
         } else {
             ++firstIndex
             ++secondIndex
@@ -103,16 +108,52 @@ fun oneEditInsert(first: String, second: String): Boolean {
     var secondIndex = 0
 
     while (secondIndex < second.length && firstIndex < first.length) {
-        if(first[firstIndex] != second[secondIndex]){
-            if(firstIndex != secondIndex) {
+        if (first[firstIndex] != second[secondIndex]) {
+            if (firstIndex != secondIndex) {
                 return false
             }
 
             ++secondIndex
-        } else{
+        } else {
             ++firstIndex
             ++secondIndex
         }
     }
     return true
+}
+
+fun optimizedOneWay(first: String, second: String): Boolean {
+    if (abs(first.length - second.length) > 1) {
+        return false
+    }
+
+    val smallestStr = if (first.length < second.length) first else second
+    val biggestStr = if (first.length < second.length) second else first
+
+    var foundDifference = false
+    var firstIndex = 0
+    var secondIndex = 0
+    while (firstIndex < first.length && secondIndex < second.length) {
+
+        if (smallestStr[firstIndex] != biggestStr[secondIndex]) {
+            if (foundDifference) {
+                return false
+            }
+            foundDifference = true
+
+            if (smallestStr.length == biggestStr.length) {
+                ++firstIndex
+            }
+        } else {
+            ++firstIndex
+        }
+        ++secondIndex
+    }
+
+    return true
+}
+
+fun oneWayKotlinWay(first: String, second: String): Boolean {
+    val intersection = first.toCharArray().toSet().intersect(second.toCharArray().toSet())
+    return abs(intersection.size - first.length) <= 1
 }
