@@ -72,12 +72,7 @@ fun inplaceURlify(chars: CharArray, length: Int): CharArray {
 }
 
 /***
- * Assumptions:
- *  - We need inplace replace
- *  - Array size already fit for replaced string
- *
- * @property chars - char array with calculated size
- * @property length - length of the original string
- * @return edited char array with replaced whitespaces
+ * @property str - string with whitespaces
+ * @return new string with replaced whitespaces
  */
 fun URlifyKotlinWay(str: String): String = str.replace(" ", "%20")

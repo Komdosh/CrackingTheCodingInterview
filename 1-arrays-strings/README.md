@@ -74,6 +74,22 @@ fun optimizedIsUniqueChars(testStr: String): Boolean {
    ```
 
 </details>
+
+<details>
+<summary>Naive Solution - Kotlin Way</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun URlifyKotlinWay(str: String): String = str.replace(" ", "%20")
+   ```
+
+</details>
 <hr/>
 
 ## 2. Check Permutation
@@ -204,6 +220,23 @@ fun clearCheckPermutation(first: String, second: String): Boolean {
 
 </details>
 
+<details>
+<summary>Naive Solution - Kotlin Way</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun checkPermutationKotlinWay(first: String, second: String): Boolean = first.toCharArray().toSet() == second.toCharArray().toSet()
+   ```
+
+</details>
+
 <hr/>
 
 ## 3. URLify
@@ -256,6 +289,24 @@ fun inplaceURlify(chars: CharArray, length: Int): CharArray {
    ```
 
 </details>
+
+<details>
+<summary>Naive Solution - Kotlin Way</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun URlifyKotlinWay(str: String): String = str.replace(" ", "%20")
+   ```
+
+</details>
+
 
 <hr/>
 
