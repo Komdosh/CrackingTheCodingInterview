@@ -11,8 +11,11 @@ fun main() {
     assertEquals(false, optimizedCheckPermutation("cat", "fat"))
     assertEquals(true, optimizedCheckPermutation("pat", "tap"))
 
+    assertEquals(false, clearCheckPermutation("pat", "fat"))
     assertEquals(true, clearCheckPermutation("pat", "tap"))
-    assertEquals(true, clearCheckPermutation("pat", "tap"))
+
+    assertEquals(false, checkPermutationKotlinWay("pat", "fat"))
+    assertEquals(true, checkPermutationKotlinWay("pat", "tap"))
 }
 
 /***
@@ -34,7 +37,7 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
     for (i in IntRange(0, first.length - 1)) {
         val symbolCode = first[i].toInt()
 
-        counter[symbolCode] = (counter[symbolCode] ?: 0)+1
+        counter[symbolCode] = (counter[symbolCode] ?: 0) + 1
     }
 
     val secondCounter = HashMap<Int, Int>()
@@ -42,7 +45,7 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
     for (i in IntRange(0, first.length - 1)) {
         val symbolCode = second[i].toInt()
 
-        secondCounter[symbolCode] = (secondCounter[symbolCode] ?: 0)+1
+        secondCounter[symbolCode] = (secondCounter[symbolCode] ?: 0) + 1
     }
 
     for ((key, value) in counter) {
@@ -73,7 +76,7 @@ fun optimizedCheckPermutation(first: String, second: String): Boolean {
     for (i in IntRange(0, first.length - 1)) {
         val symbolCode = first[i].toInt()
 
-        counter[symbolCode] = (counter[symbolCode] ?: 0)+1
+        counter[symbolCode] = (counter[symbolCode] ?: 0) + 1
     }
 
     for (i in IntRange(0, first.length - 1)) {
@@ -103,15 +106,22 @@ fun clearCheckPermutation(first: String, second: String): Boolean {
     }
 
     val firstSorted = first.toCharArray()
-    val secondSorted = first.toCharArray()
+    val secondSorted = second.toCharArray()
     firstSorted.sort()
     secondSorted.sort()
 
     for (i in IntRange(0, first.length - 1)) {
-        if(firstSorted[i] != secondSorted[i]){
+        if (firstSorted[i] != secondSorted[i]) {
             return false
         }
     }
 
     return true
 }
+
+/***
+ * @property first - first string
+ * @property second - second string
+ * @return true if first string is permutation of second, false otherwise
+ */
+fun checkPermutationKotlinWay(first: String, second: String): Boolean = first.toCharArray().toSet() == second.toCharArray().toSet()
