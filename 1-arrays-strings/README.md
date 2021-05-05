@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![55%](https://progress-bar.dev/55)
+![66%](https://progress-bar.dev/66)
 
 ## 1. Is Unique
 
@@ -677,6 +677,98 @@ Input:
 Output:
     a2bc5a3
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun naiveStringCompression(toCompression: String): String {
+    val length = toCompression.length
+
+    var i = 0
+    val stringBuilder = StringBuilder()
+    var counter = 1
+    while (i < length) {
+        val c = toCompression[i]
+
+        if (i + 1 == length || toCompression[i + 1] != c) {
+            stringBuilder.append(c)
+            stringBuilder.append(counter)
+            counter = 1
+        } else {
+            ++counter
+        }
+
+        ++i
+    }
+    val compressed = stringBuilder.toString()
+    return if (compressed.length < toCompression.length) compressed else toCompression
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun optimizedStringCompression(toCompression: String): String {
+    val finalLength = countCompression(toCompression)
+    if (finalLength >= toCompression.length) {
+        return toCompression
+    }
+
+    val compressed = StringBuilder(finalLength)
+    var countConsecutive = 0
+    var i = 0
+    while (i < toCompression.length) {
+        ++countConsecutive
+        if (i + 1 >= toCompression.length || toCompression[i] != toCompression[i + 1]) {
+            compressed.append(toCompression[i])
+            compressed.append(countConsecutive)
+            countConsecutive = 0
+        }
+        ++i
+    }
+    return compressed.toString()
+}
+
+/***
+ * Count compression size
+ */
+fun countCompression(toCompression: String): Int {
+    var compressedLength = 0
+    var countConsecutive = 0
+    var i = 0
+    while (i < toCompression.length) {
+        ++countConsecutive
+        if (i + 1 >= toCompression.length || toCompression[i] != toCompression[i + 1]) {
+            compressedLength += 1 + compressedLength.toString().length
+            countConsecutive = 0
+        }
+        ++i
+    }
+    return compressedLength
+}
+   ```
+
+</details>
 
 <hr/>
 
