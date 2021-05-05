@@ -675,7 +675,7 @@ letters (a - z).
 Input:
     aabcccccaaa
 Output:
-    a2blc5a3
+    a2bc5a3
 ```
 
 <hr/>
