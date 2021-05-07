@@ -19,18 +19,15 @@ fun main() {
         arrayOf(2, 2, 2, 1),
     )
 
-    printMatrix(originalMatrix)
-    println()
-    printMatrix(rotatedMatrix)
-
     assertEquals(true, matrixEqual(originalMatrix, originalMatrix))
+    assertEquals(true, matrixEqual(rotateMatrix(originalMatrix), rotatedMatrix))
 }
 
 /***
  * Compare elements of two matrices
  *
- * @param first - first matrix
- * @param second - second matrix
+ * @param first - first matrix of int
+ * @param second - second matrix of int
  * @return true if elements and it's positions of two matrix are equals, false - otherwise
  */
 fun matrixEqual(first: Array<Array<Int>>, second: Array<Array<Int>>): Boolean {
@@ -40,9 +37,9 @@ fun matrixEqual(first: Array<Array<Int>>, second: Array<Array<Int>>): Boolean {
 }
 
 /***
- * Print matrix stdin
+ * Print matrix in stdin
  *
- * @param matrix - matrix
+ * @param matrix - matrix of int
  */
 fun printMatrix(matrix: Array<Array<Int>>) {
     matrix.forEach {
@@ -54,8 +51,64 @@ fun printMatrix(matrix: Array<Array<Int>>) {
     }
 }
 
-fun naiveRotateMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
+/***
+ * Rotate matrix by 90 degrees
+ *
+ * Example:
+ *   Given Matrix:
+ *      0  1  1  1
+ *      0  4  5  2
+ *      0  4  5  2
+ *      3  3  3  2
+ *
+ *   Rotation:
+ *      (0, 0) -> (0, 3)
+ *      (0, 3) -> (3, 3)
+ *      (3, 3) -> (3, 0)
+ *      (3, 0) -> (0, 0)
+ *      --
+ *      (0, 1) -> (1, 3)
+ *      (1, 3) -> (3, 2)
+ *      (3, 2) -> (2, 0)
+ *      (2, 0) -> (0, 1)
+ *      --
+ *      (0, 2) -> (2, 3)
+ *      (2, 3) -> (3, 1)
+ *      (3, 1) -> (1, 0)
+ *      (1, 0) -> (0, 2)
+ *      --
+ *      (1, 1) -> (1, 2)
+ *      (1, 2) -> (2, 2)
+ *      (2, 2) -> (2, 1)
+ *      (2, 1) -> (1, 1)
+ *
+ * @param matrix - matrix of int
+ * @return rotated matrix
+ */
+fun rotateMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
+
+    var layer = 0
+    val n = matrix.size
+    while (layer < n / 2) {
+        val first = layer
+        val last = n - 1 - layer
+
+        var i = first
+        while (i < last) {
+            val offset = i - first
+            val topLeft = matrix[first][i]
+
+            matrix[first][i] = matrix[last-offset][first]
+            matrix[last-offset][first] = matrix[last][last-offset]
+            matrix[last][last-offset] = matrix[i][last]
+            matrix[i][last] = topLeft
+
+            ++i
+        }
+
+        ++layer
+    }
+
 
     return matrix
-
 }
