@@ -151,7 +151,7 @@ is, on the original data structure).
 Oh, no! You have accidentally removed all spaces, punctuation, and capitalization in a lengthy document. A sentence like "I reset the
 computer. It still didn't boot!"
 became "iresetthecomputeritstilldidntboot". You'll deal with the punctuation and capitalization later; right now you need to re-insert the
-spaces. Most of the words are in a dictionary but a few are not. Given a dictionary (a list of strings) and the document (a string), design
+spaces. Most of the words are in a dictionary, but a few are not. Given a dictionary (a list of strings) and the document (a string), design
 an algorithm to unconcatenate the document in a way that minimizes the number of unrecognized characters.
 
 ### Example
@@ -172,7 +172,7 @@ Design an algorithm to find the smallest K numbers in an array.
 
 <hr/>
 
-## 15. Longest Word
+## 15. The Longest Word
 
 Given a list of words, write a program to find the longest word made of other words in the list.
 
@@ -191,7 +191,7 @@ Output:
 
 A popular masseuse receives a sequence of back-to-back appointment requests and is debating which ones to accept. She needs a 15-minute
 break between appointments and therefore she cannot accept any adjacent requests. Given a sequence of back to-back appointment requests (all
-multiples of 15 minutes, none overlap, and none can be moved), find the optimal (highest total booked minutes) set the masseuse can honor.
+multiples of 15 minutes, none overlap, and none can be moved), find the optimal (the highest total booked minutes) set the masseuse can honor.
 Return the number of minutes.
 
 ### Example
