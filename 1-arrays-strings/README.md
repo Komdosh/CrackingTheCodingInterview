@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![66%](https://progress-bar.dev/66)
+![77%](https://progress-bar.dev/77)
 
 ## 1. Is Unique
 
@@ -777,6 +777,48 @@ fun countCompression(toCompression: String): Int {
 Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees. Can
 you do this in place?
 
+<details>
+<summary>The Only Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N^2)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun rotateMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
+
+    var layer = 0
+    val n = matrix.size
+    while (layer < n / 2) {
+        val first = layer
+        val last = n - 1 - layer
+
+        var i = first
+        while (i < last) {
+            val offset = i - first
+            val topLeft = matrix[first][i]
+
+            matrix[first][i] = matrix[last-offset][first]
+            matrix[last-offset][first] = matrix[last][last-offset]
+            matrix[last][last-offset] = matrix[i][last]
+            matrix[i][last] = topLeft
+
+            ++i
+        }
+
+        ++layer
+    }
+
+
+    return matrix
+}
+   ```
+
+</details>
 
 <hr/>
 
