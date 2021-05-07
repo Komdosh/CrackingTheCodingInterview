@@ -24,9 +24,10 @@ assume that the array was originally sorted in increasing order.
 
 ## 4. Sorted Search, No Size
 
-You are given an array like data structure Listy which lacks a size method. It does, however, have an elementAt ( i) method that returns the
-element at index i in 0(1) time. If `i` is beyond the bounds of the data structure, it returns -1. (For this reason, the data structure only
-supports positive integers.) Given a Li sty which contains sorted, positive integers, find the index at which an element x occurs. If x
+You are given an array like data structure `Listy` which lacks a size method. It does, however, have an `elementAt(i)` method that returns
+the element at index `i` in `0(1)` time. If `i` is beyond the bounds of the data structure, it returns `-1`. (For this reason, the data
+structure only supports positive integers.) Given a Listy which contains sorted, positive integers, find the index at which an element `x`
+occurs. If `x`
 occurs multiple times, you may return any index.
 
 <hr/>
@@ -62,7 +63,7 @@ we now have no more than one billion non-negative integers.
 
 ## 8. Find Duplicates
 
-You have an array with all the numbers from 1 to N, where N is at most 32,000. The array may have duplicate entries, and you do not know
+You have an array with all the numbers from `1 to N`, where `N` is at most 32,000. The array may have duplicate entries, and you do not know
 what N is. With only 4 kilobytes of memory available, how would you print all duplicate elements in the array?
 
 <hr/>
@@ -96,8 +97,8 @@ Output:
 ## 11. Peaks and Valleys
 
 In an array of integers, a "peak" is an element which is greater than or equal to the adjacent integers, and a "valley" is an element which
-is less than or equal to the adjacent integers. For example, in the array {5, 8, 6, 2, 3, 4, 6}, {8, 6} are peaks and {5, 2} are valleys.
-Given an array of integers, sort the array into an alternating sequence of peaks and valleys.
+is less than or equal to the adjacent integers. For example, in the array `{5, 8, 6, 2, 3, 4, 6}`, `{8, 6}` are peaks and `{5, 2}` are
+valleys. Given an array of integers, sort the array into an alternating sequence of peaks and valleys.
 
 ### Example
 
