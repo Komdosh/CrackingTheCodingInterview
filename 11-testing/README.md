@@ -25,7 +25,7 @@ unsigned int i;
 for(i=100;i>0;--i)
     printf("%u\n",i);
 
-    printf("0"); // zero is out of for loop
+printf("0"); // zero is out of for loop
 ```
 
 </details>
