@@ -26,7 +26,7 @@ Output:
 ## 2. Binary to String
 
 Given a real number between O and 1 (e.g., 0.72) that is passed in as a double, print the binary representation. If the number cannot be
-represented accurately in binary with at most 32 characters, print "ERROR:'
+represented accurately in binary with at most 32 characters, print "ERROR:"
 
 <hr/>
 
@@ -86,7 +86,7 @@ bit 3 are swapped, and so on).
 A monochrome screen is stored as a single array of bytes, allowing eight consecutive pixels to be stored in one byte. The screen has width
 w, where w is divisible by 8 (that is, no byte will be split across rows). The height of the screen, of course, can be derived from the
 length of the array and the width. Implement a function that draws a horizontal line from ( xl, y) to ( x2, y).
- 
+
 The method signature should look something like:
 
 ```java
