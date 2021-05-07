@@ -21,7 +21,7 @@ this problem. Implement a method dispatchCall() which assigns a call to the firs
 
 ## 3. Jukebox
 
-Design a musical jukebox using object oriented principles.
+Design a musical jukebox using object-oriented principles.
 
 <hr/>
 
