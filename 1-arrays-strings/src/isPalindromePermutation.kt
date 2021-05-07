@@ -24,7 +24,9 @@ fun main() {
 }
 
 /***
- * @property testStr - tested string
+ * Check for palindrome permutation
+ *
+ * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
  */
 fun naiveIsPalindromePermutation(testStr: String): Boolean {
@@ -48,7 +50,9 @@ fun naiveIsPalindromePermutation(testStr: String): Boolean {
 }
 
 /***
- * @property testStr - tested string
+ * Check for palindrome permutation
+ *
+ * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
  */
 fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
@@ -67,9 +71,11 @@ fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
 }
 
 /***
+ * Check for palindrome permutation
+ *
  * Assumptions:
  *  - String contains only a-z symbols
- * @property testStr - tested string
+ * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
  */
 fun optimizedIsPalindromePermutation(testStr: String): Boolean {
@@ -80,7 +86,7 @@ fun optimizedIsPalindromePermutation(testStr: String): Boolean {
 /***
  * Set i symbol of bit vector, which represents index of symbol in alphabet
  *
- * @property testStr - tested string
+ * @param testStr - tested string
  * @return bit vector
  */
 fun createBitVector(testStr: String): Int {
@@ -92,10 +98,23 @@ fun createBitVector(testStr: String): Int {
     return bitVector
 }
 
+/***
+ * Get symbol position number
+ *
+ * @param char - char
+ * @return int that represents char index in alphabet
+ */
 fun getCharNumber(char: Char): Int {
-    return char.toLowerCase().toInt() - 'a'.toInt()
+    return char.lowercaseChar().toInt() - 'a'.toInt()
 }
 
+/***
+ * Toggle bit in bit vector by index
+ *
+ * @param bitVector - original bit vector
+ * @param index - index of bit to toggle
+ * @return bitVector with toggled bit
+ */
 fun toggle(bitVector: Int, index: Int): Int {
     if (index < 0) return bitVector
 
@@ -109,6 +128,8 @@ fun toggle(bitVector: Int, index: Int): Int {
 }
 
 /***
+ * Check that bitvector have only one bit set
+ *
  * Example:
  *   True:
  *      00010000 - 1 = 00001111
@@ -117,7 +138,7 @@ fun toggle(bitVector: Int, index: Int): Int {
  *      00010100 - 1 = 00010011
  *      00010100 & 00010011 = 00010000 = 16
  *
- * @property bitVector - bit vector of presented symbols
+ * @param bitVector - bit vector of presented symbols
  * @return true if first string contains only 1 set bit, false otherwise
  */
 fun checkExactlyOneBitSet(bitVector: Int): Boolean {
@@ -126,11 +147,13 @@ fun checkExactlyOneBitSet(bitVector: Int): Boolean {
 
 
 /***
- * @property testStr - tested string
+ * Check for palindrome permutation
+ *
+ * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
  */
 fun isPalindromePermutationKotlinWay(testStr: String): Boolean {
-    val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+    val preparedTestString = testStr.lowercase().filter { it != ' ' }.toCharArray()
     val charsMap = preparedTestString.toTypedArray().groupingBy { it }.eachCount()
 
     return charsMap.values.filter { it % 2 != 0 }.count() <= 1

@@ -2,7 +2,7 @@ import kotlin.math.abs
 import kotlin.test.assertEquals
 
 /***
- * There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character.
+ * One Way: There are three types of edits that can be performed on strings: insert a character, remove a character, or replace a character.
  * Given two strings, write a function to check if they are one edit (or zero edits) away.
  */
 fun main() {
@@ -32,8 +32,10 @@ enum class SKIP {
 }
 
 /***
- * @property first - first string, that should be tested
- * @property second - second string for test
+ * Check that second string can be reached by first string by only one edit
+ *
+ * @param first - first string, that should be tested
+ * @param second - second string for test
  * @return true if strings have only one edit, false otherwise
  */
 fun naiveOneWay(first: String, second: String): Boolean {
@@ -76,8 +78,10 @@ fun naiveOneWay(first: String, second: String): Boolean {
 }
 
 /***
- * @property first - first string, that should be tested
- * @property second - second string for test
+ * Check that second string can be reached by first string by only one edit
+ *
+ * @param first - first string, that should be tested
+ * @param second - second string for test
  * @return true if strings have only one edit, false otherwise
  */
 fun alternativeNaiveOneWay(first: String, second: String): Boolean {
@@ -95,6 +99,10 @@ fun alternativeNaiveOneWay(first: String, second: String): Boolean {
     }
 }
 
+/***
+ *
+ * @param
+ */
 fun oneEditReplace(first: String, second: String): Boolean {
     var foundDifference = false
     var i = 0
@@ -132,8 +140,8 @@ fun oneEditInsert(first: String, second: String): Boolean {
 }
 
 /***
- * @property first - first string, that should be tested
- * @property second - second string for test
+ * @param first - first string, that should be tested
+ * @param second - second string for test
  * @return true if strings have only one edit, false otherwise
  */
 fun optimizedOneWay(first: String, second: String): Boolean {
@@ -168,8 +176,8 @@ fun optimizedOneWay(first: String, second: String): Boolean {
 }
 
 /***
- * @property first - first string, that should be tested
- * @property second - second string for test
+ * @param first - first string, that should be tested
+ * @param second - second string for test
  * @return true if strings have only one edit, false otherwise
  */
 fun oneWayKotlinWay(first: String, second: String): Boolean {

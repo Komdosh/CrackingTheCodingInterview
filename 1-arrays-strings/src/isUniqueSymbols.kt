@@ -17,10 +17,12 @@ fun main() {
 }
 
 /***
+ * Check string contains only unique symbols
+ *
  * Assumptions:
  *  - String contains only ASCII symbols
  *
- * @property testStr - string that should be tested
+ * @param testStr - string that should be tested
  * @return true if string contains only unique chars, false otherwise
  */
 fun naiveIsUniqueChars(testStr: String): Boolean {
@@ -39,10 +41,12 @@ fun naiveIsUniqueChars(testStr: String): Boolean {
 }
 
 /***
+ * Check string contains only unique symbols
+ *
  *  Assumptions:
  *  - String contains only a-z symbols
  *
- * @property testStr - string that should be tested
+ * @param testStr - string that should be tested
  * @return true if string contains only unique chars, false otherwise
  */
 fun optimizedIsUniqueChars(testStr: String): Boolean {
@@ -62,7 +66,9 @@ fun optimizedIsUniqueChars(testStr: String): Boolean {
 }
 
 /***
- * @property testStr - string that should be tested
+ * Check string contains only unique symbols
+ *
+ * @param testStr - string that should be tested
  * @return true if string contains only unique chars, false otherwise
  */
 fun isUniqueCharsKotlinWay(testStr: String): Boolean =

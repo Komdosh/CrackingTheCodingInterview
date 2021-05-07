@@ -2,7 +2,7 @@ import java.lang.StringBuilder
 import kotlin.test.assertEquals
 
 /***
- * Implement a method to perform basic string compression using the counts of repeated characters.
+ * String Compression: Implement a method to perform basic string compression using the counts of repeated characters.
  * If the "compressed" string would not become smaller than the original string, your method should return the original string.
  * You can assume the string has only uppercase and lowercase letters (a - z).
  */
@@ -17,7 +17,7 @@ fun main() {
 }
 
 /***
- * @property toCompression - string to compress
+ * @param toCompression - string to compress
  * @return compressed string if it is shorter, than original
  */
 fun naiveStringCompression(toCompression: String): String {
@@ -44,7 +44,7 @@ fun naiveStringCompression(toCompression: String): String {
 }
 
 /***
- * @property toCompression - string to compress
+ * @param toCompression - string to compress
  * @return compressed string if it is shorter, than original
  */
 fun optimizedStringCompression(toCompression: String): String {

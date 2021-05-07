@@ -34,12 +34,14 @@ fun getStringArray(str: String): CharArray {
 }
 
 /***
+ * Replace whitespaces with %20
+ *
  * Assumptions:
  *  - We need inplace replace
  *  - Array size already fit for replaced string
  *
- * @property chars - char array with calculated size
- * @property length - length of the original string
+ * @param chars - char array with calculated size
+ * @param length - length of the original string
  * @return edited char array with replaced whitespaces
  */
 fun inplaceURlify(chars: CharArray, length: Int): CharArray {
@@ -72,7 +74,9 @@ fun inplaceURlify(chars: CharArray, length: Int): CharArray {
 }
 
 /***
- * @property str - string with whitespaces
+ * Replace whitespaces with %20
+ *
+ * @param str - string with whitespaces
  * @return new string with replaced whitespaces
  */
 fun URlifyKotlinWay(str: String): String = str.replace(" ", "%20")

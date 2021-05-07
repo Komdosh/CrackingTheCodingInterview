@@ -19,12 +19,14 @@ fun main() {
 }
 
 /***
+ * Check two strings for permutation
+ *
  * Assumptions:
  *  - String case sensitive
  *  - Whitespace is countable
  *
- * @property first - first string
- * @property second - second string
+ * @param first - first string
+ * @param second - second string
  * @return true if first string is permutation of second, false otherwise
  */
 fun naiveCheckPermutation(first: String, second: String): Boolean {
@@ -58,12 +60,14 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
 }
 
 /***
- *  Assumptions:
- *  - String case sensitive
- *  - Whitespace is countable
+ * Check two strings for permutation
  *
- * @property first - first string
- * @property second - second string
+ * Assumptions:
+ * - String case sensitive
+ * - Whitespace is countable
+ *
+ * @param first - first string
+ * @param second - second string
  * @return true if first string is permutation of second, false otherwise
  */
 fun optimizedCheckPermutation(first: String, second: String): Boolean {
@@ -92,12 +96,14 @@ fun optimizedCheckPermutation(first: String, second: String): Boolean {
 }
 
 /***
- *  Sort:
- *  - String case sensitive
- *  - Whitespace is countable
+ * Check two strings for permutation
  *
- * @property first - first string
- * @property second - second string
+ * Sort:
+ * - String case sensitive
+ * - Whitespace is countable
+ *
+ * @param first - first string
+ * @param second - second string
  * @return true if first string is permutation of second, false otherwise
  */
 fun clearCheckPermutation(first: String, second: String): Boolean {
@@ -120,8 +126,10 @@ fun clearCheckPermutation(first: String, second: String): Boolean {
 }
 
 /***
- * @property first - first string
- * @property second - second string
+ * Check two strings for permutation
+ *
+ * @param first - first string
+ * @param second - second string
  * @return true if first string is permutation of second, false otherwise
  */
 fun checkPermutationKotlinWay(first: String, second: String): Boolean = first.toCharArray().toSet() == second.toCharArray().toSet()
