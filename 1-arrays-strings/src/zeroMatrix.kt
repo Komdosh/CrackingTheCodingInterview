@@ -44,6 +44,11 @@ fun main() {
     )
 }
 
+/***
+ * Generate matrix for test
+ *
+ * @return int matrix MxN
+ */
 fun getMatrix(): Array<Array<Int>>{
     return arrayOf(
         arrayOf(0, 1, 1, 1),

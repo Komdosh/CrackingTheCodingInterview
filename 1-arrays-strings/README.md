@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![77%](https://progress-bar.dev/77)
+![88%](https://progress-bar.dev/88)
 
 ## 1. Is Unique
 
@@ -825,6 +825,221 @@ fun rotateMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
 ## 8. Zero Matrix
 
 Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(MN)` - In the book we 
+
+- Space Complexity: `O(M+N)`
+
+#### Implementation
+
+   ```kotlin
+fun naiveZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
+
+    val rows = hashSetOf<Int>()
+    val columns = hashSetOf<Int>()
+
+    var i = 0
+    while (i < matrix.size) {
+
+        val row = matrix[i]
+        var j = 0
+        while (j < row.size) {
+
+            if (row[j] == 0) {
+                rows.add(i)
+                columns.add(j)
+            }
+            ++j
+        }
+        ++i
+    }
+
+    rows.forEach {
+        nullifyRow(matrix, it)
+    }
+
+    columns.forEach {
+        nullifyColumn(matrix, it)
+    }
+
+    return matrix
+}
+   ```
+
+</details>
+
+<details>
+<summary>Traditional Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(MN)` - In the book we
+
+- Space Complexity: `O(M+N)`
+
+#### Implementation
+
+   ```kotlin
+fun traditionalZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
+    val row = Array(matrix.size) { false }
+    val column = Array(matrix[0].size) { false }
+
+    var i = 0
+    while (i < matrix.size) {
+        var j = 0
+        while (j < matrix[0].size) {
+            if (matrix[i][j] == 0) {
+                row[i] = true
+                column[j] = true
+            }
+            ++j
+        }
+        ++i
+    }
+
+    i = 0
+    while (i < matrix.size) {
+        if (row[i]) {
+            nullifyRow(matrix, i)
+        }
+        ++i
+    }
+
+    i = 0
+    while (i < matrix[0].size) {
+        if (column[i]) {
+            nullifyColumn(matrix, i)
+        }
+        ++i
+    }
+
+    return matrix
+}
+   ```
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(MN)` - In the book we
+
+- Space Complexity: `O(M+N)`
+
+#### Implementation
+
+   ```kotlin
+fun optimizedZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
+    var rowHasZero = false
+    var columnHasZero = false
+
+    var i = 0
+    while (i < matrix[0].size) {
+        if (matrix[0][i] == 0) {
+            rowHasZero = true
+            break
+        }
+        ++i
+    }
+
+    i = 0
+    while (i < matrix.size) {
+        if (matrix[i][0] == 0) {
+            columnHasZero = true
+            break
+        }
+        ++i
+    }
+
+
+    i = 1
+    while (i < matrix.size) {
+        var j = 0
+        while (j < matrix[0].size) {
+            if (matrix[i][j] == 0) {
+                matrix[i][0] = 0
+                matrix[0][j] = 0
+            }
+            ++j
+        }
+        ++i
+    }
+
+    i = 1
+    while (i < matrix.size) {
+        if (matrix[i][0] == 0) {
+            nullifyRow(matrix, i)
+        }
+        ++i
+    }
+
+    i = 1
+    while (i < matrix[0].size) {
+        if (matrix[0][i] == 0) {
+            nullifyColumn(matrix, i)
+        }
+        ++i
+    }
+
+    if (rowHasZero) {
+        nullifyRow(matrix, 0)
+    }
+
+    if (columnHasZero) {
+        nullifyColumn(matrix, 0)
+    }
+
+    return matrix
+}
+   ```
+
+</details>
+
+<details>
+<summary>Naive Solution - Kotlin Way</summary>
+
+#### Complexity
+
+- Time Complexity: `O(MN)` - In the book we
+
+- Space Complexity: `O(M+N)`
+
+#### Implementation
+
+   ```kotlin
+fun zeroMatrixKotlinWay(matrix: Array<Array<Int>>): Array<Array<Int>> {
+
+    val rows = hashSetOf<Int>()
+    val columns = hashSetOf<Int>()
+
+    matrix.mapIndexed { rowId, row ->
+        row.mapIndexed { columnId, value ->
+            if(value == 0){
+                rows.add(rowId)
+                columns.add(columnId)
+            }
+        }
+    }
+
+    rows.forEach {
+        nullifyRow(matrix, it)
+    }
+
+    columns.forEach {
+        nullifyColumn(matrix, it)
+    }
+
+    return matrix
+}
+   ```
+
+</details>
 
 <hr/>
 
