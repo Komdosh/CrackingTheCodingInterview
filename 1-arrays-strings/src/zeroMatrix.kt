@@ -15,26 +15,14 @@ fun main() {
     assertEquals(
         true, matrixEqual(
             processedMatrix, naiveZeroMatrix(
-                arrayOf(
-                    arrayOf(0, 1, 1, 1),
-                    arrayOf(1, 1, 1, 1),
-                    arrayOf(1, 1, 1, 1),
-                    arrayOf(0, 1, 0, 1),
-                    arrayOf(1, 1, 1, 1),
-                )
+                getMatrix()
             )
         )
     )
     assertEquals(
         true, matrixEqual(
             processedMatrix, traditionalZeroMatrix(
-                arrayOf(
-                    arrayOf(0, 1, 1, 1),
-                    arrayOf(1, 1, 1, 1),
-                    arrayOf(1, 1, 1, 1),
-                    arrayOf(0, 1, 0, 1),
-                    arrayOf(1, 1, 1, 1),
-                )
+                getMatrix()
             )
         )
     )
@@ -42,15 +30,27 @@ fun main() {
     assertEquals(
         true, matrixEqual(
             processedMatrix, optimizedZeroMatrix(
-                arrayOf(
-                    arrayOf(0, 1, 1, 1),
-                    arrayOf(1, 1, 1, 1),
-                    arrayOf(1, 1, 1, 1),
-                    arrayOf(0, 1, 0, 1),
-                    arrayOf(1, 1, 1, 1),
-                )
+                getMatrix()
             )
         )
+    )
+
+    assertEquals(
+        true, matrixEqual(
+            processedMatrix, zeroMatrixKotlinWay(
+                getMatrix()
+            )
+        )
+    )
+}
+
+fun getMatrix(): Array<Array<Int>>{
+    return arrayOf(
+        arrayOf(0, 1, 1, 1),
+        arrayOf(1, 1, 1, 1),
+        arrayOf(1, 1, 1, 1),
+        arrayOf(0, 1, 0, 1),
+        arrayOf(1, 1, 1, 1),
     )
 }
 
@@ -235,4 +235,38 @@ fun nullifyColumn(matrix: Array<Array<Int>>, column: Int) {
         matrix[i][column] = 0
         ++i
     }
+}
+
+
+/***
+ * Set 0 to row and column if it is present on row or column
+ *
+ * For store rows and columns position hash sets are used
+ *
+ * @param matrix - MxN int matrix
+ * @return same matrix reference
+ */
+fun zeroMatrixKotlinWay(matrix: Array<Array<Int>>): Array<Array<Int>> {
+
+    val rows = hashSetOf<Int>()
+    val columns = hashSetOf<Int>()
+
+    matrix.mapIndexed { rowId, row ->
+        row.mapIndexed { columnId, value ->
+            if(value == 0){
+                rows.add(rowId)
+                columns.add(columnId)
+            }
+        }
+    }
+
+    rows.forEach {
+        nullifyRow(matrix, it)
+    }
+
+    columns.forEach {
+        nullifyColumn(matrix, it)
+    }
+
+    return matrix
 }
