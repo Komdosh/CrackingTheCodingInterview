@@ -100,8 +100,11 @@ fun alternativeNaiveOneWay(first: String, second: String): Boolean {
 }
 
 /***
+ * Check that second string can be reached by first string by only one replace
  *
- * @param
+ * @param first - first string
+ * @param second - second string
+ * @return true if strings have only one replace, false otherwise
  */
 fun oneEditReplace(first: String, second: String): Boolean {
     var foundDifference = false
@@ -120,6 +123,13 @@ fun oneEditReplace(first: String, second: String): Boolean {
     return true
 }
 
+/***
+ * Check that second string can be reached by first string by only one insert
+ *
+ * @param first - first string
+ * @param second - second string
+ * @return true if strings have only one insert, false otherwise
+ */
 fun oneEditInsert(first: String, second: String): Boolean {
     var firstIndex = 0
     var secondIndex = 0
@@ -140,6 +150,8 @@ fun oneEditInsert(first: String, second: String): Boolean {
 }
 
 /***
+ * Check that second string can be reached by first string by only one edit
+ *
  * @param first - first string, that should be tested
  * @param second - second string for test
  * @return true if strings have only one edit, false otherwise
@@ -176,6 +188,8 @@ fun optimizedOneWay(first: String, second: String): Boolean {
 }
 
 /***
+ * Check that second string can be reached by first string by only one edit
+ *
  * @param first - first string, that should be tested
  * @param second - second string for test
  * @return true if strings have only one edit, false otherwise

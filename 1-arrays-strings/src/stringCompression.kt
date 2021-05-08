@@ -17,6 +17,8 @@ fun main() {
 }
 
 /***
+ * String Compression
+ *
  * @param toCompression - string to compress
  * @return compressed string if it is shorter, than original
  */
@@ -44,6 +46,8 @@ fun naiveStringCompression(toCompression: String): String {
 }
 
 /***
+ * String Compression
+ *
  * @param toCompression - string to compress
  * @return compressed string if it is shorter, than original
  */
