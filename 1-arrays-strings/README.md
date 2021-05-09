@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![88%](https://progress-bar.dev/88)
+![100%](https://progress-bar.dev/100)
 
 ## 1. Is Unique
 
@@ -1006,7 +1006,7 @@ fun optimizedZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
 
 #### Complexity
 
-- Time Complexity: `O(MN)` - In the book we
+- Time Complexity: `O(MN)`
 
 - Space Complexity: `O(M+N)`
 
@@ -1045,7 +1045,69 @@ fun zeroMatrixKotlinWay(matrix: Array<Array<Int>>): Array<Array<Int>> {
 
 ## 9. String Rotation
 
-Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, s1 and s2, write code to check
-if s2 is a rotation of s1 using only one call to isSubstring (e.g., `waterbottle` is a rotation of `erbottlewat`).
+Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, `s1` and `s2`, write code to check
+if `s2` is a rotation of s1 using only one call to isSubstring (e.g., `waterbottle` is a rotation of `erbottlewat`).
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+fun naiveIsStringRotation(first: String, second: String): Boolean {
+    if (first.length != second.length || first.isEmpty() || second.isEmpty()) {
+        return false
+    }
+    var i = 0
+    var j = 0
+    var startSequence = -1
+    while (i < second.length) {
+        if(first[i] == second[j]){
+            ++j
+            if(startSequence==-1){
+                startSequence = i
+            }
+        }  else if(startSequence!= -1){
+            startSequence = -1
+        }
+        ++i
+    }
+    if(startSequence != -1) {
+        if(first.substring(0, startSequence) == second.substring(second.length-startSequence, second.length)){
+            return true
+        }
+    }
+    return false
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)` - N is just because we need to create new string with double length of first
+
+#### Implementation
+
+   ```kotlin
+fun optimizedIsStringRotation(first: String, second: String): Boolean {
+    if (first.length == second.length && first.isNotEmpty()) {
+        return (first + first).contains(second)
+    }
+    return false
+}
+   ```
+</details>
 
 <hr/>
