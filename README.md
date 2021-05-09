@@ -2,9 +2,9 @@
 
 ## Data Structures
 
-1. [Arrays and Strings `Kotlin`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/1-arrays-strings)
+1. [Arrays and Strings `Kotlin`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/1-arrays-strings) ![100%](https://progress-bar.dev/100)
 
-2. [Linked Lists `Rust`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/2-linked-lists)
+2. [Linked Lists `Rust`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/2-linked-lists) ![0%](https://progress-bar.dev/0)
 
 3. [Stacks and Queues `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/3-stacks-queues)
 
