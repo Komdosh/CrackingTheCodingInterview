@@ -81,12 +81,13 @@ fun optimizedIsUniqueChars(testStr: String): Boolean {
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
    ```kotlin
-fun URlifyKotlinWay(str: String): String = str.replace(" ", "%20")
+fun isUniqueCharsKotlinWay(testStr: String): Boolean =
+    testStr.toCharArray().toSet().size == testStr.length
    ```
 
 </details>
@@ -193,7 +194,7 @@ fun optimizedCheckPermutation(first: String, second: String): Boolean {
 
 - Time Complexity: `O(N log N)`
 
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -298,7 +299,7 @@ fun inplaceURlify(chars: CharArray, length: Int): CharArray {
 
 - Time Complexity: `O(N)`
 
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -327,7 +328,7 @@ and backwards. A permutation is a rearrangement of letters. The palindrome does 
 
 - Time Complexity: `O(N)`
 
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -362,7 +363,7 @@ fun naiveIsPalindromePermutation(testStr: String): Boolean {
 
 - Time Complexity: `O(N)`
 
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -649,7 +650,7 @@ fun optimizedOneWay(first: String, second: String): Boolean {
 
 - Time Complexity: `O(N)`
 
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -686,7 +687,7 @@ Output:
 
 - Time Complexity: `O(N)`
 
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -750,9 +751,6 @@ fun optimizedStringCompression(toCompression: String): String {
     return compressed.toString()
 }
 
-/***
- * Count compression size
- */
 fun countCompression(toCompression: String): Int {
     var compressedLength = 0
     var countConsecutive = 0
