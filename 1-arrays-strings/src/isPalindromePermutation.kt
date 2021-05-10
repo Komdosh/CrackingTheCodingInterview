@@ -1,3 +1,5 @@
+import java.util.*
+import kotlin.collections.HashMap
 import kotlin.test.assertEquals
 
 
@@ -30,7 +32,7 @@ fun main() {
  * @return true if first string is permutation of palindrome, false otherwise
  */
 fun naiveIsPalindromePermutation(testStr: String): Boolean {
-    val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+    val preparedTestString = testStr.lowercase().filter { it != ' ' }.toCharArray()
     val isStrLenEven = preparedTestString.size % 2 == 0
     val charsMap = HashMap<Char, Int>()
     preparedTestString.forEach {
@@ -58,7 +60,7 @@ fun naiveIsPalindromePermutation(testStr: String): Boolean {
 fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
     val charsMap = HashMap<Char, Int>()
     var countOdd = 0
-    testStr.toLowerCase().toCharArray().filter { it != ' ' }.forEach {
+    testStr.lowercase().toCharArray().filter { it != ' ' }.forEach {
         charsMap[it] = (charsMap[it] ?: 0) + 1
         if (charsMap[it]!! % 2 == 1) {
             ++countOdd
@@ -105,7 +107,7 @@ fun createBitVector(testStr: String): Int {
  * @return int that represents char index in alphabet
  */
 fun getCharNumber(char: Char): Int {
-    return char.lowercaseChar().toInt() - 'a'.toInt()
+    return char.lowercaseChar().code - 'a'.code
 }
 
 /***

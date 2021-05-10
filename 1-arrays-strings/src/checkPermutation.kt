@@ -21,6 +21,8 @@ fun main() {
 /***
  * Check two strings for permutation
  *
+ *
+ *
  * Assumptions:
  *  - String case sensitive
  *  - Whitespace is countable
@@ -37,7 +39,7 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
     val counter = HashMap<Int, Int>()
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = first[i].toInt()
+        val symbolCode = first[i].code
 
         counter[symbolCode] = (counter[symbolCode] ?: 0) + 1
     }
@@ -45,7 +47,7 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
     val secondCounter = HashMap<Int, Int>()
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = second[i].toInt()
+        val symbolCode = second[i].code
 
         secondCounter[symbolCode] = (secondCounter[symbolCode] ?: 0) + 1
     }
@@ -78,13 +80,13 @@ fun optimizedCheckPermutation(first: String, second: String): Boolean {
     val counter = HashMap<Int, Int>()
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = first[i].toInt()
+        val symbolCode = first[i].code
 
         counter[symbolCode] = (counter[symbolCode] ?: 0) + 1
     }
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = second[i].toInt()
+        val symbolCode = second[i].code
 
         if ((counter[symbolCode] ?: 0) == 0) {
             return false

@@ -31,7 +31,7 @@ fun naiveIsUniqueChars(testStr: String): Boolean {
     val used = Array(128) { false }
 
     for (i in IntRange(0, testStr.length - 1)) {
-        val symbolCode = testStr[i].toInt()
+        val symbolCode = testStr[i].code
         if (used[symbolCode]) {
             return false
         }
@@ -55,7 +55,7 @@ fun optimizedIsUniqueChars(testStr: String): Boolean {
     var a = 0
 
     for (i in IntRange(0, testStr.length - 1)) {
-        val symbolCode = testStr[i].toInt() - 'a'.toInt()
+        val symbolCode = testStr[i].code - 'a'.code
         if ((a and (1 shl symbolCode)) > 0) {
             return false
         }

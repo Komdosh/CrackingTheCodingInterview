@@ -29,7 +29,7 @@ fun naiveIsUniqueChars(testStr: String): Boolean {
     val used = Array(128) { false }
 
     for (i in IntRange(0, testStr.length - 1)) {
-        val symbolCode = testStr[i].toInt()
+        val symbolCode = testStr[i].code
         if (used[symbolCode]) {
             return false
         }
@@ -62,7 +62,7 @@ fun optimizedIsUniqueChars(testStr: String): Boolean {
     var a = 0
 
     for (i in IntRange(0, testStr.length - 1)) {
-        val symbolCode = testStr[i].toInt() - 'a'.toInt()
+        val symbolCode = testStr[i].code - 'a'.code
         if ((a and (1 shl symbolCode)) > 0) {
             return false
         }
@@ -121,7 +121,7 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
     val counter = HashMap<Int, Int>()
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = first[i].toInt()
+        val symbolCode = first[i].code
 
         counter[symbolCode] = (counter[symbolCode] ?: 0) + 1
     }
@@ -129,7 +129,7 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
     val secondCounter = HashMap<Int, Int>()
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = second[i].toInt()
+        val symbolCode = second[i].code
 
         secondCounter[symbolCode] = (secondCounter[symbolCode] ?: 0) + 1
     }
@@ -166,13 +166,13 @@ fun optimizedCheckPermutation(first: String, second: String): Boolean {
     val counter = HashMap<Int, Int>()
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = first[i].toInt()
+        val symbolCode = first[i].code
 
         counter[symbolCode] = (counter[symbolCode] ?: 0) + 1
     }
 
     for (i in IntRange(0, first.length - 1)) {
-        val symbolCode = second[i].toInt()
+        val symbolCode = second[i].code
 
         if ((counter[symbolCode] ?: 0) == 0) {
             return false
@@ -332,7 +332,7 @@ and backwards. A permutation is a rearrangement of letters. The palindrome does 
 
    ```kotlin
 fun naiveIsPalindromePermutation(testStr: String): Boolean {
-    val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+    val preparedTestString = testStr.lowercase().filter { it != ' ' }.toCharArray()
     val isStrLenEven = preparedTestString.size % 2 == 0
     val charsMap = HashMap<Char, Int>()
     preparedTestString.forEach {
@@ -369,7 +369,7 @@ fun naiveIsPalindromePermutation(testStr: String): Boolean {
 fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
     val charsMap = HashMap<Char, Int>()
     var countOdd = 0
-    testStr.toLowerCase().toCharArray().filter { it != ' ' }.forEach {
+    testStr.lowercase().toCharArray().filter { it != ' ' }.forEach {
         charsMap[it] = (charsMap[it] ?: 0) + 1
         if (charsMap[it]!! % 2 == 1) {
             ++countOdd
@@ -411,7 +411,7 @@ fun createBitVector(testStr: String): Int {
 }
 
 fun getCharNumber(char: Char): Int {
-    return char.toLowerCase().toInt() - 'a'.toInt()
+    return char.toLowerCase().code - 'a'.code
 }
 
 fun toggle(bitVector: Int, index: Int): Int {
@@ -446,7 +446,7 @@ fun checkExactlyOneBitSet(bitVector: Int): Boolean {
 
    ```kotlin
 fun isPalindromePermutationKotlinWay(testStr: String): Boolean {
-    val preparedTestString = testStr.toLowerCase().filter { it != ' ' }.toCharArray()
+    val preparedTestString = testStr.lowercase().filter { it != ' ' }.toCharArray()
     val charsMap = preparedTestString.toTypedArray().groupingBy { it }.eachCount()
 
     return charsMap.values.filter { it % 2 != 0 }.count() <= 1

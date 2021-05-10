@@ -12,7 +12,7 @@ fun matrixEqual(first: Array<Array<Int>>, second: Array<Array<Int>>): Boolean {
 }
 
 /***
- * Print matrix in stdin
+ * Print matrix in stdout
  *
  * @param matrix - matrix of int
  */
