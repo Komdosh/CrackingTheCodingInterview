@@ -34,7 +34,9 @@ fun getStringArray(str: String): CharArray {
 }
 
 /***
- * Replace whitespaces with %20
+ * Replace whitespaces with %20.
+ *
+ * Start from end, when whitespace found shift words to the right on two symbols, replace found whitespace with %20
  *
  * Assumptions:
  *  - We need inplace replace
@@ -75,6 +77,8 @@ fun inplaceURlify(chars: CharArray, length: Int): CharArray {
 
 /***
  * Replace whitespaces with %20
+ *
+ * Using standard kotlin replace function
  *
  * @param str - string with whitespaces
  * @return new string with replaced whitespaces

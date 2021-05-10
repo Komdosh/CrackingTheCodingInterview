@@ -24,7 +24,9 @@ fun main() {
 }
 
 /***
- * Check for palindrome permutation
+ * Check for palindrome permutation.
+ *
+ * Count all symbols into charsMap, if there is more more than one odd symbol, then string can't be palindrome
  *
  * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
@@ -50,7 +52,10 @@ fun naiveIsPalindromePermutation(testStr: String): Boolean {
 }
 
 /***
- * Check for palindrome permutation
+ * Check for palindrome permutation.
+ *
+ * Count odd represents number of odd symbols in string, if at the end there is more than one odd number of symbols, then it can't be a
+ * palindrome
  *
  * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
@@ -71,10 +76,14 @@ fun alternativeNaiveIsPalindromePermutation(testStr: String): Boolean {
 }
 
 /***
- * Check for palindrome permutation
+ * Check for palindrome permutation.
+ *
+ * Count odd represents number of odd symbols in string, if at the end there is more than one odd number of symbols, then it can't be a
+ * palindrome. Odd counter presented in bitvector.
  *
  * Assumptions:
  *  - String contains only a-z symbols
+ *
  * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
  */
@@ -147,7 +156,9 @@ fun checkExactlyOneBitSet(bitVector: Int): Boolean {
 
 
 /***
- * Check for palindrome permutation
+ * Check for palindrome permutation.
+ *
+ * Count number of symbols into charsMap by kotlin <code>groupingBy</code> and <code>eachCount</code>
  *
  * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
