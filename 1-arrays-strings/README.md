@@ -656,8 +656,24 @@ fun optimizedOneWay(first: String, second: String): Boolean {
 
    ```kotlin
 fun oneWayKotlinWay(first: String, second: String): Boolean {
-    val intersection = first.toCharArray().toSet().intersect(second.toCharArray().toSet())
-    return abs(intersection.size - first.length) <= 1
+    val secondChars = second.toCharArray().toTypedArray().groupingBy { it }.eachCount()
+    val firstChars = first.toCharArray().toTypedArray().groupingBy { it }.eachCount()
+
+    var counter = 0
+
+    return firstChars.all {
+        val difference = abs((secondChars[it.key] ?: 0) - it.value)
+        if (difference > 1) {
+            return@all false
+        } else if (difference == 1) {
+            ++counter
+        }
+        if (counter > 1) {
+            return@all false
+        }
+
+        return@all true
+    }
 }
    ```
 
@@ -801,9 +817,9 @@ fun rotateMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
             val offset = i - first
             val topLeft = matrix[first][i]
 
-            matrix[first][i] = matrix[last-offset][first]
-            matrix[last-offset][first] = matrix[last][last-offset]
-            matrix[last][last-offset] = matrix[i][last]
+            matrix[first][i] = matrix[last - offset][first]
+            matrix[last - offset][first] = matrix[last][last - offset]
+            matrix[last][last - offset] = matrix[i][last]
             matrix[i][last] = topLeft
 
             ++i
@@ -830,7 +846,7 @@ Write an algorithm such that if an element in an MxN matrix is 0, its entire row
 
 #### Complexity
 
-- Time Complexity: `O(MN)` - In the book we 
+- Time Complexity: `O(MN)` - In the book we
 
 - Space Complexity: `O(M+N)`
 
@@ -920,6 +936,7 @@ fun traditionalZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
     return matrix
 }
    ```
+
 </details>
 
 <details>
@@ -1019,7 +1036,7 @@ fun zeroMatrixKotlinWay(matrix: Array<Array<Int>>): Array<Array<Int>> {
 
     matrix.mapIndexed { rowId, row ->
         row.mapIndexed { columnId, value ->
-            if(value == 0){
+            if (value == 0) {
                 rows.add(rowId)
                 columns.add(columnId)
             }
@@ -1044,8 +1061,8 @@ fun zeroMatrixKotlinWay(matrix: Array<Array<Int>>): Array<Array<Int>> {
 
 ## 9. String Rotation
 
-Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, `s1` and `s2`, write code to check
-if `s2` is a rotation of s1 using only one call to isSubstring (e.g., `waterbottle` is a rotation of `erbottlewat`).
+Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, `s1` and `s2`, write code to
+check if `s2` is a rotation of s1 using only one call to isSubstring (e.g., `waterbottle` is a rotation of `erbottlewat`).
 
 <details>
 <summary>Naive Solution</summary>
@@ -1067,18 +1084,18 @@ fun naiveIsStringRotation(first: String, second: String): Boolean {
     var j = 0
     var startSequence = -1
     while (i < second.length) {
-        if(first[i] == second[j]){
+        if (first[i] == second[j]) {
             ++j
-            if(startSequence==-1){
+            if (startSequence == -1) {
                 startSequence = i
             }
-        }  else if(startSequence!= -1){
+        } else if (startSequence != -1) {
             startSequence = -1
         }
         ++i
     }
-    if(startSequence != -1) {
-        if(first.substring(0, startSequence) == second.substring(second.length-startSequence, second.length)){
+    if (startSequence != -1) {
+        if (first.substring(0, startSequence) == second.substring(second.length - startSequence, second.length)) {
             return true
         }
     }
@@ -1107,6 +1124,52 @@ fun optimizedIsStringRotation(first: String, second: String): Boolean {
     return false
 }
    ```
+
 </details>
 
 <hr/>
+
+## P.S.
+
+<details>
+<summary>Why do you use `while` loops on i?</summary>
+
+Kotlin doesn't support `for loop` as java does
+
+```java
+for(int i = 0; i < size; ++i){
+    // some useful code
+    }
+```
+
+So it's just a workaround:
+
+```kotlin
+var i = 0
+while (i < size) {
+    // some useful code
+    ++i
+}
+```
+
+What about for loop with `IntRange`?
+
+```kotlin
+for (i in IntRange(0, size - 1).step(1)) {
+    // some useful code
+}
+```
+
+It works perfectly, until we need dynamic stepping, like this:
+
+```kotlin
+var i = 0
+while (i < size) {
+    // some useful code
+    i += i
+}
+```
+
+So we just get a lot of control with simple `while loop`
+
+</details>
