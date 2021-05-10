@@ -12,44 +12,18 @@ fun main() {
         arrayOf(0, 1, 0, 1),
     )
 
-    assertEquals(
-        true, matrixEqual(
-            processedMatrix, naiveZeroMatrix(
-                getMatrix()
-            )
-        )
-    )
-    assertEquals(
-        true, matrixEqual(
-            processedMatrix, traditionalZeroMatrix(
-                getMatrix()
-            )
-        )
-    )
-
-    assertEquals(
-        true, matrixEqual(
-            processedMatrix, optimizedZeroMatrix(
-                getMatrix()
-            )
-        )
-    )
-
-    assertEquals(
-        true, matrixEqual(
-            processedMatrix, zeroMatrixKotlinWay(
-                getMatrix()
-            )
-        )
-    )
+    assertEquals(true, matrixEqual(processedMatrix, naiveZeroMatrix(getMatrix())))
+    assertEquals(true, matrixEqual(processedMatrix, traditionalZeroMatrix(getMatrix())))
+    assertEquals(true, matrixEqual(processedMatrix, optimizedZeroMatrix(getMatrix())))
+    assertEquals(true, matrixEqual(processedMatrix, zeroMatrixKotlinWay(getMatrix())))
 }
 
 /***
- * Generate matrix for test
+ * Generate matrix for test.
  *
  * @return int matrix MxN
  */
-fun getMatrix(): Array<Array<Int>>{
+fun getMatrix(): Array<Array<Int>> {
     return arrayOf(
         arrayOf(0, 1, 1, 1),
         arrayOf(1, 1, 1, 1),
@@ -60,9 +34,9 @@ fun getMatrix(): Array<Array<Int>>{
 }
 
 /***
- * Set 0 to row and column if it is present on row or column
+ * Set 0 to row and column if it is present on row or column.
  *
- * For store rows and columns position hash sets are used
+ * For store rows and columns position hash sets are used. Loop on every element and store zero position.
  *
  * @param matrix - MxN int matrix
  * @return same matrix reference
@@ -100,9 +74,9 @@ fun naiveZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
 }
 
 /***
- * Set 0 to row and column if it is present on row or column
+ * Set 0 to row and column if it is present on row or column.
  *
- * For store rows and columns position boolean arrays are used
+ * For store rows and columns position boolean arrays are used. Loop on every element and store zero position.
  *
  * @param matrix - MxN int matrix
  * @return same matrix reference
@@ -144,9 +118,9 @@ fun traditionalZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
 }
 
 /***
- * Set 0 to row and column if it is present on row or column
+ * Set 0 to row and column if it is present on row or column.
  *
- * For store rows and columns position first row and column are used
+ * For store rows and columns position first row and column are used.  Loop on every element and store zero position.
  *
  * @param matrix - MxN int matrix
  * @return same matrix reference
@@ -215,7 +189,7 @@ fun optimizedZeroMatrix(matrix: Array<Array<Int>>): Array<Array<Int>> {
 }
 
 /***
- * Set 0 to row
+ * Set 0 to row.
  *
  * @param matrix - MxN int matrix
  * @param row - to replace with 0
@@ -229,7 +203,7 @@ fun nullifyRow(matrix: Array<Array<Int>>, row: Int) {
 }
 
 /***
- * Set 0 to column
+ * Set 0 to column.
  *
  * @param matrix - MxN int matrix
  * @param column - to replace with 0
@@ -244,9 +218,9 @@ fun nullifyColumn(matrix: Array<Array<Int>>, column: Int) {
 
 
 /***
- * Set 0 to row and column if it is present on row or column
+ * Set 0 to row and column if it is present on row or column.
  *
- * For store rows and columns position hash sets are used
+ * For store rows and columns position hash sets are used. Loop on every element and store zero position.
  *
  * @param matrix - MxN int matrix
  * @return same matrix reference
@@ -258,7 +232,7 @@ fun zeroMatrixKotlinWay(matrix: Array<Array<Int>>): Array<Array<Int>> {
 
     matrix.mapIndexed { rowId, row ->
         row.mapIndexed { columnId, value ->
-            if(value == 0){
+            if (value == 0) {
                 rows.add(rowId)
                 columns.add(columnId)
             }

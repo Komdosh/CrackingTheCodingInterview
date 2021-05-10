@@ -17,9 +17,9 @@ fun main() {
 }
 
 /***
- * Check string contains only unique symbols
+ * Check string contains only unique symbols.
  *
- * Store used symbols in array, if array already contains a symbol, then string not contains unique chars
+ * Store used symbols in array, if array already contains a symbol, then string not contains unique chars.
  *
  * Assumptions:
  *  - String contains only ASCII symbols
@@ -43,9 +43,9 @@ fun naiveIsUniqueChars(testStr: String): Boolean {
 }
 
 /***
- * Check string contains only unique symbols
+ * Check string contains only unique symbols.
  *
- * Store used symbols in bitVector, if bitVector already contains a symbol, then string not contains unique chars
+ * Store used symbols in bitVector, if bitVector already contains a symbol, then string not contains unique chars.
  *
  *  Assumptions:
  *  - String contains only a-z symbols
@@ -70,9 +70,9 @@ fun optimizedIsUniqueChars(testStr: String): Boolean {
 }
 
 /***
- * Check string contains only unique symbols
+ * Check string contains only unique symbols.
  *
- * Convert string to char set, if size of original string equals to set, then string contains only unique symbols
+ * Convert string to char set, if size of original string equals to set, then string contains only unique symbols.
  *
  * @param testStr - string that should be tested
  * @return true if string contains only unique chars, false otherwise

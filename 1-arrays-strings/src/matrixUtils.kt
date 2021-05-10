@@ -1,5 +1,5 @@
 /***
- * Compare elements of two matrices
+ * Compare elements of two matrices.
  *
  * @param first - first matrix of int
  * @param second - second matrix of int
@@ -12,7 +12,7 @@ fun matrixEqual(first: Array<Array<Int>>, second: Array<Array<Int>>): Boolean {
 }
 
 /***
- * Print matrix in stdout
+ * Print matrix in stdout.
  *
  * @param matrix - matrix of int
  */

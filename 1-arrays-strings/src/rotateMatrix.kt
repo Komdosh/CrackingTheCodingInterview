@@ -27,6 +27,8 @@ fun main() {
 /***
  * Rotate matrix by 90 degrees
  *
+ * Step by step layer by layer swap two elements with new positions
+ *
  * Example:
  *   Given Matrix:
  *      0  1  1  1

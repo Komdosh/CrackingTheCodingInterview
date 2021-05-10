@@ -23,7 +23,7 @@ fun main() {
  * Check if first string is string rotation of second or vice versa.
  *
  * we can compare symbols in parallel, if second a part of first, it should have non zero equal char sequence,
- * then we just compare remainder start symbols of first, and last symbols of second
+ * then we just compare remainder start symbols of first, and last symbols of second.
  *
  * @param first - first string
  * @param second - second string
@@ -59,7 +59,7 @@ fun naiveIsStringRotation(first: String, second: String): Boolean {
 /***
  * Check if first string is string rotation of second or vice versa.
  *
- * if first string concatenate with itself, then rotated string should be a part of it
+ * if first string concatenate with itself, then rotated string should be a part of it.
  *
  * erbottlewet in (waterbottle + waterbottle)
  *

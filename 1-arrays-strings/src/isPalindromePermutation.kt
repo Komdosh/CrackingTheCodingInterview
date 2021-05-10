@@ -26,7 +26,7 @@ fun main() {
 /***
  * Check for palindrome permutation.
  *
- * Count all symbols into charsMap, if there is more more than one odd symbol, then string can't be palindrome
+ * Count all symbols into charsMap, if there is more more than one odd symbol, then string can't be palindrome.
  *
  * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
@@ -55,7 +55,7 @@ fun naiveIsPalindromePermutation(testStr: String): Boolean {
  * Check for palindrome permutation.
  *
  * Count odd represents number of odd symbols in string, if at the end there is more than one odd number of symbols, then it can't be a
- * palindrome
+ * palindrome.
  *
  * @param testStr - tested string
  * @return true if first string is permutation of palindrome, false otherwise
@@ -108,7 +108,7 @@ fun createBitVector(testStr: String): Int {
 }
 
 /***
- * Get symbol position number
+ * Get symbol position number.
  *
  * @param char - char
  * @return int that represents char index in alphabet
@@ -137,7 +137,7 @@ fun toggle(bitVector: Int, index: Int): Int {
 }
 
 /***
- * Check that bitvector have only one bit set
+ * Check that bitvector have only one bit set.
  *
  * Example:
  *   True:

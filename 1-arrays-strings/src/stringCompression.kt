@@ -17,7 +17,9 @@ fun main() {
 }
 
 /***
- * String Compression
+ * String Compression.
+ *
+ * Loop on string, count every repeating symbol and place number of symbols, right behind the symbol.
  *
  * @param toCompression - string to compress
  * @return compressed string if it is shorter, than original
@@ -46,7 +48,10 @@ fun naiveStringCompression(toCompression: String): String {
 }
 
 /***
- * String Compression
+ * String Compression.
+ *
+ * First count compression length if it is shorter than original, loop on string, count repeating symbol and place number of symbols
+ * right behind the symbol.
  *
  * @param toCompression - string to compress
  * @return compressed string if it is shorter, than original
@@ -73,7 +78,10 @@ fun optimizedStringCompression(toCompression: String): String {
 }
 
 /***
- * Count compression size
+ * Count compression size.
+ *
+ * @param toCompression - string to compression
+ * @return length of compressed string
  */
 fun countCompression(toCompression: String): Int{
     var compressedLength = 0

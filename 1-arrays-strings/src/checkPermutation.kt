@@ -2,7 +2,7 @@ import kotlin.test.assertEquals
 
 
 /***
- * Check Permutation: Given two strings, write a method to decide if one is a permutation of the other
+ * Check Permutation: Given two strings, write a method to decide if one is a permutation of the other.
  */
 fun main() {
     assertEquals(false, naiveCheckPermutation("cat", "fat"))
@@ -23,9 +23,9 @@ fun main() {
 }
 
 /***
- * Check two strings for permutation
+ * Check two strings for permutation.
  *
- * Store symbol count in hashmap
+ * Store symbol count in hashmap.
  *
  * Assumptions:
  *  - String case sensitive
@@ -66,7 +66,7 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
 }
 
 /***
- * Check two strings for permutation
+ * Check two strings for permutation.
  *
  *
  *
@@ -104,9 +104,9 @@ fun optimizedCheckPermutation(first: String, second: String): Boolean {
 }
 
 /***
- * Check two strings for permutation
+ * Check two strings for permutation.
  *
- * Sort char arrays than compare it
+ * Sort char arrays than compare it.
  *
  * Sort:
  * - String case sensitive
@@ -136,9 +136,9 @@ fun clearCheckPermutation(first: String, second: String): Boolean {
 }
 
 /***
- * Check two strings for permutation
+ * Check two strings for permutation.
  *
- * Convert char array to set and compare elements
+ * Convert char array to set and compare elements.
  *
  * @param first - first string
  * @param second - second string
