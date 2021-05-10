@@ -6,22 +6,26 @@ import kotlin.test.assertEquals
  */
 fun main() {
     assertEquals(false, naiveCheckPermutation("cat", "fat"))
+    assertEquals(false, naiveCheckPermutation("ppat", "ttap"))
     assertEquals(true, naiveCheckPermutation("pat", "tap"))
 
     assertEquals(false, optimizedCheckPermutation("cat", "fat"))
+    assertEquals(false, optimizedCheckPermutation("ppat", "ttap"))
     assertEquals(true, optimizedCheckPermutation("pat", "tap"))
 
     assertEquals(false, clearCheckPermutation("pat", "fat"))
+    assertEquals(false, clearCheckPermutation("ppat", "ttap"))
     assertEquals(true, clearCheckPermutation("pat", "tap"))
 
     assertEquals(false, checkPermutationKotlinWay("pat", "fat"))
+    assertEquals(false, checkPermutationKotlinWay("ppat", "ttap"))
     assertEquals(true, checkPermutationKotlinWay("pat", "tap"))
 }
 
 /***
  * Check two strings for permutation
  *
- *
+ * Store symbol count in hashmap
  *
  * Assumptions:
  *  - String case sensitive
@@ -64,6 +68,8 @@ fun naiveCheckPermutation(first: String, second: String): Boolean {
 /***
  * Check two strings for permutation
  *
+ *
+ *
  * Assumptions:
  * - String case sensitive
  * - Whitespace is countable
@@ -100,6 +106,8 @@ fun optimizedCheckPermutation(first: String, second: String): Boolean {
 /***
  * Check two strings for permutation
  *
+ * Sort char arrays than compare it
+ *
  * Sort:
  * - String case sensitive
  * - Whitespace is countable
@@ -130,8 +138,11 @@ fun clearCheckPermutation(first: String, second: String): Boolean {
 /***
  * Check two strings for permutation
  *
+ * Convert char array to set and compare elements
+ *
  * @param first - first string
  * @param second - second string
  * @return true if first string is permutation of second, false otherwise
  */
-fun checkPermutationKotlinWay(first: String, second: String): Boolean = first.toCharArray().toSet() == second.toCharArray().toSet()
+fun checkPermutationKotlinWay(first: String, second: String): Boolean = first.toCharArray().toTypedArray().groupingBy { it }.eachCount() ==
+        second.toCharArray().toTypedArray().groupingBy { it }.eachCount()

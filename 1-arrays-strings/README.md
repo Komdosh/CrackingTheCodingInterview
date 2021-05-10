@@ -227,12 +227,13 @@ fun clearCheckPermutation(first: String, second: String): Boolean {
 
 - Time Complexity: `O(N)`
 
-- Space Complexity: `O(1)`
+- Space Complexity: `O(N)`
 
 #### Implementation
 
    ```kotlin
-fun checkPermutationKotlinWay(first: String, second: String): Boolean = first.toCharArray().toSet() == second.toCharArray().toSet()
+fun checkPermutationKotlinWay(first: String, second: String): Boolean = first.toCharArray().toTypedArray().groupingBy { it }.eachCount() ==
+        second.toCharArray().toTypedArray().groupingBy { it }.eachCount()
    ```
 
 </details>
