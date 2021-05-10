@@ -10,21 +10,25 @@ fun main() {
     assertEquals(true, naiveOneWay("pales", "pale"))
     assertEquals(true, naiveOneWay("pale", "bale"))
     assertEquals(false, naiveOneWay("pale", "bake"))
+    assertEquals(false, naiveOneWay("ppale", "bpake"))
 
     assertEquals(true, alternativeNaiveOneWay("pale", "ple"))
     assertEquals(true, alternativeNaiveOneWay("pales", "pale"))
     assertEquals(true, alternativeNaiveOneWay("pale", "bale"))
     assertEquals(false, alternativeNaiveOneWay("pale", "bake"))
+    assertEquals(false, alternativeNaiveOneWay("ppale", "bpake"))
 
     assertEquals(true, optimizedOneWay("pale", "ple"))
     assertEquals(true, optimizedOneWay("pales", "pale"))
     assertEquals(true, optimizedOneWay("pale", "bale"))
     assertEquals(false, optimizedOneWay("pale", "bake"))
+    assertEquals(false, optimizedOneWay("ppale", "bpake"))
 
     assertEquals(true, oneWayKotlinWay("pale", "ple"))
     assertEquals(true, oneWayKotlinWay("pales", "pale"))
     assertEquals(true, oneWayKotlinWay("pale", "bale"))
     assertEquals(false, oneWayKotlinWay("pale", "bake"))
+    assertEquals(false, oneWayKotlinWay("ppale", "bpake"))
 }
 
 enum class SKIP {
@@ -32,7 +36,10 @@ enum class SKIP {
 }
 
 /***
- * Check that second string can be reached by first string by only one edit
+ * Check that second string can be reached by first string by only one edit.
+ *
+ * We need to compare two strings with the assumption that there can only be one edit: Insert, Delete, Replace on the first or second
+ * string, so we can skip one non-equal character.
  *
  * @param first - first string, that should be tested
  * @param second - second string for test
@@ -78,7 +85,11 @@ fun naiveOneWay(first: String, second: String): Boolean {
 }
 
 /***
- * Check that second string can be reached by first string by only one edit
+ * Check that second string can be reached by first string by only one edit.
+ *
+ * If first string length equal to second string length, then we need to find exactly one symbol replace.
+ * If first string shorter than second one, so we need to check that all symbols are in correct positions except one missing for first.
+ * If second string shorter than first one, so we need to check that all symbols are in correct positions except one missing for second.
  *
  * @param first - first string, that should be tested
  * @param second - second string for test
@@ -100,7 +111,7 @@ fun alternativeNaiveOneWay(first: String, second: String): Boolean {
 }
 
 /***
- * Check that second string can be reached by first string by only one replace
+ * Check that second string can be reached by first string by only one replace.
  *
  * @param first - first string
  * @param second - second string
@@ -124,7 +135,7 @@ fun oneEditReplace(first: String, second: String): Boolean {
 }
 
 /***
- * Check that second string can be reached by first string by only one insert
+ * Check that second string can be reached by first string by only one insert.
  *
  * @param first - first string
  * @param second - second string
@@ -150,7 +161,10 @@ fun oneEditInsert(first: String, second: String): Boolean {
 }
 
 /***
- * Check that second string can be reached by first string by only one edit
+ * Check that second string can be reached by first string by only one edit.
+ *
+ * We have boolean flag that indicate exact one difference, if it is set twice, then we can't reach second string from first with just
+ * one edit.
  *
  * @param first - first string, that should be tested
  * @param second - second string for test
@@ -188,13 +202,31 @@ fun optimizedOneWay(first: String, second: String): Boolean {
 }
 
 /***
- * Check that second string can be reached by first string by only one edit
+ * Check that second string can be reached by first string by only one edit.
+ *
+ * Count all symbols and count difference, if there is more than one count difference, then it can't be reached.
  *
  * @param first - first string, that should be tested
  * @param second - second string for test
  * @return true if strings have only one edit, false otherwise
  */
 fun oneWayKotlinWay(first: String, second: String): Boolean {
-    val intersection = first.toCharArray().toSet().intersect(second.toCharArray().toSet())
-    return abs(intersection.size - first.length) <= 1
+    val secondChars = second.toCharArray().toTypedArray().groupingBy { it }.eachCount()
+    val firstChars = first.toCharArray().toTypedArray().groupingBy { it }.eachCount()
+
+    var counter = 0
+
+    return firstChars.all {
+        val difference = abs((secondChars[it.key] ?: 0) - it.value)
+        if (difference > 1) {
+            return@all false
+        } else if (difference == 1) {
+            ++counter
+        }
+        if (counter > 1) {
+            return@all false
+        }
+
+        return@all true
+    }
 }
