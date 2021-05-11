@@ -1,4 +1,4 @@
-# Linked Lists `Rust`
+# Linked Lists `Go`
 
 Completed tasks:
 

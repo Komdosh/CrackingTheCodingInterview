@@ -3,10 +3,11 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/2-linked-lists/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/5-bit-manipulation/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/6-math-logic/target" />
-      <excludeFolder url="file://$MODULE_DIR$/2-linked-lists/target" />
       <excludeFolder url="file://$MODULE_DIR$/6-math-logic/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/5-bit-manipulation/target" />
+      <excludeFolder url="file://$MODULE_DIR$/2-linked-lists/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

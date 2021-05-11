@@ -1,4 +1,4 @@
-# Bit Manipulation `Go`
+# Bit Manipulation `Rust`
 
 Completed tasks:
 
