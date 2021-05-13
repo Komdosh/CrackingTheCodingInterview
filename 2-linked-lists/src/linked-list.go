@@ -63,22 +63,21 @@ func (l *LinkedList) Add(item int32) error {
 
 func (l *LinkedList) Remove(node *Node) error {
 	var current = l.start
+	var prev *Node = nil
 	for current != nil {
 
 		if current == node {
-			if current == l.start {
+			if prev == nil {
 				l.start = current.next
-			} else if current.next != nil {
-				current.next = current.next.next
 			} else {
-				current.next = nil
+				prev.next = current.next
 			}
 			l.size--
 			break
 		}
 
+		prev = current
 		current = current.next
-
 	}
 	return nil
 }
