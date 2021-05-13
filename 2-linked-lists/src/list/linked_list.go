@@ -1,11 +1,11 @@
-package main
+package list
 
 import "fmt"
 
 type LinkedList struct {
-	start *Node
-	end   *Node
-	size  int64
+	Start *Node
+	End   *Node
+	Size  int64
 }
 
 type Node struct {
@@ -13,25 +13,21 @@ type Node struct {
 	next *Node
 }
 
-func createLinkedList() LinkedList {
+func CreateLinkedList() LinkedList {
 	return LinkedList{
-		start: nil,
-		end:   nil,
-		size:  0,
+		Start: nil,
+		End:   nil,
+		Size:  0,
 	}
-}
-
-func (l *LinkedList) GetSize() int64 {
-	return l.size
 }
 
 func (l *LinkedList) Get(position int64) (*Node, error) {
 
-	if position >= l.GetSize() {
+	if position >= l.Size {
 		return nil, fmt.Errorf("position greater than size of list")
 	}
 
-	var current = l.start
+	var current = l.Start
 	for current != nil {
 		if position == 0 {
 			return current, nil
@@ -49,30 +45,30 @@ func (l *LinkedList) Add(item int32) error {
 		nil,
 	}
 
-	if l.end == nil {
-		l.end = node
-		l.start = node
-		l.size = 1
+	if l.End == nil {
+		l.End = node
+		l.Start = node
+		l.Size = 1
 	} else {
-		l.end.next = node
-		l.end = node
-		l.size++
+		l.End.next = node
+		l.End = node
+		l.Size++
 	}
 	return nil
 }
 
 func (l *LinkedList) Remove(node *Node) error {
-	var current = l.start
+	var current = l.Start
 	var prev *Node = nil
 	for current != nil {
 
 		if current == node {
 			if prev == nil {
-				l.start = current.next
+				l.Start = current.next
 			} else {
 				prev.next = current.next
 			}
-			l.size--
+			l.Size--
 			break
 		}
 
@@ -83,40 +79,11 @@ func (l *LinkedList) Remove(node *Node) error {
 }
 
 func (l *LinkedList) Print() error {
-	var node = l.start
+	var node = l.Start
 	for node != nil {
 		fmt.Printf("%d\n", node.item)
 
 		node = node.next
 	}
 	return nil
-}
-
-func main() {
-	l := createLinkedList()
-	l.Add(0)
-	l.Add(1)
-	l.Add(2)
-
-	l.Print()
-
-	if node, err := l.Get(2); err == nil {
-		l.Remove(node)
-	} else {
-		fmt.Printf("%s\n", err.Error())
-	}
-
-	if node, err := l.Get(1); err == nil {
-		l.Remove(node)
-	} else {
-		fmt.Printf("%s\n", err.Error())
-	}
-
-	if node, err := l.Get(0); err == nil {
-		l.Remove(node)
-	} else {
-		fmt.Printf("%s\n", err.Error())
-	}
-
-	l.Print()
 }
