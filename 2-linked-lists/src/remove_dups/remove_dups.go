@@ -22,7 +22,7 @@ func main() {
 
 	fmt.Printf("Size %d\n", l.Size)
 
-	NaiveRemoveDups(&l)
+	OptimizeRemoveDups(&l)
 
 	l.Print()
 
@@ -42,7 +42,7 @@ func main() {
 
 	fmt.Printf("Size %d\n", l2.Size)
 
-	NaiveRemoveDups(&l2)
+	OptimizeRemoveDups(&l2)
 
 	l.Print()
 
@@ -77,6 +77,7 @@ func OptimizeRemoveDups(l *list.LinkedList) {
 		if _, s := existed[node.Item]; s {
 			if node.Next != nil {
 				node.Next = node.Next.Next
+				l.Size--
 			}
 		} else {
 			existed[node.Item] = true

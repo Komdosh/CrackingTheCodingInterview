@@ -65,6 +65,7 @@ func OptimizeRemoveDups (l * list.LinkedList) {
         if _, s: = existed[node.Item]; s {
         if node.Next != nil {
             node.Next = node.Next.Next
+            l.Size--
         }
     } else {
         existed[node.Item] = true
