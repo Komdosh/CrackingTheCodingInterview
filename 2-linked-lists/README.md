@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.dev/0)
+![12%](https://progress-bar.dev/12)
 
 ## 1. Remove Dups
 
@@ -19,22 +19,22 @@ Write code to remove duplicates from an unsorted linked list. How would you solv
 
 #### Implementation
 
-   ```go
+   ```
 func NaiveRemoveDups (l * list.LinkedList) {
-node: = l.Start
+    node: = l.Start
 
-for node != nil {
-var current = node
+    for node != nil {
+        var current = node
 
-for current.Next != nil {
-if current.Next.Item == node.Item {
-current.Next = current.Next.Next
-} else {
-current = current.Next
-}
-}
-node = node.Next
-}
+        for current.Next != nil {
+            if current.Next.Item == node.Item {
+                current.Next = current.Next.Next
+            } else {
+                current = current.Next
+            }
+        }
+        node = node.Next
+    }
 }
    ```
 
@@ -55,14 +55,14 @@ node = node.Next
 
 #### Implementation
 
-   ```go
+   ```
 func OptimizeRemoveDups (l * list.LinkedList) {
-    existed : = map[int32]bool{}
+    existed: = map[int32]bool{}
 
-    node : = l.Start
+    node: = l.Start
 
     for node != nil {
-        if _, s : = existed[node.Item]; s {
+        if _, s: = existed[node.Item]; s {
         if node.Next != nil {
             node.Next = node.Next.Next
         }
