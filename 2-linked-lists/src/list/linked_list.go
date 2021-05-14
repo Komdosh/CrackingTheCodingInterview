@@ -1,6 +1,8 @@
 package list
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type LinkedList struct {
 	Start *Node
@@ -9,8 +11,8 @@ type LinkedList struct {
 }
 
 type Node struct {
-	item int32
-	next *Node
+	Item int32
+	Next *Node
 }
 
 func CreateLinkedList() LinkedList {
@@ -33,7 +35,7 @@ func (l *LinkedList) Get(position int64) (*Node, error) {
 			return current, nil
 		}
 		position--
-		current = current.next
+		current = current.Next
 	}
 
 	return nil, fmt.Errorf("shouldn't be called")
@@ -50,7 +52,7 @@ func (l *LinkedList) Add(item int32) error {
 		l.Start = node
 		l.Size = 1
 	} else {
-		l.End.next = node
+		l.End.Next = node
 		l.End = node
 		l.Size++
 	}
@@ -59,21 +61,14 @@ func (l *LinkedList) Add(item int32) error {
 
 func (l *LinkedList) Remove(node *Node) error {
 	var current = l.Start
-	var prev *Node = nil
 	for current != nil {
 
-		if current == node {
-			if prev == nil {
-				l.Start = current.next
-			} else {
-				prev.next = current.next
-			}
-			l.Size--
+		if current.Next == node {
+			current.Next = current.Next.Next
 			break
 		}
 
-		prev = current
-		current = current.next
+		current = current.Next
 	}
 	return nil
 }
@@ -81,9 +76,14 @@ func (l *LinkedList) Remove(node *Node) error {
 func (l *LinkedList) Print() error {
 	var node = l.Start
 	for node != nil {
-		fmt.Printf("%d\n", node.item)
+		fmt.Printf("%d", node.Item)
 
-		node = node.next
+		if node.Next != nil {
+			fmt.Printf(" -> ")
+		}
+
+		node = node.Next
 	}
+	fmt.Printf("\n")
 	return nil
 }
