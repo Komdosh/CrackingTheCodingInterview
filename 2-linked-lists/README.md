@@ -8,6 +8,75 @@ Completed tasks:
 
 Write code to remove duplicates from an unsorted linked list. How would you solve this problem if a temporary buffer is not allowed?
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N^2)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func NaiveRemoveDups (l * list.LinkedList) {
+node: = l.Start
+
+for node != nil {
+var current = node
+
+for current.Next != nil {
+if current.Next.Item == node.Item {
+current.Next = current.Next.Next
+} else {
+current = current.Next
+}
+}
+node = node.Next
+}
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+### Assumptions
+
+- We can use temporary buffer
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func OptimizeRemoveDups (l * list.LinkedList) {
+    existed : = map[int32]bool{}
+
+    node : = l.Start
+
+    for node != nil {
+        if _, s : = existed[node.Item]; s {
+        if node.Next != nil {
+            node.Next = node.Next.Next
+        }
+    } else {
+        existed[node.Item] = true
+    }
+
+        node = node.Next
+    }
+}
+   ```
+
+</details>
+
 <hr/>
 
 ## 2. Return K'th to Last
