@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![12%](https://progress-bar.dev/12)
+![25%](https://progress-bar.dev/25)
 
 ## 1. Remove Dups
 
@@ -19,7 +19,7 @@ Write code to remove duplicates from an unsorted linked list. How would you solv
 
 #### Implementation
 
-   ```
+   ```go
 func NaiveRemoveDups (l * list.LinkedList) {
     node: = l.Start
 
@@ -55,7 +55,7 @@ func NaiveRemoveDups (l * list.LinkedList) {
 
 #### Implementation
 
-   ```
+   ```go
 func OptimizeRemoveDups (l * list.LinkedList) {
     existed: = map[int32]bool{}
 
@@ -98,6 +98,35 @@ Input:
 Result:
     nothing is returned, but the new linked list looks like a->b->d->e->f
 ```
+
+<details>
+<summary>Solution</summary>
+
+### Assumptions
+
+- We can't delete last element
+
+#### Complexity
+
+- Time Complexity: `O(1)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func DeleteMiddle(n *list.Node) error {
+	if n == nil || n.Next == nil {
+		return fmt.Errorf("can't delete nil or last element")
+	}
+
+	n.Item = n.Next.Item
+	n.Next = n.Next.Next
+	return nil
+}
+   ```
+
+</details>
 
 <hr/>
 
