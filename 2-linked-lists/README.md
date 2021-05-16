@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![25%](https://progress-bar.dev/25)
+![37%](https://progress-bar.dev/37)
 
 ## 1. Remove Dups
 
