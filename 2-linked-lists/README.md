@@ -84,6 +84,118 @@ func OptimizeRemoveDups (l * list.LinkedList) {
 
 Implement an algorithm to find the kth to last element of a singly linked list.
 
+<details>
+<summary>Naive Solution</summary>
+
+### Assumptions
+
+- List size is available
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func NaiveGetLastKthItem(position int, start *list.Node, size int64) (*list.Node, error) {
+    if int64(position) >= size {
+        return nil, fmt.Errorf("position is out of list size")
+    }
+
+    var current = start
+    i := size - int64(position)
+    for current != nil && i > 0 {
+
+        i-=1
+
+        current = current.Next
+    }
+
+    return current, nil
+}
+   ```
+
+</details>
+
+<details>
+<summary>Alternative Naive Solution</summary>
+
+### Assumptions
+
+- List size is unknown
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func AlternativeNaiveGetLastKthItem(position int, node *list.Node) (*list.Node, int, error) {
+    if node == nil {
+        return node, 0, nil
+    }
+
+    if n, i, e := AlternativeNaiveGetLastKthItem(position, node.Next); e == nil {
+    if i == position{
+        return n, i, nil
+    } else {
+        return node, i+1, nil
+    }
+}
+
+    return nil, 0, fmt.Errorf("shouldn't be called")
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+### Assumptions
+
+- List size is unknown
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```kotlin
+func OptimizedGetLastKthItem(position int, start *list.Node) (*list.Node, error) {
+    var current = start
+    var laggingNode = start
+    i := 0
+    for current != nil {
+
+        if i < position {
+            i += 1
+        } else {
+            laggingNode = laggingNode.Next
+        }
+
+        current = current.Next
+    }
+
+    if i != 0 && laggingNode == start {
+        return nil, fmt.Errorf("position is out of list size")
+    }
+
+    return laggingNode, nil
+}
+   ```
+
+</details>
+
 <hr/>
 
 ## 3. Delete Middle Node
