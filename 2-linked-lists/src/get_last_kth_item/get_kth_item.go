@@ -17,19 +17,19 @@ func main() {
 	l.Add(4)
 	l.Add(5)
 
-	if n, e := NaiveGetLastKthItem(1, l.Start, l.Size); e == nil {
+	if n, e := NaiveGetLastKthItem(6, l.Start, l.Size); e == nil {
 		fmt.Printf("%d\n", n.Item)
 	} else {
 		fmt.Printf("%s\n", e.Error())
 	}
 
-	if n, e := OptimizedGetLastKthItem(1, l.Start); e == nil {
+	if n, e := OptimizedGetLastKthItem(6, l.Start); e == nil {
 		fmt.Printf("%d\n", n.Item)
 	} else {
 		fmt.Printf("%s\n", e.Error())
 	}
 
-	if n, _, e := AlternativeNaiveGetLastKthItem(1, l.Start); e == nil {
+	if n, _, e := AlternativeNaiveGetLastKthItem(6, l.Start); e == nil {
 		fmt.Printf("%d\n", n.Item)
 	} else {
 		fmt.Printf("%s\n", e.Error())
@@ -49,7 +49,7 @@ func NaiveGetLastKthItem(position int, start *list.Node, size int64) (*list.Node
 	i := size - int64(position)
 	for current != nil && i > 0 {
 
-		i-=1
+		i -= 1
 
 		current = current.Next
 	}
@@ -67,10 +67,10 @@ func AlternativeNaiveGetLastKthItem(position int, node *list.Node) (*list.Node, 
 	}
 
 	if n, i, e := AlternativeNaiveGetLastKthItem(position, node.Next); e == nil {
-		if i == position{
+		if i == position {
 			return n, i, nil
 		} else {
-			return node, i+1, nil
+			return node, i + 1, nil
 		}
 	}
 
