@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![37%](https://progress-bar.dev/37)
+![50%](https://progress-bar.dev/50)
 
 ## 1. Remove Dups
 
@@ -258,6 +258,144 @@ Output:
     3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 ```
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func NaivePartition(l *list.LinkedList, n int32) *list.LinkedList {
+    left := list.CreateLinkedList()
+    right := list.CreateLinkedList()
+
+    node := l.Start
+
+    for node != nil {
+
+        if node.Item < n {
+            left.Add(node.Item)
+        } else {
+            right.Add(node.Item)
+        }
+
+        node = node.Next
+    }
+
+    if left.Start == nil {
+        return &right
+    }
+    left.End.Next = right.Start
+    left.Size = left.Size + right.Size
+    return &left
+}
+   ```
+
+</details>
+
+<details>
+<summary>Alternative Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func AlternativeNaivePartition(l *list.LinkedList, n int32) *list.LinkedList {
+    left := list.CreateLinkedList()
+    right := list.CreateLinkedList()
+
+    node := l.Copy().Start
+
+    for node != nil {
+        next := node.Next
+        node.Next = nil
+        if node.Item < n {
+            if left.Start == nil {
+                left.Start = node
+                left.End = left.Start
+            } else {
+                left.End.Next = node
+                left.End = node
+            }
+        } else {
+            if right.Start == nil {
+                right.Start = node
+                right.End = right.Start
+            } else {
+                right.End.Next = node
+                right.End = node
+            }
+        }
+
+        node = next
+    }
+
+    if left.Start == nil {
+        return &right
+    }
+    left.End.Next = right.Start
+    left.Size = left.Size + right.Size
+    return &left
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func OptimizedPartition(l *list.LinkedList, n int32) *list.LinkedList {
+    l1 := l.Copy()
+
+    head := l1.Start
+    tail := l1.Start
+
+    node := l1.Start
+
+    for node != nil {
+        next := node.Next
+
+        if node.Item < n {
+            node.Next = head
+            head = node
+        } else {
+            tail.Next = node
+            tail = node
+        }
+
+        node = next
+    }
+    tail.Next = nil
+
+    l2 := list.CreateLinkedList()
+    l2.Start = head
+    l2.End = tail
+    l2.Size = l1.Size
+    return &l2
+}
+   ```
+
+</details>
+
 <hr/>
 
 ## 5. Sum Lists
@@ -268,16 +406,14 @@ digits are stored in forward order. Repeat the above problem.
 
 ### Example
 
-``
+```
 Input: 
     (7 -> 1 -> 6) + (5 -> 9 -> 2). That is, 617 + 295.
 Output: 
     2 -> 1 -> 9. That is, 912. 
-```
+    
+---
 
-### Example
-
-```
 Input:
     (6 -> 1 -> 7) + (2 -> 9 -> 5).That is, 617 + 295.
 Output: 
