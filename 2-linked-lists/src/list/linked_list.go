@@ -41,6 +41,19 @@ func (l *LinkedList) Get(position int64) (*Node, error) {
 	return nil, fmt.Errorf("shouldn't be called")
 }
 
+func (l *LinkedList) Copy() *LinkedList {
+	list := CreateLinkedList()
+
+	var current = l.Start
+	for current != nil {
+
+		list.Add(current.Item)
+
+		current = current.Next
+	}
+	return &list
+}
+
 func (l *LinkedList) Add(item int32) error {
 	node := &Node{
 		item,
