@@ -107,7 +107,7 @@ func PadList(node *Node, padding int64) *Node {
 	head := node
 	for padding > 0{
 		head = InsertBefore(head, 0)
-		padding -= 0
+		padding -= 1
 	}
 	return head
 }
