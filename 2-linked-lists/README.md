@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![50%](https://progress-bar.dev/50)
+![62%](https://progress-bar.dev/62)
 
 ## 1. Remove Dups
 
@@ -421,6 +421,203 @@ Input:
 Output: 
     9 -> 1 -> 2. That is, 912. 
 ```
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func SumList(l1 *list.LinkedList, l2 *list.LinkedList) (*list.LinkedList, error) {
+	var greatest *list.LinkedList
+	var smallest *list.LinkedList
+	if l1.Size > l2.Size {
+		greatest = l1
+		smallest = l2
+	} else {
+		greatest = l2
+		smallest = l1
+	}
+
+	smallestRun := smallest.Start
+	greatestRun := greatest.Start
+
+	carry := false
+
+	result := list.CreateLinkedList()
+
+	for smallestRun != nil {
+		if smallestRun.Item > 9 || smallestRun.Item < 0 || greatestRun.Item > 9 || greatestRun.Item < 0 {
+			return nil, fmt.Errorf("number item should be in range 0..9")
+		}
+
+		value := smallestRun.Item + greatestRun.Item
+
+		if carry {
+			value += 1
+		}
+
+		result.Add(value % 10)
+
+		carry = value/10 > 0
+
+		smallestRun = smallestRun.Next
+		greatestRun = greatestRun.Next
+	}
+
+	for greatestRun != nil {
+
+		value := greatestRun.Item
+
+		if carry {
+			value += 1
+		}
+
+		carry = value/10 > 0
+
+		result.Add(value % 10)
+
+		greatestRun = greatestRun.Next
+	}
+
+	return &result, nil
+}
+   ```
+
+</details>
+
+<details>
+<summary>Alternative Solution with Recursion</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func AlternativeSumList(l1 *list.Node, l2 *list.Node, carry int32) (*list.Node, error) {
+        if l1 == nil && l2 == nil && carry == 0 {
+            return nil, nil
+        }
+
+        result := list.Node{
+            Item: 0,
+            Next: nil,
+        }
+
+        value := carry
+        if l1 != nil {
+            if l1.Item > 9 || l1.Item < 0 {
+                return nil, fmt.Errorf("number item should be in range 0..9")
+            }
+            value += l1.Item
+        }
+        if l2 != nil {
+            if l2.Item > 9 || l2.Item < 0 {
+                return nil, fmt.Errorf("number item should be in range 0..9")
+            }
+            value += l2.Item
+        }
+    
+        result.Item = value % 10
+
+        if l1 != nil || l2 != nil {
+            var nextL1 *list.Node
+            if l1 == nil {
+                nextL1 = nil
+            } else {
+                nextL1 = l1.Next
+            }
+            var nextL2 *list.Node
+            if l2 == nil {
+                nextL2 = nil
+            } else {
+                nextL2 = l2.Next
+            }
+    
+            var c int32
+    
+            if value/10 > 0 {
+                c = 1
+            } else {
+                c = 0
+            }
+    
+            var err error
+            if result.Next, err = AlternativeSumList(nextL1, nextL2, c); err != nil {
+            return nil, err
+        }
+    }
+
+    return &result, nil
+}
+   ```
+
+</details>
+
+<details>
+<summary>Additional Solution with Recursion</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+   func RevertSumList(l1 *list.LinkedList, l2 *list.LinkedList) (*list.Node, error) {
+        if l1.Size < l2.Size {
+            l1.Start = list.PadList(l1.Start, l2.Size-l1.Size)
+            l1.Size = l2.Size
+        } else {
+            l2.Start = list.PadList(l2.Start, l1.Size-l2.Size)
+            l2.Size = l1.Size
+        }
+    
+        if sum, carry, err := sumListHelper(l1.Start, l2.Start); err != nil {
+            return nil, err
+        } else {
+            if carry == 0 {
+                return sum, nil
+            } else {
+                return list.InsertBefore(sum, carry), nil
+            }
+        }
+    }
+
+    // sumListHelper Recursively go deep to the end. If previous value has carry,
+    //then add it to the current. Sum items after recursive call, add it to the head of list.
+    func sumListHelper(l1 *list.Node, l2 *list.Node) (*list.Node, int32, error) {
+        if l1 == nil && l2 == nil {
+            return nil, 0, nil
+        }
+    
+        sum, carry, err := sumListHelper(l1.Next, l2.Next)
+    
+        if err != nil {
+            return nil, 0, err
+        }
+    
+        val := carry + l1.Item + l2.Item
+    
+        full := list.InsertBefore(sum, val%10)
+    
+        return full, val / 10, nil
+    }
+   ```
+
+</details>
 
 <hr/>
 

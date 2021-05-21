@@ -80,6 +80,9 @@ func main() {
 	l4.Add(5)
 
 	l4.Print()
+
+	fmt.Printf("=\n")
+
 	if res, err := RevertSumList(&l3, &l4); err != nil {
 		fmt.Printf("%s", err.Error())
 	} else {
@@ -146,6 +149,7 @@ func SumList(l1 *list.LinkedList, l2 *list.LinkedList) (*list.LinkedList, error)
 }
 
 // AlternativeSumList run through two lists with recursion, If value greater than 9, then it has carry, we should add it on next.
+// Sum items before recursive call, add it to the tail of list.
 func AlternativeSumList(l1 *list.Node, l2 *list.Node, carry int32) (*list.Node, error) {
 	if l1 == nil && l2 == nil && carry == 0 {
 		return nil, nil
@@ -203,19 +207,18 @@ func AlternativeSumList(l1 *list.Node, l2 *list.Node, carry int32) (*list.Node, 
 	return &result, nil
 }
 
-
 // RevertSumList fill smaller list with zeroes, to size be equal. Start sum items recursively from end.
 func RevertSumList(l1 *list.LinkedList, l2 *list.LinkedList) (*list.Node, error) {
 
 	if l1.Size < l2.Size {
-		l1.Start = list.PadList(l1.Start, l2.Size - l1.Size)
+		l1.Start = list.PadList(l1.Start, l2.Size-l1.Size)
 		l1.Size = l2.Size
 	} else {
-		l2.Start = list.PadList(l2.Start, l1.Size - l2.Size)
+		l2.Start = list.PadList(l2.Start, l1.Size-l2.Size)
 		l2.Size = l1.Size
 	}
 
-	if sum, carry, err := sumListHelper(l1.Start, l2.Start); err != nil{
+	if sum, carry, err := sumListHelper(l1.Start, l2.Start); err != nil {
 		return nil, err
 	} else {
 		if carry == 0 {
@@ -226,10 +229,10 @@ func RevertSumList(l1 *list.LinkedList, l2 *list.LinkedList) (*list.Node, error)
 	}
 }
 
-// sumListHelper  Recursively go deep to the end, after that sum values and insert node to the head. If previous value has carry,
-//then add it to the current.
-func sumListHelper(l1 *list.Node, l2 *list.Node) (*list.Node, int32, error){
-	if l1 == nil && l2 == nil{
+// sumListHelper Recursively go deep to the end. If previous value has carry,
+//then add it to the current. Sum items after recursive call, add it to the head of list.
+func sumListHelper(l1 *list.Node, l2 *list.Node) (*list.Node, int32, error) {
+	if l1 == nil && l2 == nil {
 		return nil, 0, nil
 	}
 
@@ -243,5 +246,5 @@ func sumListHelper(l1 *list.Node, l2 *list.Node) (*list.Node, int32, error){
 
 	full := list.InsertBefore(sum, val%10)
 
-	return full, val/10, nil
+	return full, val / 10, nil
 }
