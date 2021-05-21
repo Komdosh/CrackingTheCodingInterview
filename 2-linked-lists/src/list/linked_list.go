@@ -86,6 +86,7 @@ func (l *LinkedList) Remove(node *Node) error {
 	return nil
 }
 
+// Print list to stdout like: 1 -> 2 -> 3 -> 4
 func (l *LinkedList) Print() error {
 	var node = l.Start
 	for node != nil {
@@ -99,4 +100,28 @@ func (l *LinkedList) Print() error {
 	}
 	fmt.Printf("\n")
 	return nil
+}
+
+// PadList add nodes to head with zeroes
+func PadList(node *Node, padding int64) *Node {
+	head := node
+	for padding > 0{
+		head = InsertBefore(head, 0)
+		padding -= 0
+	}
+	return head
+}
+
+// InsertBefore insert new node to head
+func InsertBefore(node *Node, data int32) *Node {
+	n := Node{
+		Item: data,
+		Next: nil,
+	}
+
+	if node != nil {
+		n.Next = node
+	}
+
+	return &n
 }
