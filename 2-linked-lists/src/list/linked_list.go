@@ -125,3 +125,41 @@ func InsertBefore(node *Node, data int32) *Node {
 
 	return &n
 }
+
+// IsEqual check that two lists have same items
+func IsEqual(one *Node, two *Node) bool{
+	head1 := one
+	head2 := two
+
+	for head1 != nil && head2 != nil{
+		if head1.Item != head2.Item {
+			return false
+		}
+		head1 = head1.Next
+		head2 = head2.Next
+	}
+
+	return head1 == nil && head2 == nil
+}
+
+// Reverse list recursively
+func Reverse(head *Node) (*Node, *Node){
+	if head == nil {
+		return nil, nil
+	}
+
+	h, t := Reverse(head.Next)
+	clonedHead := &Node{
+		Item: head.Item,
+		Next: nil,
+	}
+
+	if h == nil && t == nil {
+		return clonedHead, clonedHead
+	}
+
+	t.Next = clonedHead
+	return h, clonedHead
+}
+
+

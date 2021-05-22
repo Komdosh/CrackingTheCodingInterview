@@ -28,6 +28,14 @@ func main() {
 	isPalindrome = NaiveIsPalindromeSize(&l1)
 
 	fmt.Printf("%v\n", isPalindrome)
+
+	isPalindrome = AlternativeNaiveIsPalindromeReversed(l1.Start)
+
+	fmt.Printf("%v\n", isPalindrome)
+
+	isPalindrome = OptimizedIsPalindromeStack(l1.Start)
+
+	fmt.Printf("%v\n", isPalindrome)
 }
 
 // NaiveIsPalindrome add all elements to the array, then check first N/2 items on list and last N/2 reverse items from array
@@ -94,6 +102,46 @@ func NaiveIsPalindromeSize(list *list.LinkedList) bool {
 
 		arrayId -= 1
 		node = node.Next
+	}
+
+	return true
+}
+
+// AlternativeNaiveIsPalindromeReversed reverse source list and compare it to original
+func AlternativeNaiveIsPalindromeReversed(head *list.Node) bool {
+	reversed, _ := list.Reverse(head)
+	return list.IsEqual(head, reversed)
+}
+
+// OptimizedIsPalindromeStack fast pointer run through elements with 2x speed than slow pointer. When fast pointer finish, then slow pointer will
+// in middle position. Elements in slow pointer for first half was added to stack, after that we need to pop elements from stack and compare
+// it to current slow pointer item. If it is not equal, then list is not a palindrome.
+func OptimizedIsPalindromeStack(head *list.Node) bool {
+	fast := head
+	slow := head
+
+	var stack []int32
+
+	for fast != nil && fast.Next != nil {
+		stack = append(stack, slow.Item)
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	if fast != nil {
+		slow = slow.Next
+	}
+
+	for slow != nil {
+		n := len(stack)-1
+		value := stack[n]
+		stack = stack[:n] // pop element
+
+		if value != slow.Item {
+			return false
+		}
+
+		slow = slow.Next
 	}
 
 	return true
