@@ -65,7 +65,7 @@ Explain what the following code does: `(( n & ( n-1)) == 0)`.
 if n = 2^x or 0 then result is 0, 1 otherwise
 n and n-1 have no common bits set to 1
 ```
-
+</details>
 <hr/>
 
 ## 6. Conversion
