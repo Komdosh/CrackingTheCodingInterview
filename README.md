@@ -4,7 +4,7 @@
 
 1. [Arrays and Strings `Kotlin`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/1-arrays-strings) ![100%](https://progress-bar.dev/100)
 
-2. [Linked Lists `Go`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/2-linked-lists) ![62%](https://progress-bar.dev/62)
+2. [Linked Lists `Go`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/2-linked-lists) ![75%](https://progress-bar.dev/75)
 
 3. [Stacks and Queues `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/3-stacks-queues) ![0%](https://progress-bar.dev/0)
 
