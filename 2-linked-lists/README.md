@@ -625,6 +625,202 @@ func AlternativeSumList(l1 *list.Node, l2 *list.Node, carry int32) (*list.Node, 
 
 Implement a function to check if a linked list is a palindrome.
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func NaiveIsPalindrome(list *list.LinkedList) bool {
+
+    var array []int32
+
+    node := list.Start
+
+    for node != nil {
+        array = append(array, node.Item)
+        node = node.Next
+    }
+
+    node = list.Start
+    lenArray := len(array)
+    i := lenArray - 1
+    for node != nil && i >= lenArray/2 {
+
+        if node.Item != array[i] {
+            return false
+        }
+
+        i -= 1
+        node = node.Next
+    }
+
+    return true
+}
+   ```
+
+</details>
+
+<details>
+<summary>Naive Solution with Size</summary>
+
+#### Assumption
+
+- size is available
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func NaiveIsPalindromeSize(list *list.LinkedList) bool {
+    size := list.Size
+    var array = make([]int32, size/2)
+
+    node := list.Start
+
+    i := int64(1)
+    arrayId := 0
+    odd := size%2 != 0
+    half := size / 2
+    if odd {
+        half += 1
+    }
+    for node != nil {
+        if i > half { //skip first half
+            array[arrayId] = node.Item
+            arrayId += 1
+        }
+        i += 1
+        node = node.Next
+    }
+
+    node = list.Start
+    lenArray := len(array)
+    arrayId = lenArray - 1
+    for node != nil && arrayId >= 0 {
+
+        if node.Item != array[arrayId] {
+            return false
+        }
+
+        arrayId -= 1
+        node = node.Next
+    }
+
+    return true
+}
+   ```
+
+</details>
+
+<details>
+<summary>Alternative Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func AlternativeNaiveIsPalindromeReversed(head *list.Node) bool {
+    reversed, _ := list.Reverse(head)
+    return list.IsEqual(head, reversed)
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution Iterative</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func OptimizedIsPalindromeStack(head *list.Node) bool {
+    fast := head
+    slow := head
+
+    var stack []int32
+
+    for fast != nil && fast.Next != nil {
+        stack = append(stack, slow.Item)
+        slow = slow.Next
+        fast = fast.Next.Next
+    }
+
+    if fast != nil {
+        slow = slow.Next
+    }
+
+    for slow != nil {
+        n := len(stack) - 1
+        value := stack[n]
+        stack = stack[:n] // pop element
+
+        if value != slow.Item {
+            return false
+        }
+
+        slow = slow.Next
+    }
+
+    return true
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution Recursion</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func OptimizedIsPalindromeRecursion(head *list.Node, size int64) (*list.Node, bool) {
+    if head == nil || size <= 0 {
+        return head, true
+    } else if size == 1 {
+        return head.Next, true
+    }
+
+    node, isPalindrome := OptimizedIsPalindromeRecursion(head.Next, size-2)
+
+    if !isPalindrome || node == nil {
+        return node, isPalindrome
+    }
+
+    return node.Next, head.Item == node.Item
+}
+   ```
+
+</details>
+
 <hr/>
 
 ## 7. Intersection
