@@ -42,8 +42,8 @@ func main() {
 
 	l2.Print()
 
-	node := NaiveIntersected(&l1, &l2)
-	for node != nil{
+	node := NaiveFindIntersection(&l1, &l2)
+	for node != nil {
 		fmt.Printf("%d", node.Item)
 		if node.Next != nil {
 			fmt.Printf(" -> ")
@@ -52,7 +52,9 @@ func main() {
 	}
 }
 
-func NaiveIntersected(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
+// NaiveFindIntersection if the ends are different, then the lists do not intersect. Run through min sized list,
+// for every node in min list, run over nodes in max sized list. If pointers are equal, then it is start of intersection.
+func NaiveFindIntersection(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
 	if l1 == nil || l2 == nil || l1.End != l2.End {
 		return nil
 	}
@@ -60,7 +62,7 @@ func NaiveIntersected(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
 	var nodeMax *list.Node
 	var nodeMin *list.Node
 
-	if l1.Size > l2.Size{
+	if l1.Size > l2.Size {
 		nodeMax = l1.Start
 		nodeMin = l2.Start
 	} else {
@@ -72,7 +74,7 @@ func NaiveIntersected(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
 
 		nodeMaxRunner := nodeMax
 
-		for nodeMaxRunner != nil{
+		for nodeMaxRunner != nil {
 
 			if nodeMin == nodeMaxRunner {
 				return nodeMin
@@ -88,5 +90,35 @@ func NaiveIntersected(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
 	return nil
 }
 
+// OptimizedFindIntersection if the ends are different, then the lists do not intersect. If ends are equal,
+// then intersected list with same size for both lists. We need to cut the longest list to shortest size. After that, we just go through
+// both lists and looking for identical pointers.
+func OptimizedFindIntersection(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
+	if l1 == nil || l2 == nil || l1.End != l2.End {
+		return nil
+	}
 
+	var shortest *list.Node
+	var longestList *list.LinkedList
 
+	if l1.Size > l2.Size {
+		longestList = l1
+		shortest = l2.Start
+	} else {
+		longestList = l2
+		shortest = l1.Start
+	}
+
+	dif := l1.Size - l2.Size
+	if dif < 0 {
+		dif *= -1
+	}
+	longest, _ := longestList.Get(dif)
+
+	for shortest != longest {
+		shortest = shortest.Next
+		longest = longest.Next
+	}
+
+	return longest
+}
