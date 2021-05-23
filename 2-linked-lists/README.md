@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![75%](https://progress-bar.dev/75)
+![87%](https://progress-bar.dev/87)
 
 ## 1. Remove Dups
 
@@ -828,6 +828,102 @@ func OptimizedIsPalindromeRecursion(head *list.Node, size int64) (*list.Node, bo
 Given two (singly) linked lists, determine if the two lists intersect. Return the intersecting node. Note that the intersection is defined
 based on reference, not value. That is, if the `kth` node of the first linked list is the exact same node (by reference) as the `jth` node of
 the second linked list, then they are intersecting.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N^2)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func NaiveFindIntersection(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
+    if l1 == nil || l2 == nil || l1.End != l2.End {
+        return nil
+    }
+
+    var nodeMax *list.Node
+    var nodeMin *list.Node
+
+    if l1.Size > l2.Size {
+        nodeMax = l1.Start
+        nodeMin = l2.Start
+    } else {
+        nodeMax = l2.Start
+        nodeMin = l1.Start
+    }
+
+    for nodeMax != nil && nodeMin != nil {
+
+        nodeMaxRunner := nodeMax
+
+        for nodeMaxRunner != nil {
+
+            if nodeMin == nodeMaxRunner {
+                return nodeMin
+            }
+
+            nodeMaxRunner = nodeMaxRunner.Next
+        }
+
+        nodeMin = nodeMin.Next
+        nodeMax = nodeMax.Next
+    }
+
+    return nil
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func OptimizedFindIntersection(l1 *list.LinkedList, l2 *list.LinkedList) *list.Node {
+    if l1 == nil || l2 == nil || l1.End != l2.End {
+        return nil
+    }
+
+    var shortest *list.Node
+    var longestList *list.LinkedList
+
+    if l1.Size > l2.Size {
+        longestList = l1
+        shortest = l2.Start
+    } else {
+        longestList = l2
+        shortest = l1.Start
+    }
+
+    dif := l1.Size - l2.Size
+    if dif < 0 {
+        dif *= -1
+    }
+    longest, _ := longestList.Get(dif)
+
+    for shortest != longest {
+        shortest = shortest.Next
+        longest = longest.Next
+    }
+
+    return longest
+}
+   ```
+
+</details>
 
 <hr/>
 
