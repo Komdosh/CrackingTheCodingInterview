@@ -945,4 +945,81 @@ Output:
     C
 ```
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```go
+func NaiveLoopDetection(l1 *list.LinkedList) *list.Node {
+    if l1 == nil {
+        return nil
+    }
+    set := map[*list.Node]bool{}
+
+    node := l1.Start
+
+    for node != nil {
+        if _, exists := set[node]; !exists {
+            set[node] = true
+        } else {
+            return node
+        }
+
+        node = node.Next
+    }
+
+    return nil
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+   ```go
+func OptimizedLoopDetection(l1 *list.LinkedList) *list.Node {
+    slow := l1.Start
+    fast := l1.Start
+
+    for fast != nil && fast.Next != nil {
+        slow = slow.Next
+        fast = fast.Next.Next
+        if slow == fast {
+            break
+        }
+    }
+
+    if fast == nil || fast.Next == nil {
+        return nil
+    }
+
+    slow = l1.Start
+    for slow != fast {
+        slow = slow.Next
+        fast = fast.Next
+    }
+
+    return slow
+}
+
+   ```
+
+</details>
+
 <hr/>

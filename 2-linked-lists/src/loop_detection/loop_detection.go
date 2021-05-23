@@ -97,4 +97,3 @@ func OptimizedLoopDetection(l1 *list.LinkedList) *list.Node {
 
 	return slow
 }
-
