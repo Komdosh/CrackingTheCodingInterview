@@ -34,12 +34,16 @@ func main() {
 
 	if node != nil {
 		fmt.Printf("Loop detected on node with value: %d\n", node.Item)
+	} else {
+		fmt.Printf("No loops")
 	}
 
 	node = OptimizedLoopDetection(&l1)
 
 	if node != nil {
 		fmt.Printf("Loop detected on node with value: %d\n", node.Item)
+	} else {
+		fmt.Printf("No loops")
 	}
 }
 
