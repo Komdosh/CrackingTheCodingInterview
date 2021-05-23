@@ -33,7 +33,13 @@ func main() {
 	node := NaiveLoopDetection(&l1)
 
 	if node != nil {
-		fmt.Printf("Loop detected on node with value: %d", node.Item)
+		fmt.Printf("Loop detected on node with value: %d\n", node.Item)
+	}
+
+	node = OptimizedLoopDetection(&l1)
+
+	if node != nil {
+		fmt.Printf("Loop detected on node with value: %d\n", node.Item)
 	}
 }
 
@@ -59,3 +65,32 @@ func NaiveLoopDetection(l1 *list.LinkedList) *list.Node {
 
 	return nil
 }
+
+// OptimizedLoopDetection faster pointer has speed 2x. If loop exist, fast and slow pointers will met at point `k % LOOP_SIZE`, where k is
+// size of list that not in loop. So after slow and fast pointer met, we need to move slow pointer to start. After that fast and slow pointers
+// need to go further node by node, then they met in start loop (CollisionSpot) point.
+func OptimizedLoopDetection(l1 *list.LinkedList) *list.Node {
+	slow := l1.Start
+	fast := l1.Start
+
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if slow == fast {
+			break
+		}
+	}
+
+	if fast == nil || fast.Next == nil {
+		return nil
+	}
+
+	slow = l1.Start
+	for slow != fast {
+		slow = slow.Next
+		fast = fast.Next
+	}
+
+	return slow
+}
+
