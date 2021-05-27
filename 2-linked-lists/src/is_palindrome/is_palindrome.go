@@ -1,13 +1,13 @@
-package main
+package palindrome
 
 import (
-	"../../src/list"
+	"../list"
 	"fmt"
 )
 
 // Palindrome: Implement a function to check if a linked list is a palindrome.
 
-func main() {
+func IsPalindrome() {
 	list := list.CreateLinkedList()
 
 	list.Add(1)

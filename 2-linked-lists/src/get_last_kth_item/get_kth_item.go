@@ -1,13 +1,13 @@
-package main
+package kth_item
 
 import (
-	"../../src/list"
+	"../list"
 	"fmt"
 )
 
 // Return K'th to Last: Implement an algorithm to find the kth to last element of a singly linked list.
 
-func main() {
+func GetLastKthItem() {
 	l := list.CreateLinkedList()
 
 	l.Add(0)

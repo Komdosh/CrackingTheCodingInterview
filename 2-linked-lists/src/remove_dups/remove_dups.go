@@ -1,13 +1,13 @@
-package main
+package remove_dups
 
 import (
-	"../../src/list"
+	"../list"
 	"fmt"
 )
 
 // Remove Dups: Write code to remove duplicates from an unsorted linked list. How would you solve this problem if a temporary buffer is not allowed?
 
-func main() {
+func RemoveDups() {
 	l := list.CreateLinkedList()
 
 	l.Add(0)
@@ -22,7 +22,7 @@ func main() {
 
 	fmt.Printf("Size %d\n", l.Size)
 
-	OptimizeRemoveDups(&l)
+	NaiveRemoveDups(&l)
 
 	l.Print()
 
@@ -42,7 +42,7 @@ func main() {
 
 	fmt.Printf("Size %d\n", l2.Size)
 
-	OptimizeRemoveDups(&l2)
+	OptimizedRemoveDups(&l2)
 
 	l.Print()
 
@@ -67,20 +67,19 @@ func NaiveRemoveDups(l *list.LinkedList) {
 	}
 }
 
-// OptimizeRemoveDups put visited element into hashmap. If it is already exists in map, then delete current node.
-func OptimizeRemoveDups(l *list.LinkedList) {
+// OptimizedRemoveDups put visited element into hashmap. If it is already exists in map, then delete current node.
+func OptimizedRemoveDups(l *list.LinkedList) {
 	existed := map[int32]bool{}
 
+	var previous *list.Node = nil
 	node := l.Start
 
 	for node != nil {
 		if _, s := existed[node.Item]; s {
-			if node.Next != nil {
-				node.Next = node.Next.Next
-				l.Size--
-			}
+			previous.Next = node.Next
 		} else {
 			existed[node.Item] = true
+			previous = node
 		}
 
 		node = node.Next

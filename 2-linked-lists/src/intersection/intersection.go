@@ -1,7 +1,7 @@
-package main
+package intersection
 
 import (
-	"../../src/list"
+	"../list"
 	"fmt"
 )
 
@@ -17,7 +17,7 @@ import (
 //               /
 //        4 -> 5
 
-func main() {
+func FindIntersection() {
 	l1 := list.CreateLinkedList()
 
 	l1.Add(1)
@@ -43,6 +43,15 @@ func main() {
 	l2.Print()
 
 	node := NaiveFindIntersection(&l1, &l2)
+	for node != nil {
+		fmt.Printf("%d", node.Item)
+		if node.Next != nil {
+			fmt.Printf(" -> ")
+		}
+		node = node.Next
+	}
+
+	node = OptimizedFindIntersection(&l1, &l2)
 	for node != nil {
 		fmt.Printf("%d", node.Item)
 		if node.Next != nil {

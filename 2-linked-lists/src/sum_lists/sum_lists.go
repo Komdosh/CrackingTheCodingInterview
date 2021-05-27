@@ -1,7 +1,7 @@
-package main
+package sum_lists
 
 import (
-	"../../src/list"
+	"../list"
 	"fmt"
 )
 
@@ -25,7 +25,7 @@ import (
 //   Output:
 //       9 -> 1 -> 2. That is, 912.
 
-func main() {
+func SumLists() {
 	l1 := list.CreateLinkedList()
 
 	l1.Add(7)

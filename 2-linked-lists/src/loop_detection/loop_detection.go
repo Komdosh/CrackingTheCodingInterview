@@ -1,7 +1,7 @@
-package main
+package loop
 
 import (
-	"../../src/list"
+	"../list"
 	"fmt"
 )
 
@@ -16,7 +16,7 @@ import (
 // Output:
 //    C
 
-func main() {
+func LoopDetection() {
 	l1 := list.CreateLinkedList()
 
 	l1.Add(1)

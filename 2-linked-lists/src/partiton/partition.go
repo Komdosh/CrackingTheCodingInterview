@@ -1,7 +1,7 @@
-package main
+package partiton
 
 import (
-	"../../src/list"
+	"../list"
 )
 
 // Partition: Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes
@@ -14,7 +14,7 @@ import (
 // Output:
 //    3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 
-func main() {
+func Partition() {
 	l := list.CreateLinkedList()
 
 	l.Add(3)
