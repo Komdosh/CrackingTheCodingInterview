@@ -1,4 +1,4 @@
-package three.in.one;
+package three.in.one.naive;
 
 public interface ThreeInOneStack<T> {
 

@@ -1,4 +1,4 @@
-package three.in.one;
+package three.in.one.naive;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ class ThreeInOneTest {
 
     @Test
     void naivePushRandom() {
-        NaiveThreeInOne<Integer> tio = new NaiveThreeInOne<>(Integer.class, 10);
+        ThreeInOneStack<Integer> tio = new NaiveThreeInOne<>(Integer.class, 10);
 
         tio.pushFirst(0);
         tio.pushSecond(1);
@@ -26,7 +26,7 @@ class ThreeInOneTest {
     }
     @Test
     void naivePushFirstThenNext() {
-        NaiveThreeInOne<Integer> tio = new NaiveThreeInOne<>(Integer.class, 10);
+        ThreeInOneStack<Integer> tio = new NaiveThreeInOne<>(Integer.class, 10);
 
         tio.pushFirst(0);
         tio.pushFirst(1);
