@@ -1,16 +1,15 @@
-package three.in.one.fixed;
+package three.in.one.dynamic;
 
 import org.junit.jupiter.api.Test;
-import three.in.one.naive.NaiveThreeInOne;
-import three.in.one.naive.ThreeInOneStack;
+import three.in.one.fixed.FixedMultiStack;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class FixedMultiStackTest {
+class MultiStackTest {
 
     @Test
-    void fixedPushRandom() {
-        FixedMultiStack tio = new FixedMultiStack(10);
+    void pushRandom() {
+        MultiStack tio = new MultiStack(10, 4);
 
         tio.push(0, 0);
         tio.push(1, 1);
@@ -28,8 +27,8 @@ class FixedMultiStackTest {
     }
 
     @Test
-    void fixedPushFirstThen() {
-        FixedMultiStack tio = new FixedMultiStack(10);
+    void pushFirstThen() {
+        MultiStack tio = new MultiStack(10, 4);
 
         tio.push(0, 0);
         tio.push(0, 1);
