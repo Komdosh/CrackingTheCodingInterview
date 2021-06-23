@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![16%](https://progress-bar.dev/16)
+![13%](https://progress-bar.dev/33)
 
 ## 1. Three in One
 
