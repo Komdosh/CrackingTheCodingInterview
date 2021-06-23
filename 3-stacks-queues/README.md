@@ -385,6 +385,99 @@ public class MultiStack {
 How would you design a stack which, in addition to push and pop, has a function min which returns the minimum element? Push, pop and min
 should all operate in 0(1) time.
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(1)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class StackMin extends Stack<StackMin.NodeWithMin> {
+
+  public void push(int value) {
+
+    super.push(new NodeWithMin(value, Math.min(value, min())));
+
+  }
+
+  public int popValue() {
+    return super.pop().value;
+  }
+
+  public int min() {
+    if (isEmpty()) {
+      return Integer.MAX_VALUE;
+    } else {
+      return peek().min;
+    }
+  }
+
+  public static class NodeWithMin {
+    public int value;
+    public int min;
+
+    public NodeWithMin(int value, int min) {
+      this.value = value;
+      this.min = min;
+    }
+  }
+
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+This method is better because it stores smaller number of min elements.
+
+#### Complexity
+
+- Time Complexity: `O(1)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class StackMin extends Stack<Integer> {
+
+  private final Stack<Integer> min = new Stack<>();
+
+  public void push(int value) {
+    super.push(value);
+    if (value <= min()) {
+      min.push(value);
+    }
+  }
+
+  @Override
+  public synchronized Integer pop() {
+    int value = super.pop();
+    if(value == min()){
+      min.pop();
+    }
+    return value;
+  }
+
+  public int min() {
+    if (min.isEmpty()) {
+      return Integer.MAX_VALUE;
+    } else {
+      return min.peek();
+    }
+  }
+}
+   ```
+
+</details>
+
 <hr/>
 
 ## 3. Stack of Plates
