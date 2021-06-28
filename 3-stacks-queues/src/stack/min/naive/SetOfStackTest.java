@@ -1,10 +1,10 @@
-package stack.min.optimized;
+package stack.min.naive;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class StackMinTest {
+class SetOfStackTest {
 
     @Test
     void pushRandom() {
@@ -20,12 +20,12 @@ class StackMinTest {
         stackMin.push( 1);
         stackMin.push( 0);
 
-        assertEquals(0, stackMin.pop());
+        assertEquals(0, stackMin.popValue());
         assertEquals(1, stackMin.min());
-        assertEquals(1, stackMin.pop());
+        assertEquals(1, stackMin.popValue());
         assertEquals(1, stackMin.min());
-        assertEquals(7, stackMin.pop());
-        assertEquals(6, stackMin.pop());
+        assertEquals(7, stackMin.popValue());
+        assertEquals(6, stackMin.popValue());
     }
 
     @Test
@@ -40,11 +40,11 @@ class StackMinTest {
         stackMin.push( 1);
         stackMin.push( 0);
 
-        assertEquals(0, stackMin.pop());
+        assertEquals(0, stackMin.popValue());
         assertEquals(1, stackMin.min());
-        assertEquals(1, stackMin.pop());
+        assertEquals(1, stackMin.popValue());
         assertEquals(3, stackMin.min());
-        assertEquals(7, stackMin.pop());
-        assertEquals(6, stackMin.pop());
+        assertEquals(7, stackMin.popValue());
+        assertEquals(6, stackMin.popValue());
     }
 }
