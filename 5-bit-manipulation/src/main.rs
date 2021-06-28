@@ -1,3 +1,5 @@
+mod debugger;
+
 fn main() {
-    println!("Hello")
+    debugger::debugger();
 }
