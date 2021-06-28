@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![50%](https://progress-bar.dev/50)
+![66%](https://progress-bar.dev/66)
 
 ## 1. Three in One
 
@@ -17,7 +17,7 @@ Describe how you could use a single array to implement three stacks.
 
 #### Complexity
 
-- Time Complexity: 
+- Time Complexity:
     - Insert: `O(1)`
     - Delete: `O(1)`
     - Peek: `O(1)`
@@ -274,9 +274,9 @@ public class MultiStack {
         values[stack.lastElementIndex()] = value;
     }
 
-    public int pop(int stackNum){
+    public int pop(int stackNum) {
         StackInfo stack = info[stackNum];
-        if(stack.isEmpty()){
+        if (stack.isEmpty()) {
             throw new EmptyStackException();
         }
 
@@ -286,7 +286,7 @@ public class MultiStack {
         return value;
     }
 
-    public int peek(int stackNum){
+    public int peek(int stackNum) {
         StackInfo stack = info[stackNum];
         return values[stack.lastElementIndex()];
     }
@@ -382,8 +382,8 @@ public class MultiStack {
 
 ## 2. Stack Min
 
-How would you design a stack which, in addition to push and pop, has a function min which returns the minimum element? Push, pop and min
-should all operate in 0(1) time.
+How would you design a stack which, in addition to push and pop, has a function min which returns the minimum element?
+Push, pop and min should all operate in 0(1) time.
 
 <details>
 <summary>Naive Solution</summary>
@@ -399,33 +399,33 @@ should all operate in 0(1) time.
    ```java
 public class StackMin extends Stack<StackMin.NodeWithMin> {
 
-  public void push(int value) {
+    public void push(int value) {
 
-    super.push(new NodeWithMin(value, Math.min(value, min())));
+        super.push(new NodeWithMin(value, Math.min(value, min())));
 
-  }
-
-  public int popValue() {
-    return super.pop().value;
-  }
-
-  public int min() {
-    if (isEmpty()) {
-      return Integer.MAX_VALUE;
-    } else {
-      return peek().min;
     }
-  }
 
-  public static class NodeWithMin {
-    public int value;
-    public int min;
-
-    public NodeWithMin(int value, int min) {
-      this.value = value;
-      this.min = min;
+    public int popValue() {
+        return super.pop().value;
     }
-  }
+
+    public int min() {
+        if (isEmpty()) {
+            return Integer.MAX_VALUE;
+        } else {
+            return peek().min;
+        }
+    }
+
+    public static class NodeWithMin {
+        public int value;
+        public int min;
+
+        public NodeWithMin(int value, int min) {
+            this.value = value;
+            this.min = min;
+        }
+    }
 
 }
    ```
@@ -448,31 +448,31 @@ This method is better because it stores smaller number of min elements.
    ```java
 public class StackMin extends Stack<Integer> {
 
-  private final Stack<Integer> min = new Stack<>();
+    private final Stack<Integer> min = new Stack<>();
 
-  public void push(int value) {
-    super.push(value);
-    if (value <= min()) {
-      min.push(value);
+    public void push(int value) {
+        super.push(value);
+        if (value <= min()) {
+            min.push(value);
+        }
     }
-  }
 
-  @Override
-  public synchronized Integer pop() {
-    int value = super.pop();
-    if(value == min()){
-      min.pop();
+    @Override
+    public synchronized Integer pop() {
+        int value = super.pop();
+        if (value == min()) {
+            min.pop();
+        }
+        return value;
     }
-    return value;
-  }
 
-  public int min() {
-    if (min.isEmpty()) {
-      return Integer.MAX_VALUE;
-    } else {
-      return min.peek();
+    public int min() {
+        if (min.isEmpty()) {
+            return Integer.MAX_VALUE;
+        } else {
+            return min.peek();
+        }
     }
-  }
 }
    ```
 
@@ -482,10 +482,12 @@ public class StackMin extends Stack<Integer> {
 
 ## 3. Stack of Plates
 
-Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack
-when the previous stack exceeds some threshold. Implement a data structure `SetOfStacks` that mimics this. `SetOfStacks` should be composed
-of several stacks and should create a new stack once the previous one exceeds capacity. `SetOfStacks.push()` and `SetOfStacks.pop()`
-should behave identically to a single stack (that is, `pop()` should return the same values as it would if there were just a single stack).
+Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would
+likely start a new stack when the previous stack exceeds some threshold. Implement a data structure `SetOfStacks` that
+mimics this. `SetOfStacks` should be composed of several stacks and should create a new stack once the previous one
+exceeds capacity. `SetOfStacks.push()` and `SetOfStacks.pop()`
+should behave identically to a single stack (that is, `pop()` should return the same values as it would if there were
+just a single stack).
 
 Additional: Implement a function `popAt(int index)` which performs a pop operation on a specific sub-stack.
 
@@ -507,32 +509,32 @@ No need to implement `popAt` method
    ```java
 public class SetOfStack {
 
-  private final int capacity;
-  private final Stack<Stack<Integer>> stacks = new Stack<>();
+    private final int capacity;
+    private final Stack<Stack<Integer>> stacks = new Stack<>();
 
-  public SetOfStack(int capacity) {
-    this.capacity = capacity;
-  }
+    public SetOfStack(int capacity) {
+        this.capacity = capacity;
+    }
 
-  public void push(int value) {
-    if (stacks.empty() || stacks.peek().size() < capacity) {
-      stacks.push(new Stack<>());
+    public void push(int value) {
+        if (stacks.empty() || stacks.peek().size() < capacity) {
+            stacks.push(new Stack<>());
+        }
+        stacks.peek().push(value);
     }
-    stacks.peek().push(value);
-  }
 
-  public int pop() {
-    if (stacks.empty()) {
-      throw new EmptyStackException();
+    public int pop() {
+        if (stacks.empty()) {
+            throw new EmptyStackException();
+        }
+        if (stacks.peek().empty()) {
+            stacks.pop();
+        }
+        if (stacks.empty()) {
+            throw new EmptyStackException();
+        }
+        return stacks.peek().pop();
     }
-    if (stacks.peek().empty()) {
-      stacks.pop();
-    }
-    if (stacks.empty()) {
-      throw new EmptyStackException();
-    }
-    return stacks.peek().pop();
-  }
 }
 
    ```
@@ -553,65 +555,65 @@ public class SetOfStack {
    ```java
 public class SetOfStack {
 
-  private final ArrayList<Stack> stacks = new ArrayList<>();
-  private final int capacity;
+    private final ArrayList<Stack> stacks = new ArrayList<>();
+    private final int capacity;
 
-  public SetOfStack(int capacity) {
-    this.capacity = capacity;
-  }
-
-  public Stack getLastStack() {
-    if (stacks.size() == 0) {
-      return null;
+    public SetOfStack(int capacity) {
+        this.capacity = capacity;
     }
-    return stacks.get(stacks.size() - 1);
-  }
 
-  public void push(int v) {
-    Stack last = getLastStack();
-    if (last != null && !last.isFull()) {
-      last.push(v);
-    } else {
-      Stack stack = new Stack(capacity);
-      stack.push(v);
-      stacks.add(stack);
+    public Stack getLastStack() {
+        if (stacks.size() == 0) {
+            return null;
+        }
+        return stacks.get(stacks.size() - 1);
     }
-  }
 
-  public int pop() {
-    Stack last = getLastStack();
-    if (last == null) {
-      throw new EmptyStackException();
+    public void push(int v) {
+        Stack last = getLastStack();
+        if (last != null && !last.isFull()) {
+            last.push(v);
+        } else {
+            Stack stack = new Stack(capacity);
+            stack.push(v);
+            stacks.add(stack);
+        }
     }
-    int v = last.pop();
-    if (last.size == 0) {
-      stacks.remove(stacks.size() - 1);
+
+    public int pop() {
+        Stack last = getLastStack();
+        if (last == null) {
+            throw new EmptyStackException();
+        }
+        int v = last.pop();
+        if (last.size == 0) {
+            stacks.remove(stacks.size() - 1);
+        }
+        return v;
     }
-    return v;
-  }
 
-  public int popAt(int index) {
-    return leftShift(index, true);
-  }
-
-  public int leftShift(int index, boolean removeTop) {
-    Stack stack = stacks.get(index);
-    int removedItem;
-    if (removeTop) removedItem = stack.pop();
-    else removedItem = stack.removeBottom();
-    if (stack.isEmpty()) {
-      stacks.remove(index);
-    } else if (stacks.size() > index + 1) {
-      int v = leftShift(index + 1, false);
-      stack.push(v);
+    public int popAt(int index) {
+        return leftShift(index, true);
     }
-    return removedItem;
-  }
 
-  public boolean isEmpty() {
-    Stack last = getLastStack();
-    return last == null || last.isEmpty();
-  }
+    public int leftShift(int index, boolean removeTop) {
+        Stack stack = stacks.get(index);
+        int removedItem;
+        if (removeTop) removedItem = stack.pop();
+        else removedItem = stack.removeBottom();
+        if (stack.isEmpty()) {
+            stacks.remove(index);
+        } else if (stacks.size() > index + 1) {
+            int v = leftShift(index + 1, false);
+            stack.push(v);
+        }
+        return removedItem;
+    }
+
+    public boolean isEmpty() {
+        Stack last = getLastStack();
+        return last == null || last.isEmpty();
+    }
 }
    ```
 
@@ -623,21 +625,74 @@ public class SetOfStack {
 
 Implement a MyQueue class which implements a queue using two stacks.
 
+<details>
+<summary>The Only Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(1)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class MyQueue {
+
+    private final Stack<Integer> oldest = new Stack<>();
+    private final Stack<Integer> newest = new Stack<>();
+
+    public void push(int value) {
+        newest.push(value);
+    }
+
+    public int size() {
+        return newest.size() + oldest.size();
+    }
+
+    public void add(int value) {
+        newest.push(value);
+    }
+
+    private void shiftStacks() {
+        if (oldest.empty()) {
+            while (!newest.empty()) {
+                oldest.push(newest.pop());
+            }
+        }
+    }
+
+    public int pop() {
+        shiftStacks();
+        return oldest.pop();
+    }
+
+    public int peek() {
+        shiftStacks();
+        return oldest.peek();
+    }
+}
+   ```
+
+</details>
+
 <hr/>
 
 ## 5. Sort Stack
 
-Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy
-the elements into any other data structure (such as an array). The stack supports the following operations: push, pop, peek, and is Empty.
+Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack,
+but you may not copy the elements into any other data structure (such as an array). The stack supports the following
+operations: push, pop, peek, and is Empty.
 
 <hr/>
 
 ## 6. Animal Shelter
 
-An animal shelter, which holds only dogs and cats, operates on a strictly "first in, first out" basis. People must adopt either the 
-"oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a cat (and will receive
-the oldest animal of that type). They cannot select which specific animal they would like. Create the data structures to maintain this
-system and implement operations such as enqueue, dequeueAny, dequeueDog, and dequeueCat. You may use the built-in `LinkedList` data
-structure.
+An animal shelter, which holds only dogs and cats, operates on a strictly "first in, first out" basis. People must adopt
+either the
+"oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a
+cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create
+the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and
+dequeueCat. You may use the built-in `LinkedList` data structure.
 
 <hr/>
