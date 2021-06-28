@@ -24,7 +24,7 @@
 
 10. [Sorting and Searching `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/10-sorting-searching) ![0%](https://progress-bar.dev/0)
 
-11. [Testing `Kotlin`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/11-testing) ![0%](https://progress-bar.dev/0)
+11. [Testing `Kotlin`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/11-testing) ![16%](https://progress-bar.dev/16)
 
 ## Knowledge Based
 
