@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![13%](https://progress-bar.dev/33)
+![50%](https://progress-bar.dev/50)
 
 ## 1. Three in One
 
@@ -484,9 +484,138 @@ public class StackMin extends Stack<Integer> {
 
 Imagine a (literal) stack of plates. If the stack gets too high, it might topple. Therefore, in real life, we would likely start a new stack
 when the previous stack exceeds some threshold. Implement a data structure `SetOfStacks` that mimics this. `SetOfStacks` should be composed
-of several stacks and should create a new stack once the previous one exceeds capacity. `SetOfStacks`. `push()` and `SetOfStacks`. `pop()`
+of several stacks and should create a new stack once the previous one exceeds capacity. `SetOfStacks.push()` and `SetOfStacks.pop()`
 should behave identically to a single stack (that is, `pop()` should return the same values as it would if there were just a single stack).
-Implement a function `popAt(int index)` which performs a pop operation on a specific sub-stack.
+
+Additional: Implement a function `popAt(int index)` which performs a pop operation on a specific sub-stack.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Assumptions
+
+No need to implement `popAt` method
+
+#### Complexity
+
+- Time Complexity: `O(1)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class SetOfStack {
+
+  private final int capacity;
+  private final Stack<Stack<Integer>> stacks = new Stack<>();
+
+  public SetOfStack(int capacity) {
+    this.capacity = capacity;
+  }
+
+  public void push(int value) {
+    if (stacks.empty() || stacks.peek().size() < capacity) {
+      stacks.push(new Stack<>());
+    }
+    stacks.peek().push(value);
+  }
+
+  public int pop() {
+    if (stacks.empty()) {
+      throw new EmptyStackException();
+    }
+    if (stacks.peek().empty()) {
+      stacks.pop();
+    }
+    if (stacks.empty()) {
+      throw new EmptyStackException();
+    }
+    return stacks.peek().pop();
+  }
+}
+
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(1)`; `popAt`: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class SetOfStack {
+
+  private final ArrayList<Stack> stacks = new ArrayList<>();
+  private final int capacity;
+
+  public SetOfStack(int capacity) {
+    this.capacity = capacity;
+  }
+
+  public Stack getLastStack() {
+    if (stacks.size() == 0) {
+      return null;
+    }
+    return stacks.get(stacks.size() - 1);
+  }
+
+  public void push(int v) {
+    Stack last = getLastStack();
+    if (last != null && !last.isFull()) {
+      last.push(v);
+    } else {
+      Stack stack = new Stack(capacity);
+      stack.push(v);
+      stacks.add(stack);
+    }
+  }
+
+  public int pop() {
+    Stack last = getLastStack();
+    if (last == null) {
+      throw new EmptyStackException();
+    }
+    int v = last.pop();
+    if (last.size == 0) {
+      stacks.remove(stacks.size() - 1);
+    }
+    return v;
+  }
+
+  public int popAt(int index) {
+    return leftShift(index, true);
+  }
+
+  public int leftShift(int index, boolean removeTop) {
+    Stack stack = stacks.get(index);
+    int removedItem;
+    if (removeTop) removedItem = stack.pop();
+    else removedItem = stack.removeBottom();
+    if (stack.isEmpty()) {
+      stacks.remove(index);
+    } else if (stacks.size() > index + 1) {
+      int v = leftShift(index + 1, false);
+      stack.push(v);
+    }
+    return removedItem;
+  }
+
+  public boolean isEmpty() {
+    Stack last = getLastStack();
+    return last == null || last.isEmpty();
+  }
+}
+   ```
+
+</details>
 
 <hr/>
 
@@ -499,8 +628,7 @@ Implement a MyQueue class which implements a queue using two stacks.
 ## 5. Sort Stack
 
 Write a program to sort a stack such that the smallest items are on the top. You can use an additional temporary stack, but you may not copy
-the elements into any other data structure
-(such as an array). The stack supports the following operations: push, pop, peek, and is Empty.
+the elements into any other data structure (such as an array). The stack supports the following operations: push, pop, peek, and is Empty.
 
 <hr/>
 
