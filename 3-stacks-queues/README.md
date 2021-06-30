@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![66%](https://progress-bar.dev/66)
+![83%](https://progress-bar.dev/83)
 
 ## 1. Three in One
 
@@ -684,15 +684,109 @@ Write a program to sort a stack such that the smallest items are on the top. You
 but you may not copy the elements into any other data structure (such as an array). The stack supports the following
 operations: `push`, `pop`, `peek`, and `isEmpty`.
 
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N^2)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class SortingStack {
+
+    private Stack<Integer> stack = new Stack<>();
+
+    public void push(int value) {
+        stack.push(value);
+    }
+
+    public void sort() {
+        final Stack<Integer> tempStack = new Stack<>();
+
+        while (!stack.isEmpty()) {
+            int tmp = stack.pop();
+            while (!tempStack.isEmpty() && tempStack.peek() < tmp) {
+                stack.push(tempStack.pop());
+            }
+            tempStack.push(tmp);
+        }
+        stack = tempStack;
+    }
+
+    public int size() {
+        return stack.size();
+    }
+
+    public int pop() {
+        return stack.pop();
+    }
+
+    public int peek() {
+        return stack.peek();
+    }
+}
+   ```
+
+</details>
+
+<details>
+<summary>Ordered Stack Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class SortingStack {
+
+    private final Stack<Integer> stack = new Stack<>();
+
+    public void push(int value) {
+        if (stack.isEmpty() || stack.peek() > value) {
+            stack.push(value);
+            return;
+        }
+        final Stack<Integer> tempStack = new Stack<>();
+        while (!stack.isEmpty() && stack.peek() < value) {
+            tempStack.push(stack.pop());
+        }
+        stack.push(value);
+        while (!tempStack.isEmpty()) {
+            stack.push(tempStack.pop());
+        }
+    }
+
+    public int size() {
+        return stack.size();
+    }
+
+    public int pop() {
+        return stack.pop();
+    }
+
+    public int peek() {
+        return stack.peek();
+    }
+}
+   ```
+
+</details>
 <hr/>
 
 ## 6. Animal Shelter
 
 An animal shelter, which holds only dogs and cats, operates on a strictly "first in, first out" basis. People must adopt
-either the
-"oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer a dog or a
-cat (and will receive the oldest animal of that type). They cannot select which specific animal they would like. Create
-the data structures to maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog, and
-dequeueCat. You may use the built-in `LinkedList` data structure.
+either the "oldest" (based on arrival time) of all animals at the shelter, or they can select whether they would prefer
+a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would
+like. Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny,
+dequeueDog, and dequeueCat. You may use the built-in `LinkedList` data structure.
 
 <hr/>
