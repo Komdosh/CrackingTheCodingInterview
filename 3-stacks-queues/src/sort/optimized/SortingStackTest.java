@@ -1,4 +1,4 @@
-package sort.naive;
+package sort.optimized;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +16,8 @@ class SortingStackTest {
         sortingStack.push( 4);
         sortingStack.push( 5);
 
+        sortingStack.sort();
+
         assertEquals(1, sortingStack.pop());
         assertEquals(2, sortingStack.pop());
         assertEquals(3, sortingStack.pop());
@@ -23,6 +25,8 @@ class SortingStackTest {
 
         sortingStack.push(1);
         sortingStack.push(2);
+
+        sortingStack.sort();
 
         assertEquals(1, sortingStack.pop());
         assertEquals(2, sortingStack.pop());
@@ -42,6 +46,8 @@ class SortingStackTest {
         sortingStack.push( 7);
         sortingStack.push( 1);
         sortingStack.push( 0);
+
+        sortingStack.sort();
 
         assertEquals(0, sortingStack.pop());
         assertEquals(1, sortingStack.pop());

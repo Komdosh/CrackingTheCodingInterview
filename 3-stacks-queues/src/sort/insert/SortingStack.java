@@ -1,18 +1,17 @@
-package sort.naive;
+package sort.insert;
 
 import java.util.Stack;
 
 public class SortingStack {
 
     private final Stack<Integer> stack = new Stack<>();
-    private final Stack<Integer> tempStack = new Stack<>();
 
     public void push(int value) {
         if(stack.isEmpty() || stack.peek() > value){
             stack.push(value);
             return;
         }
-
+        final Stack<Integer> tempStack = new Stack<>();
         while(!stack.isEmpty() && stack.peek() < value){
             tempStack.push(stack.pop());
         }
