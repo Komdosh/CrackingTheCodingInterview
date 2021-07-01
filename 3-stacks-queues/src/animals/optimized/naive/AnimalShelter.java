@@ -3,6 +3,7 @@ package animals.optimized.naive;
 import java.util.LinkedList;
 
 public class AnimalShelter {
+
     static final class Cat extends Animal {
 
     }

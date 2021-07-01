@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![83%](https://progress-bar.dev/83)
+![100%](https://progress-bar.dev/100)
 
 ## 1. Three in One
 
@@ -788,5 +788,189 @@ either the "oldest" (based on arrival time) of all animals at the shelter, or th
 a dog or a cat (and will receive the oldest animal of that type). They cannot select which specific animal they would
 like. Create the data structures to maintain this system and implement operations such as enqueue, dequeueAny,
 dequeueDog, and dequeueCat. You may use the built-in `LinkedList` data structure.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Assumptions
+
+Age of animal is set by user. If there will be insert order only, insertion time complexity will be `O(1)`.
+
+#### Complexity
+
+- Time Complexity:
+    - Insert: `O(N)`
+    - Delete: `O(N)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class AnimalShelter {
+
+    enum AnimalType {
+        Cat, Dog
+    }
+
+    static class Animal {
+        AnimalType type;
+
+        int age = 0;
+
+        public Animal(AnimalType type, int age) {
+            this.type = type;
+            this.age = age;
+        }
+    }
+
+
+    private final LinkedList<Animal> animals = new LinkedList<>();
+
+    public void enqueue(Animal animal) {
+
+        Optional<Animal> animalToIndex = animals.stream().filter(a -> animal.age > a.age).findFirst();
+
+        if (animalToIndex.isEmpty()) {
+            animals.addLast(animal);
+            return;
+        }
+
+        animals.add(animals.indexOf(animalToIndex.get()), animal);
+    }
+
+    public Animal dequeueAny() {
+        return animals.pollFirst();
+    }
+
+    public Animal dequeueDog() {
+        return dequeueAnimal(AnimalType.Dog);
+    }
+
+    private Animal dequeueAnimal(AnimalType animal) {
+        Optional<Animal> optionalAnimal = animals.stream().filter(i -> i.type == animal).findFirst();
+        if (optionalAnimal.isPresent()) {
+            Animal a = optionalAnimal.get();
+            animals.remove(a);
+            return a;
+        } else {
+            return null;
+        }
+    }
+
+    public Animal dequeueCat() {
+        return dequeueAnimal(AnimalType.Cat);
+    }
+}
+   ```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity:
+    - Insert: `O(1)`
+    - Delete: `O(1)`
+
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+   ```java
+public class AnimalShelter {
+    static sealed class Animal permits AnimalShelter.Cat, AnimalShelter.Dog {
+        private int order;
+
+        public void setOrder(int ord) {
+            order = ord;
+        }
+
+        public int getOrder() {
+            return order;
+        }
+
+        public boolean isOlderThan(animals.optimized.naive.Animal a) {
+            return this.order < a.getOrder();
+        }
+    }
+
+    static final class Cat extends Animal {
+
+    }
+
+    static final class Dog extends Animal {
+    }
+
+
+    LinkedList<Dog> dogs = new LinkedList<>();
+    LinkedList<Cat> cats = new LinkedList<>();
+    private int order = 0;
+
+    public void enqueue(Animal a) {
+        a.setOrder(order);
+        order++;
+        if (a instanceof Dog d) {
+            dogs.addLast(d);
+        } else if (a instanceof Cat c) {
+            cats.addLast(c);
+        }
+    }
+
+    public Animal dequeueAny() {
+        if (dogs.size() == 0) {
+            return dequeueCat();
+        } else if (cats.size() == 0) {
+            return dequeueDog();
+        }
+        Dog dog = dogs.peek();
+        Cat cat = cats.peek();
+        if (dog.isOlderThan(cat)) {
+            return dogs.poll();
+        } else {
+            return cats.poll();
+        }
+    }
+
+    public Animal peek() {
+        if (dogs.size() == 0) {
+            return cats.peek();
+        } else if (cats.size() == 0) {
+            return dogs.peek();
+        }
+        Dog dog = dogs.peek();
+        Cat cat = cats.peek();
+        if (dog.isOlderThan(cat)) {
+            return dog;
+        } else {
+            return cat;
+        }
+    }
+
+    public int size() {
+        return dogs.size() + cats.size();
+    }
+
+    public Dog dequeueDog() {
+        return dogs.poll();
+    }
+
+    public Dog peekDogs() {
+        return dogs.peek();
+    }
+
+    public Cat dequeueCat() {
+        return cats.poll();
+    }
+
+    public Cat peekCats() {
+        return cats.peek();
+    }
+}
+   ```
+
+</details>
 
 <hr/>
