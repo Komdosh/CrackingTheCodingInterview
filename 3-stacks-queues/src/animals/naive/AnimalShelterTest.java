@@ -20,19 +20,19 @@ class AnimalShelterTest {
 
         AnimalShelter.Animal animal = animalShelter.dequeueAny();
         assertEquals(AnimalShelter.AnimalType.Dog, animal.type);
-        assertEquals(23, animal.order);
+        assertEquals(23, animal.age);
 
         animal = animalShelter.dequeueAny();
         assertEquals(AnimalShelter.AnimalType.Dog, animal.type);
-        assertEquals(15, animal.order);
+        assertEquals(15, animal.age);
 
         animal = animalShelter.dequeueCat();
         assertEquals(AnimalShelter.AnimalType.Cat, animal.type);
-        assertEquals(7, animal.order);
+        assertEquals(7, animal.age);
 
         animal = animalShelter.dequeueDog();
         assertEquals(AnimalShelter.AnimalType.Dog, animal.type);
-        assertEquals(10, animal.order);
+        assertEquals(10, animal.age);
     }
 
 }

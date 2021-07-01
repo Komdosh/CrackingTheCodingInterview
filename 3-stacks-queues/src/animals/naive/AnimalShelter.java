@@ -12,11 +12,11 @@ public class AnimalShelter {
     static class Animal {
         AnimalType type;
 
-        int order = 0;
+        int age = 0;
 
-        public Animal(AnimalType type, int order) {
+        public Animal(AnimalType type, int age) {
             this.type = type;
-            this.order = order;
+            this.age = age;
         }
     }
 
@@ -25,7 +25,7 @@ public class AnimalShelter {
 
     public void enqueue(Animal animal) {
 
-        Optional<Animal> animalToIndex = animals.stream().filter(a -> animal.order > a.order).findFirst();
+        Optional<Animal> animalToIndex = animals.stream().filter(a -> animal.age > a.age).findFirst();
 
         if (animalToIndex.isEmpty()) {
             animals.addLast(animal);
