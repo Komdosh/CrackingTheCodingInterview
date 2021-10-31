@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/7-object-oriented-design/7-object-oriented-design.iml" filepath="$PROJECT_DIR$/7-object-oriented-design/7-object-oriented-design.iml" />
       <module fileurl="file://$PROJECT_DIR$/9-system-design-scalability/9-system-design-scalability.iml" filepath="$PROJECT_DIR$/9-system-design-scalability/9-system-design-scalability.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/CrackingTheCodingInterview.iml" filepath="$PROJECT_DIR$/.idea/CrackingTheCodingInterview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CrackingTheCodingInterview2.iml" filepath="$PROJECT_DIR$/.idea/CrackingTheCodingInterview2.iml" />
       <module fileurl="file://$PROJECT_DIR$/linked-lists/linked-lists.iml" filepath="$PROJECT_DIR$/linked-lists/linked-lists.iml" />
       <module fileurl="file://$PROJECT_DIR$/6-math-logic/math-logic.iml" filepath="$PROJECT_DIR$/6-math-logic/math-logic.iml" />
     </modules>

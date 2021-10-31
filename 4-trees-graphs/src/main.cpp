@@ -1,6 +1,13 @@
-#include <iostream>
+#include "graph.h"
+#include "runner.h"
+
+void runTest(GraphTaskRunner auto &runner) {
+    runner.run();
+}
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    runTest(*new RouteBetweenNodeNaive());
     return 0;
 }
+
+
