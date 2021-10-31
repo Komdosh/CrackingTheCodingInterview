@@ -56,7 +56,7 @@ public:
         tmp->connect(new Node(7, 3));
     }
 
-    void createDefiniteGraph() {
+    void createDefiniteConnectedGraph() {
         root = new Node(0, 0);
 
         Node *n = new Node(1, 1);
@@ -78,6 +78,22 @@ public:
         tmp->connect(root);
     }
 
+    void createDefiniteUnConnectedGraph() {
+        root = new Node(0, 0);
+
+        Node *n = new Node(1, 1);
+        root->connect(n);
+        n = new Node(2, 1);
+        root->connect(n);
+
+        n->connect(new Node(3, 2));
+
+        auto unconnectedNode = new Node(5, 2);
+
+        unconnectedNode->connect(new Node(6, 3));
+        unconnectedNode->connect(new Node(7, 3));
+    }
+
     void printGraph() {
         Node *current = root;
 
@@ -86,12 +102,12 @@ public:
         std::unordered_set<Node *> visitedNodes;
 
         visitedNodes.insert(root);
-        do {
+        while (current != nullptr) {
             currentConnectedNodes = &current->connectedNodes;
 
             std::copy_if(currentConnectedNodes->begin(), currentConnectedNodes->end(),
                          std::back_inserter(nodes),
-                         [=](Node *node) { return !visitedNodes.contains(node); });
+                         [&visitedNodes](Node *node) { return !visitedNodes.contains(node); });
 
             visitedNodes.insert(currentConnectedNodes->begin(), currentConnectedNodes->end());
 
@@ -112,7 +128,39 @@ public:
             } else {
                 current = nullptr;
             }
-        } while (current != nullptr);
+        }
+    }
+
+    Node* getNodeById(int id){
+        Node *current = root;
+
+        std::vector<Node *> nodes;
+        std::vector<Node *> *currentConnectedNodes;
+        std::unordered_set<Node *> visitedNodes;
+
+        visitedNodes.insert(root);
+        while (current != nullptr){
+            if(current->getId() == id){
+                return current;
+            }
+            currentConnectedNodes = &current->connectedNodes;
+
+            std::copy_if(currentConnectedNodes->begin(), currentConnectedNodes->end(),
+                         std::back_inserter(nodes),
+                         [&visitedNodes](Node *node) { return !visitedNodes.contains(node); });
+
+            visitedNodes.insert(currentConnectedNodes->begin(), currentConnectedNodes->end());
+
+
+            if (!nodes.empty()) {
+                current = nodes.back();
+                nodes.pop_back();
+            } else {
+                current = nullptr;
+            }
+        }
+
+        return nullptr;
     }
 };
 

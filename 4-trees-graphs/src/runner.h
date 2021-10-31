@@ -5,12 +5,12 @@
 #ifndef INC_4_TREES_GRAPHS_RUNNER_H
 #define INC_4_TREES_GRAPHS_RUNNER_H
 
-#include "RouteBetweenNode/naive/RouteBetweenNodeNaive.h"
+#include "RouteBetweenNode/naive/RouteBetweenNodesNaive.h"
 
 template <class T>
 concept GraphTaskRunner = requires (T t) {
     { t.run() };
 };
-static_assert(GraphTaskRunner<RouteBetweenNodeNaive>);
+static_assert(GraphTaskRunner<RouteBetweenNodesNaive>);
 
 #endif //INC_4_TREES_GRAPHS_RUNNER_H

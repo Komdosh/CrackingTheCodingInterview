@@ -6,7 +6,7 @@ void runTest(GraphTaskRunner auto &runner) {
 }
 
 int main() {
-    runTest(*new RouteBetweenNodeNaive());
+    runTest(*new RouteBetweenNodesNaive());
     return 0;
 }
 
