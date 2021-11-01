@@ -18,6 +18,7 @@ public:
         connectedGraph.printGraph();
 
         std::cout << exists(connectedGraph.getNodeById(0), connectedGraph.getNodeById(3)) << " should be 1" << std::endl;
+        std::cout << exists(connectedGraph.getNodeById(3), connectedGraph.getNodeById(0)) << " should be 0" << std::endl;
 
         Graph unConnectedGraph;
         unConnectedGraph.createDefiniteUnConnectedGraph();
