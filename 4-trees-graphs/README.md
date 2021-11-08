@@ -2,11 +2,112 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.dev/0)
+![8%](https://progress-bar.dev/8)
 
 ## 1. Route Between Nodes
 
 Given a directed graph, design an algorithm to find out whether there is a route between two nodes.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(|V|+|E|)` - where `|V|` - nodes (vertices), `|E|` - edges
+- Space Complexity: `O(|V|)` - where `|V|` - nodes (vertices)
+
+#### Implementation
+
+```cpp
+bool exists(Node *startNode, Node *finishNode) {
+        if(startNode == finishNode){
+            return true;
+        }
+
+        std::queue<Node *> q;
+        std::unordered_set<Node *> visitedNodes;
+        std::vector<Node *> *currentConnectedNodes;
+
+        Node *current = startNode;
+        while (current != nullptr) {
+            if (current == finishNode) {
+                return true;
+            }
+
+            currentConnectedNodes = &current->connectedNodes;
+
+            for (auto node : *currentConnectedNodes){
+                if (!visitedNodes.contains(node)) {
+                    q.push(node);
+                }
+            }
+
+            visitedNodes.insert(currentConnectedNodes->begin(), currentConnectedNodes->end());
+
+            if (!q.empty()) {
+                current = q.front();
+                q.pop();
+            } else {
+                current = nullptr;
+            }
+        }
+
+        return false;
+    }
+```
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(|V|+|E|)` - where `|V|` - nodes (vertices), `|E|` - edges
+- Space Complexity: `O(|V|)` - where `|V|` - nodes (vertices)
+
+#### Implementation
+
+```cpp
+bool exists(Node *startNode, Node *finishNode) {
+        if (startNode == finishNode) {
+            return true;
+        }
+
+        std::queue<Node *> q;
+        std::unordered_set<Node *> visitedNodes;
+
+        visitedNodes.insert(startNode);
+        q.push(startNode);
+
+        Node *current;
+        std::vector<Node *> *currentConnectedNodes;
+
+        while (!q.empty()) {
+            current = q.front();
+            q.pop();
+
+            if (current != nullptr) {
+                currentConnectedNodes = &current->connectedNodes;
+
+                for (auto node : *currentConnectedNodes){
+                    if (!visitedNodes.contains(node)) {
+                        if (node == finishNode) {
+                            return true;
+                        } else {
+                            visitedNodes.insert(node);
+                            q.push(node);
+                        }
+                    }
+                }
+
+                visitedNodes.insert(current);
+            }
+        }
+
+        return false;
+    }
+```
+</details>
 
 <hr/>
 

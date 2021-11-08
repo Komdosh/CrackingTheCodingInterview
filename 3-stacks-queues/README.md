@@ -9,7 +9,7 @@ Completed tasks:
 Describe how you could use a single array to implement three stacks.
 
 <details>
-<summary>Naive Solution </summary>
+<summary>Naive Solution</summary>
 
 #### Assumptions
 

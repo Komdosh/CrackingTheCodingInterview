@@ -12,6 +12,7 @@
 class RouteBetweenNodesNaive {
 
 public:
+
     void run() {
         Graph connectedGraph;
         connectedGraph.createDefiniteConnectedGraph();
@@ -27,6 +28,10 @@ public:
     }
 
     bool exists(Node *startNode, Node *finishNode) {
+        if(startNode == finishNode){
+            return true;
+        }
+
         std::queue<Node *> q;
         std::unordered_set<Node *> visitedNodes;
         std::vector<Node *> *currentConnectedNodes;
@@ -39,11 +44,11 @@ public:
 
             currentConnectedNodes = &current->connectedNodes;
 
-            std::for_each(currentConnectedNodes->begin(), currentConnectedNodes->end(), [&q, &visitedNodes](auto data) {
-                if (!visitedNodes.contains(data)) {
-                    q.push(data);
+            for (auto node : *currentConnectedNodes){
+                if (!visitedNodes.contains(node)) {
+                    q.push(node);
                 }
-            });
+            }
 
             visitedNodes.insert(currentConnectedNodes->begin(), currentConnectedNodes->end());
 
