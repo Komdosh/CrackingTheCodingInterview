@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![8%](https://progress-bar.dev/8)
+![16%](https://progress-bar.dev/16)
 
 ## 1. Route Between Nodes
 
@@ -19,7 +19,7 @@ Given a directed graph, design an algorithm to find out whether there is a route
 #### Implementation
 
 ```cpp
-bool exists(Node *startNode, Node *finishNode) {
+bool search(Node *startNode, Node *finishNode) {
         if(startNode == finishNode){
             return true;
         }
@@ -68,7 +68,7 @@ bool exists(Node *startNode, Node *finishNode) {
 #### Implementation
 
 ```cpp
-bool exists(Node *startNode, Node *finishNode) {
+bool search(Node *startNode, Node *finishNode) {
         if (startNode == finishNode) {
             return true;
         }
@@ -114,6 +114,47 @@ bool exists(Node *startNode, Node *finishNode) {
 ## 2. Minimal Tree
 
 Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.
+
+<details>
+<summary>Solution</summary>
+
+#### Assumptions
+
+- Array contains no more than 9999 elements, we want to avoid stackoverflow for this recursive algorithm
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(1)` - algorithm doesn't use memory for store temporary results. Result tree will consume `O(|V|)` memory.
+
+#### Implementation
+
+```cpp
+Node *createMinimalBST(int *orderedNumbers, int start, int end, int level) {
+        if (level > 9999) {
+            throw "Too deep, consider to use stack instead of recursion";
+        }
+
+        if (end < start) {
+            return nullptr;
+        }
+
+        int middleId = (end + start) / 2;
+
+        Node *node = new Node(orderedNumbers[middleId], level);
+        Node *left = createMinimalBST(orderedNumbers, start, middleId - 1, level + 1);
+        if (left != nullptr) {
+            node->connect(left);
+        }
+        Node *right = createMinimalBST(orderedNumbers, middleId + 1, end, level + 1);
+        if (right != nullptr) {
+            node->connect(right);
+        }
+        return node;
+    }
+```
+</details>
+
 <hr/>
 
 ## 3. List of Depths

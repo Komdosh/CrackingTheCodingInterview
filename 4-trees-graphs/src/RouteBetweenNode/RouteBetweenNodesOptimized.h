@@ -19,19 +19,19 @@ public:
         connectedGraph.createDefiniteConnectedGraph();
         connectedGraph.printGraph();
 
-        std::cout << exists(connectedGraph.getNodeById(0), connectedGraph.getNodeById(3)) << " should be 1"
+        std::cout << search(connectedGraph.getNodeById(0), connectedGraph.getNodeById(3)) << " should be 1"
                   << std::endl;
-        std::cout << exists(connectedGraph.getNodeById(3), connectedGraph.getNodeById(0)) << " should be 0"
+        std::cout << search(connectedGraph.getNodeById(3), connectedGraph.getNodeById(0)) << " should be 0"
                   << std::endl;
 
         Graph unConnectedGraph;
         unConnectedGraph.createDefiniteUnConnectedGraph();
         unConnectedGraph.printGraph();
-        std::cout << exists(unConnectedGraph.getNodeById(0), unConnectedGraph.getNodeById(5)) << " should be 0"
+        std::cout << search(unConnectedGraph.getNodeById(0), unConnectedGraph.getNodeById(5)) << " should be 0"
                   << std::endl;
     }
 
-    bool exists(Node *startNode, Node *finishNode) {
+    bool search(Node *startNode, Node *finishNode) {
         if (startNode == finishNode) {
             return true;
         }

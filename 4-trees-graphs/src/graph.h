@@ -19,15 +19,23 @@ public:
     }
 
     void connect(Node *node) {
-        connectedNodes.push_back(node);
+        if (node != nullptr) {
+            connectedNodes.push_back(node);
+        }
     }
 
     void connect(std::vector<Node *> &nodes) {
-        connectedNodes.insert(connectedNodes.end(), nodes.begin(), nodes.end());
+        if (!nodes.empty()) {
+            connectedNodes.insert(connectedNodes.end(), nodes.begin(), nodes.end());
+        }
     }
 
     int getId() {
         return id;
+    }
+
+    void setId(int v) {
+        this->id = v;
     }
 
 };
@@ -37,6 +45,18 @@ class Graph {
 
     int maxLevel = 3;
 public:
+    Node *createRoot() {
+        Node *root = new Node(0, 0);
+        roots.push_back(root);
+        return root;
+    }
+
+    void addRoot(Node *root) {
+        if (root != nullptr) {
+            roots.push_back(root);
+        }
+    }
+
     void createDefiniteTree() {
         auto root = new Node(0, 0);
         roots.push_back(root);
@@ -111,9 +131,11 @@ public:
 
                 currentConnectedNodes = &current->connectedNodes;
 
-                std::copy_if(currentConnectedNodes->begin(), currentConnectedNodes->end(),
-                             std::back_inserter(nodes),
-                             [&visitedNodes](Node *node) { return !visitedNodes.contains(node); });
+                if (!currentConnectedNodes->empty()) {
+                    std::copy_if(currentConnectedNodes->begin(), currentConnectedNodes->end(),
+                                 std::back_inserter(nodes),
+                                 [&visitedNodes](Node *node) { return !visitedNodes.contains(node); });
+                }
 
                 bool finished = action(current);
                 if (finished) {
@@ -138,9 +160,11 @@ public:
                 std::cout << "--------" << std::endl;
                 std::cout << "NodeId: " << current->getId() << std::endl;
                 std::cout << "Connected nodes:" << std::endl;
+
+                std::sort(currentConnectedNodes->begin(), currentConnectedNodes->end(),
+                          [](Node *first, Node *second) { return first->getId() < second->getId(); });
             }
-            std::sort(currentConnectedNodes->begin(), currentConnectedNodes->end(),
-                      [](Node *first, Node *second) { return first->getId() < second->getId(); });
+
             for (Node *c: *currentConnectedNodes) {
                 std::cout << " - " << c->getId() << std::endl;
             }

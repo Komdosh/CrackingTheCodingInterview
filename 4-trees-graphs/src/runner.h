@@ -7,6 +7,7 @@
 
 #include "RouteBetweenNode/RouteBetweenNodesNaive.h"
 #include "RouteBetweenNode/RouteBetweenNodesOptimized.h"
+#include "MinimalTree/MinimalTree.h"
 
 template<class T>
 concept GraphTaskRunner = requires(T runner) {
@@ -15,5 +16,6 @@ concept GraphTaskRunner = requires(T runner) {
 
 static_assert(GraphTaskRunner<RouteBetweenNodesNaive>);
 static_assert(GraphTaskRunner<RouteBetweenNodesOptimized>);
+static_assert(GraphTaskRunner<MinimalTree>);
 
 #endif //INC_4_TREES_GRAPHS_RUNNER_H

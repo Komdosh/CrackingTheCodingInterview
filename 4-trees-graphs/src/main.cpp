@@ -11,8 +11,10 @@ void runTest(GraphTaskRunner auto &runner) {
 }
 
 int main() {
-    runTest(*new RouteBetweenNodesNaive());
-    runTest(*new RouteBetweenNodesOptimized());
+//    runTest(*new RouteBetweenNodesNaive());
+//    runTest(*new RouteBetweenNodesOptimized());
+
+    runTest(*new MinimalTree());
     return 0;
 }
 
