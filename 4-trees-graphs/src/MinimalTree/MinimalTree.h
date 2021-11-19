@@ -1,7 +1,3 @@
-//
-// Created by Andrey Tabakov on 31.10.2021.
-//
-
 #ifndef INC_4_TREES_GRAPHS_MINIMALTREE_H
 #define INC_4_TREES_GRAPHS_MINIMALTREE_H
 
