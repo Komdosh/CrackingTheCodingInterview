@@ -20,14 +20,14 @@ public:
 
         connectedGraph.printGraph();
 
-        int *ordered2 = new int[]{8, 12, 23, 2392, 3291, 29922, 30000, 39191, 49919, 59234, 128122, 943119, 992821};
-
-        std::cout << "Odd array" << std::endl;
-        Graph connectedGraph2;
-        Node *node2 = createMinimalBST(ordered2, 0, 10, 0);
-        connectedGraph2.addRoot(node2);
-
-        connectedGraph2.printGraph();
+//        int *ordered2 = new int[]{8, 12, 23, 2392, 3291, 29922, 30000, 39191, 49919, 59234, 128122, 943119, 992821};
+//
+//        std::cout << "Odd array" << std::endl;
+//        Graph connectedGraph2;
+//        Node *node2 = createMinimalBST(ordered2, 0, 10, 0);
+//        connectedGraph2.addRoot(node2);
+//
+//        connectedGraph2.printGraph();
     }
 
     Node *createMinimalBST(int *orderedNumbers, int start, int end, int level) {

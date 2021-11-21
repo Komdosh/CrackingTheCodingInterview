@@ -5,6 +5,8 @@
 #include <vector>
 #include <unordered_set>
 #include <iomanip>
+#include <queue>
+#include <stack>
 
 class Node {
     int id = 0;
@@ -118,11 +120,11 @@ public:
         unconnectedNode->connect(new Node(7, 3));
     }
 
-    void depthFirstTraverse(std::function<bool(Node *)> action) {
+    template<class container>
+    void traverse(container nodes, std::function<Node *(container)> fetch, std::function<bool(Node *)> action) {
         for (auto root: roots) {
             Node *current = root;
 
-            std::vector<Node *> nodes;
             std::vector<Node *> *currentConnectedNodes;
             std::unordered_set<Node *> visitedNodes;
 
@@ -132,9 +134,11 @@ public:
                 currentConnectedNodes = &current->connectedNodes;
 
                 if (!currentConnectedNodes->empty()) {
-                    std::copy_if(currentConnectedNodes->begin(), currentConnectedNodes->end(),
-                                 std::back_inserter(nodes),
-                                 [&visitedNodes](Node *node) { return !visitedNodes.contains(node); });
+                    for (auto node: *currentConnectedNodes) {
+                        if (!visitedNodes.contains(node)) {
+                            nodes.push(node);
+                        }
+                    }
                 }
 
                 bool finished = action(current);
@@ -143,8 +147,8 @@ public:
                 }
 
                 if (!nodes.empty()) {
-                    current = nodes.back();
-                    nodes.pop_back();
+                    current = fetch(nodes);
+                    nodes.pop();
                 } else {
                     current = nullptr;
                 }
@@ -152,8 +156,40 @@ public:
         }
     }
 
+    void depthFirstTraverse(std::function<bool(Node *)> action) {
+        std::stack<Node *> nodes;
+        traverse<std::stack<Node *>>(nodes, [](std::stack<Node *> nodes) { return nodes.top(); }, action);
+    }
+
+    void breadthFirstTraverse(std::function<bool(Node *)> action) {
+        std::queue<Node *> nodes;
+        traverse<std::queue<Node *>>(nodes, [](std::queue<Node *> nodes) { return nodes.front(); }, action);
+    }
+
     void printGraph() {
+        std::cout << "DEEP" << std::endl;
         depthFirstTraverse([](Node *current) {
+            std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
+
+            if (!currentConnectedNodes->empty()) {
+                std::cout << "--------" << std::endl;
+                std::cout << "NodeId: " << current->getId() << std::endl;
+                std::cout << "Connected nodes:" << std::endl;
+
+                std::sort(currentConnectedNodes->begin(), currentConnectedNodes->end(),
+                          [](Node *first, Node *second) { return first->getId() < second->getId(); });
+            }
+
+            for (Node *c: *currentConnectedNodes) {
+                std::cout << " - " << c->getId() << std::endl;
+            }
+
+            return false;
+        });
+
+        std::cout << "BREADTH" << std::endl;
+
+        breadthFirstTraverse([](Node *current) {
             std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
 
             if (!currentConnectedNodes->empty()) {

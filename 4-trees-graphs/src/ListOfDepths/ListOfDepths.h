@@ -9,7 +9,12 @@ class ListOfDepths {
 
 public:
     void run() {
+        Graph connectedGraph;
+        connectedGraph.createDefiniteConnectedGraph();
+    }
 
+    std::vector<Node>* levelsAsList(){
+        return nullptr;
     }
 };
 
