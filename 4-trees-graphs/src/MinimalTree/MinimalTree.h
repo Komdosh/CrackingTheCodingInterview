@@ -10,24 +10,25 @@ class MinimalTree {
 public:
 
     void run() {
-        Graph connectedGraph;
+        Tree connectedGraph;
 
         std::cout << "Even array" << std::endl;
         int *ordered = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         Node *node = createMinimalBST(ordered, 0, 9, 0);
-        connectedGraph.addRoot(node);
+        connectedGraph.setRoot(node);
 
-        connectedGraph.printGraph();
+        connectedGraph.printTree();
 
-//        int *ordered2 = new int[]{8, 12, 23, 2392, 3291, 29922, 30000, 39191, 49919, 59234, 128122, 943119, 992821};
-//
-//        std::cout << "Odd array" << std::endl;
-//        Graph connectedGraph2;
-//        Node *node2 = createMinimalBST(ordered2, 0, 10, 0);
-//        connectedGraph2.addRoot(node2);
-//
-//        connectedGraph2.printGraph();
+        int *ordered2 = new int[]{8, 12, 23, 2392, 3291, 29922, 30000, 39191, 49919, 59234, 128122, 943119, 992821};
+
+        std::cout << "Odd array" << std::endl;
+
+        Tree connectedGraph2;
+        Node *node2 = createMinimalBST(ordered2, 0, 10, 0);
+        connectedGraph2.setRoot(node2);
+
+        connectedGraph2.printTree();
     }
 
     Node *createMinimalBST(int *orderedNumbers, int start, int end, int level) {

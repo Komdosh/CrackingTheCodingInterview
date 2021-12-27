@@ -43,10 +43,9 @@ public:
 };
 
 class Graph {
+public:
     std::vector<Node *> roots;
 
-    int maxLevel = 3;
-public:
     Node *createRoot() {
         Node *root = new Node(0, 0);
         roots.push_back(root);
@@ -57,26 +56,6 @@ public:
         if (root != nullptr) {
             roots.push_back(root);
         }
-    }
-
-    void createDefiniteTree() {
-        auto root = new Node(0, 0);
-        roots.push_back(root);
-
-        Node *n = new Node(1, 1);
-        root->connect(n);
-        n = new Node(2, 1);
-        root->connect(n);
-
-        n->connect(new Node(3, 2));
-
-        n->connect(new Node(4, 2));
-
-        auto tmp = new Node(5, 2);
-        n->connect(tmp);
-
-        tmp->connect(new Node(6, 3));
-        tmp->connect(new Node(7, 3));
     }
 
     void createDefiniteConnectedGraph() {

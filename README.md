@@ -8,7 +8,7 @@
 
 3. [Stacks and Queues `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/3-stacks-queues) ![100%](https://progress-bar.dev/100)
 
-4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![16%](https://progress-bar.dev/16)
+4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![16%](https://progress-bar.dev/25)
 
 ## Concepts and Algorithms
 

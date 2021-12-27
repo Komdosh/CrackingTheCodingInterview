@@ -1,4 +1,5 @@
 #include "graph.h"
+#include "tree.h"
 #include "runner.h"
 #include <typeinfo>
 
@@ -14,7 +15,11 @@ int main() {
 //    runTest(*new RouteBetweenNodesNaive());
 //    runTest(*new RouteBetweenNodesOptimized());
 
-    runTest(*new MinimalTree());
+//    runTest(*new MinimalTree());
+
+//    runTest(*new ListOfDepthsNaive());
+    runTest(*new ListOfDepthsOptimized());
+
     return 0;
 }
 

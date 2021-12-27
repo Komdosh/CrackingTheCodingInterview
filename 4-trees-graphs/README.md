@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![16%](https://progress-bar.dev/16)
+![25%](https://progress-bar.dev/16)
 
 ## 1. Route Between Nodes
 
@@ -55,6 +55,7 @@ bool search(Node *startNode, Node *finishNode) {
         return false;
     }
 ```
+
 </details>
 
 <details>
@@ -107,13 +108,15 @@ bool search(Node *startNode, Node *finishNode) {
         return false;
     }
 ```
+
 </details>
 
 <hr/>
 
 ## 2. Minimal Tree
 
-Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree with minimal height.
+Given a sorted (increasing order) array with unique integer elements, write an algorithm to create a binary search tree
+with minimal height.
 
 <details>
 <summary>Solution</summary>
@@ -125,7 +128,8 @@ Given a sorted (increasing order) array with unique integer elements, write an a
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(1)` - algorithm doesn't use memory for store temporary results. Result tree will consume `O(|V|)` memory.
+- Space Complexity: `O(1)` - algorithm doesn't use memory for store temporary results. Result tree will consume `O(|V|)`
+  memory.
 
 #### Implementation
 
@@ -153,21 +157,123 @@ Node *createMinimalBST(int *orderedNumbers, int start, int end, int level) {
         return node;
     }
 ```
+
 </details>
 
 <hr/>
 
 ## 3. List of Depths
 
-Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.g., if you have a tree with depth D,
-you'll have D linked lists).
+Given a binary tree, design an algorithm which creates a linked list of all the nodes at each depth (e.g., if you have a
+tree with depth D, you'll have D linked lists).
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+```cpp
+std::vector<std::vector<Node *>> levelsAsList(Tree tree) {
+    if (tree.root() == nullptr) {
+        return std::vector<std::vector<Node *>>();
+    }
+    std::queue<Node *> nodes;
+    
+    std::vector<std::vector<Node *>> levelsList;
+    std::vector<Node *> level;
+    
+    int currentLevelChildren = 1;
+    int nextLevelChildren = 0;
+    int depth = 0;
+    
+    levelsList.push_back(std::vector<Node *>());
+    tree.breadthFirstTraverse([&](Node *current) {
+    --currentLevelChildren;
+    
+    levelsList.at(depth).push_back(current);
+    std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
+    
+    nextLevelChildren += currentConnectedNodes->size();
+    
+    if (currentLevelChildren == 0) {
+      ++depth;
+      levelsList.push_back(std::vector<Node *>());
+      currentLevelChildren = nextLevelChildren;
+      nextLevelChildren = 0;
+    }
+    
+     return false;
+    });
+    
+    return levelsList;
+}
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+```cpp
+void createLevelLinkedListDepth(Node *root, std::vector<std::vector<Node *> *> *lists, int level) {
+    if (root == nullptr) {
+        return;
+    }
+
+    if (lists->size() == level) {
+        lists->push_back(new std::vector<Node *>());
+    }
+    auto list = (*lists)[level];
+
+    list->push_back(root);
+
+    for (Node *child: root->connectedNodes) {
+        createLevelLinkedListDepth(child, lists, level + 1);
+    }
+}
+
+std::vector<std::vector<Node *> *> *createLevelLinkedListBreadth(Node *root) {
+    std::vector<std::vector<Node *> *> *result = new std::vector<std::vector<Node *> *>();
+    std::vector<Node *> *current = new std::vector<Node *>();
+    if (root != nullptr) {
+        current->push_back(root);
+    }
+
+    while (current->size() > 0) {
+        result->push_back(current);
+        std::vector<Node *> *parents = current;
+        current = new std::vector<Node *>();
+        for (Node *parent: *parents) {
+            for (Node *child: parent->connectedNodes) {
+                current->push_back(child);
+            }
+        }
+    }
+
+    return result;
+}
+```
+
+</details>
 
 <hr/>
 
 ## 4. Check Balanced
 
-Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is defined to be a tree such
-that the heights of the two subtrees of any node never differ by more than one.
+Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is
+defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.
 
 <hr/>
 
@@ -179,16 +285,16 @@ Implement a function to check if a binary tree is a binary search tree.
 
 ## 6. Successor
 
-Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may assume that each node
-has a link to its parent.
+Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may
+assume that each node has a link to its parent.
 
 <hr/>
 
 ## 7. Build Order
 
-You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second project is dependent on
-the first project). All of a project's dependencies must be built before the project is. Find a build order that will allow the projects to
-be built. If there is no valid build order, return an error.
+You are given a list of projects and a list of dependencies (which is a list of pairs of projects, where the second
+project is dependent on the first project). All of a project's dependencies must be built before the project is. Find a
+build order that will allow the projects to be built. If there is no valid build order, return an error.
 
 ### Example
 
@@ -204,15 +310,15 @@ Output:
 
 ## 8. First Common Ancestor
 
-Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing additional nodes in a data
-structure. NOTE: This is not necessarily a binary search tree.
+Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree. Avoid storing
+additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
 
 <hr/>
 
 ## 9. BST Sequences
 
-A binary search tree was created by traversing through an array from left to right and inserting each element. Given a binary search tree
-with distinct elements, print all possible arrays that could have led to this tree.
+A binary search tree was created by traversing through an array from left to right and inserting each element. Given a
+binary search tree with distinct elements, print all possible arrays that could have led to this tree.
 
 ### Example
 
@@ -228,23 +334,24 @@ Output:
 
 ## 10. Check Subtree
 
-T1 and T2 are two very large binary trees, with T1 much bigger than T2. Create an algorithm to determine if T2 is a subtree of T1. A tree T2
-is a subtree of T1 if there exists a node n in Tl such that the subtree of n is identical to T2. That is, if you cut off the tree at node n,
-the two trees would be identical.
+T1 and T2 are two very large binary trees, with T1 much bigger than T2. Create an algorithm to determine if T2 is a
+subtree of T1. A tree T2 is a subtree of T1 if there exists a node n in Tl such that the subtree of n is identical to
+T2. That is, if you cut off the tree at node n, the two trees would be identical.
 
 <hr/>
 
 ## 11. Random Node
 
-You are implementing a binary tree class from scratch which, in addition to insert, find, and delete, has a method getRandomNode() which
-returns a random node from the tree. All nodes should be equally likely to be chosen. Design and implement an algorithm for getRandomNode,
-and explain how you would implement the rest of the methods.
+You are implementing a binary tree class from scratch which, in addition to insert, find, and delete, has a method
+getRandomNode() which returns a random node from the tree. All nodes should be equally likely to be chosen. Design and
+implement an algorithm for getRandomNode, and explain how you would implement the rest of the methods.
 
 <hr/>
 
 ## 12. Paths with Sum
 
-You are given a binary tree in which each node contains an integer value (which might be positive or negative). Design an algorithm to count
-the number of paths that sum to a given value. The path does not need to start or end at the root or a leaf, but it must go downwards
+You are given a binary tree in which each node contains an integer value (which might be positive or negative). Design
+an algorithm to count the number of paths that sum to a given value. The path does not need to start or end at the root
+or a leaf, but it must go downwards
 (traveling only from parent nodes to child nodes).
 <hr/>

@@ -4,4 +4,3 @@ project(4_trees_graphs)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(4_trees_graphs src/main.cpp src/runner.h)
-add_executable(4_trees_graphs src/RouteBetweenNode/RouteBetweenNodesNaive.h)
