@@ -1,11 +1,11 @@
-#ifndef INC_4_TREES_GRAPHS_CHECK_BALANCED_NAIVE_H
-#define INC_4_TREES_GRAPHS_CHECK_BALANCED_NAIVE_H
+#ifndef INC_4_TREES_GRAPHS_CHECK_BALANCED_OPTIMIZED_H
+#define INC_4_TREES_GRAPHS_CHECK_BALANCED_OPTIMIZED_H
 
 #include <queue>
 #include <vector>
 #include <unordered_set>
 
-class CheckBalancedNaive {
+class CheckBalancedOptimized {
 
     int maxDepth;
     int secondDepth;
@@ -42,4 +42,4 @@ public:
 };
 
 
-#endif //INC_4_TREES_GRAPHS_CHECK_BALANCED_NAIVE_H
+#endif //INC_4_TREES_GRAPHS_CHECK_BALANCED_OPTIMIZED_H

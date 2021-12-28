@@ -1,5 +1,5 @@
-#ifndef INC_4_TREES_GRAPHS_MINIMALTREE_H
-#define INC_4_TREES_GRAPHS_MINIMALTREE_H
+#ifndef INC_4_TREES_GRAPHS_MINIMAL_TREE_H
+#define INC_4_TREES_GRAPHS_MINIMAL_TREE_H
 
 #include <queue>
 #include <vector>
@@ -56,4 +56,4 @@ public:
 };
 
 
-#endif //INC_4_TREES_GRAPHS_MINIMALTREE_H
+#endif //INC_4_TREES_GRAPHS_MINIMAL_TREE_H
