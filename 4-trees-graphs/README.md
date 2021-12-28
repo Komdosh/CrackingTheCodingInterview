@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![25%](https://progress-bar.dev/16)
+![33%](https://progress-bar.dev/33)
 
 ## 1. Route Between Nodes
 
@@ -274,6 +274,114 @@ std::vector<std::vector<Node *> *> *createLevelLinkedListBreadth(Node *root) {
 
 Implement a function to check if a binary tree is balanced. For the purposes of this question, a balanced tree is
 defined to be a tree such that the heights of the two subtrees of any node never differ by more than one.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+```cpp
+int maxDepth = -1; // private member
+int secondDepth = 0; // private member
+
+bool isBalanced(Node *current, int level) {
+    for (auto c: current->connectedNodes) {
+        if (level > maxDepth) {
+            if (abs(secondDepth - level) > 1) {
+                return false;
+            }
+            secondDepth = maxDepth;
+            maxDepth = level;
+        }
+        if (!isBalanced(c, level + 1)) {
+            return false;
+        }
+    }
+
+    return true;
+};
+```
+
+</details>
+
+<details>
+<summary>Alternative Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N log N)`
+- Space Complexity: `O(N)`
+
+#### Implementation
+
+```cpp
+int maxDepth = -1; // private member
+int secondDepth = 0; // private member
+
+bool isBalanced(Node *current, int level) {
+    for (auto c: current->connectedNodes) {
+        if (level > maxDepth) {
+            if (abs(secondDepth - level) > 1) {
+                return false;
+            }
+            secondDepth = maxDepth;
+            maxDepth = level;
+        }
+        if (!isBalanced(c, level + 1)) {
+            return false;
+        }
+    }
+
+    return true;
+};
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(log N)`
+
+#### Implementation
+
+```cpp
+int checkHeight(Node *root){
+    if(root == nullptr) return -1;
+    int max = -1;
+    int min = INT_MAX;
+    for (auto c: root->connectedNodes) {
+        int value = checkHeight(c);
+        if(value == INT_MIN){
+            return INT_MIN;
+        }
+        if (value > max) {
+            max = value;
+        }
+        if (value < min) {
+            min = value;
+        }
+    }
+    if(abs(max - min)>1){
+        return INT_MIN;
+    }
+    return max + 1;
+}
+
+bool isBalanced(Node *root){
+    return checkHeight(root) != INT_MIN;
+}
+```
+
+</details>
 
 <hr/>
 

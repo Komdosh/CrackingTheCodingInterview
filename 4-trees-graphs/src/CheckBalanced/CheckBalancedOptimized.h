@@ -6,39 +6,49 @@
 #include <unordered_set>
 
 class CheckBalancedOptimized {
-
-    int maxDepth;
-    int secondDepth;
-
 public:
     void run() {
         Tree tree;
         tree.createDefiniteTree();
+//        tree.createBalancedTree();
 
         tree.printTree();
 
-        bool balanced = isBalanced(tree.root(), 0);
+        bool balanced = isBalanced(tree.root());
 
         std::cout << "isBalanced: " << balanced << std::endl;
     }
 
-    bool isBalanced(Node *current, int level) {
-        for (auto c: current->connectedNodes) {
-            if (level > maxDepth) {
-                if (abs(secondDepth - level) > 1) {
-                    return false;
-                }
-                secondDepth = maxDepth;
-                maxDepth = level;
+    int checkHeight(Node *root) {
+        if (root == nullptr) return -1;
 
+        int max = -1;
+        int min = INT_MAX;
+        for (auto c: root->connectedNodes) {
+            int value = checkHeight(c);
+
+            if (value == INT_MIN) {
+                return INT_MIN;
             }
-            if (!isBalanced(c, level + 1)) {
-                return false;
+
+            if (value > max) {
+                max = value;
+            }
+            if (value < min) {
+                min = value;
             }
         }
 
-        return true;
-    };
+        if (abs(max - min) > 1) {
+            return INT_MIN;
+        }
+
+        return max + 1;
+    }
+
+    bool isBalanced(Node *root) {
+        return checkHeight(root) != INT_MIN;
+    }
 };
 
 

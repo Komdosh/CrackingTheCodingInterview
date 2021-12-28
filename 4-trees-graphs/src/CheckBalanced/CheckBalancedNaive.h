@@ -7,17 +7,19 @@
 
 class CheckBalancedNaive {
 
-    int maxDepth;
-    int secondDepth;
+    int maxDepth = -1;
+    int secondDepth = 0;
 
 public:
     void run() {
         Tree tree;
         tree.createDefiniteTree();
+//        tree.createBalancedTree();
 
         tree.printTree();
 
         bool balanced = isBalanced(tree.root(), 0);
+//        bool balanced = isBalancedAlternative(tree.root());
 
         std::cout << "isBalanced: " << balanced << std::endl;
     }
@@ -30,13 +32,47 @@ public:
                 }
                 secondDepth = maxDepth;
                 maxDepth = level;
-
             }
             if (!isBalanced(c, level + 1)) {
                 return false;
             }
         }
 
+        return true;
+    };
+
+    int getHeight(Node *root) {
+        if (root == nullptr) return -1;
+
+        int max = -1;
+        for (auto c: root->connectedNodes) {
+            max = getHeight(c) + 1;
+        }
+        return max;
+    }
+
+    bool isBalancedAlternative(Node *root) {
+        int max = -1;
+        int min = INT_MAX;
+        for (auto c: root->connectedNodes) {
+            int value = getHeight(c) + 1;
+            if (value > max) {
+                max = value;
+            }
+            if (value < min) {
+                min = value;
+            }
+        }
+
+        if (abs(max - min) > 1) {
+            return false;
+        } else {
+            for (auto c: root->connectedNodes) {
+                if (!isBalanced(c)) {
+                    return false;
+                }
+            }
+        }
         return true;
     };
 };

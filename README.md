@@ -1,5 +1,24 @@
 # Cracking The Coding Interview
 
+## This repo shows my own programming skills.
+
+I took these tasks from the great book "_Cracking The Coding Interview_" written by **Gayle Laakmann McDowell**.
+
+## How to work with this repo?
+
+You can see a links below with language tag and progress bar.
+
+Each section was solved in a specific programming language. Progress means how far I have come, what tasks have been
+completed.
+
+There you can find a readme files with implementation details. Each task has a naive (mine) and an optimized (described
+in the book) implementation. Does this mean that the naive will always be worse than the optimized one? - No, it's just
+mine own solution. First, I try to solve the problem on my own, this is how a naive implementation was created, then I read
+the solution described in the book and implement it in a specific language. Sometimes I have exactly the same point of view, then
+the task will have one solution.
+
+You also be able to clone this project, compile and run my solutions.
+
 ## Data Structures
 
 1. [Arrays and Strings `Kotlin`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/1-arrays-strings) ![100%](https://progress-bar.dev/100)
@@ -8,7 +27,7 @@
 
 3. [Stacks and Queues `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/3-stacks-queues) ![100%](https://progress-bar.dev/100)
 
-4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![16%](https://progress-bar.dev/25)
+4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![33%](https://progress-bar.dev/33)
 
 ## Concepts and Algorithms
 

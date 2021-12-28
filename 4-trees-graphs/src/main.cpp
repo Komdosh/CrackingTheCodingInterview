@@ -19,7 +19,8 @@ int main() {
 //    runTest(*new ListOfDepthsNaive());
 //    runTest(*new ListOfDepthsOptimized());
 
-    runTest(*new CheckBalancedNaive());
+//    runTest(*new CheckBalancedNaive());
+    runTest(*new CheckBalancedOptimized());
 
     return 0;
 }
