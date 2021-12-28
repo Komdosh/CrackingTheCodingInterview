@@ -125,6 +125,26 @@ public:
         tmp->connect(new Node(7, 3));
     }
 
+
+    void createBalancedTree() {
+        auto root = new Node(0, 0);
+        roots.push_back(root);
+
+        Node *n = new Node(1, 1);
+        root->connect(n);
+
+        n->connect(new Node(3, 2));
+
+        n->connect(new Node(4, 2));
+
+        n = new Node(2, 1);
+        root->connect(n);
+
+        n->connect(new Node(5, 2));
+
+        n->connect(new Node(6, 2));
+    }
+
     void printTree() {
         PrintTreeStatistics *pts = evaluateStatistics();
 
