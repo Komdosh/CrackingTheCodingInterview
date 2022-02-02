@@ -173,4 +173,54 @@ public:
     }
 };
 
+class BinaryTree : public Tree {
+public:
+    BinaryTreeNode *root() {
+        return (BinaryTreeNode *) roots.back();
+    }
+
+    void createBSTree() {
+        // assumption: id is values
+        auto root = new BinaryTreeNode(6, 0);
+        roots.push_back(root);
+
+        BinaryTreeNode *n = new BinaryTreeNode(3, 1);
+        root->connect(n);
+
+        n->connect(new BinaryTreeNode(1, 2));
+
+        n->connect(new BinaryTreeNode(5, 2));
+
+        n = new BinaryTreeNode(9, 1);
+        root->connect(n);
+
+        n->connect(new BinaryTreeNode(7, 2));
+
+        auto additionalNode = new BinaryTreeNode(10, 2);
+        n->connect(additionalNode);
+
+        additionalNode->connect(new BinaryTreeNode(9, 2));
+    }
+
+    void createDefiniteTree() {
+        auto root = new BinaryTreeNode(0, 0);
+        roots.push_back(root);
+
+        BinaryTreeNode *n = new BinaryTreeNode(1, 1);
+        root->connect(n);
+        n = new BinaryTreeNode(2, 1);
+        root->connect(n);
+
+        n->connect(new BinaryTreeNode(3, 2));
+
+        n->connect(new BinaryTreeNode(4, 2));
+
+        auto tmp = new BinaryTreeNode(5, 2);
+        n->connect(tmp);
+
+        tmp->connect(new BinaryTreeNode(6, 3));
+        tmp->connect(new BinaryTreeNode(7, 3));
+    }
+};
+
 #endif //INC_4_TREES_GRAPHS_TREE_H

@@ -389,6 +389,42 @@ bool isBalanced(Node *root){
 
 Implement a function to check if a binary tree is a binary search tree.
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+```cpp
+bool isBinarySearchTree(BinaryTreeNode *node) {
+    if (node == nullptr) {
+        return true;
+    }
+    if (node->left() != nullptr) {
+        if (node->left()->getId() > node->getId()) {
+            return false;
+        }
+    }
+    if (node->right() != nullptr) {
+        if (node->right()->getId() <= node->getId()) {
+            return false;
+        }
+    }
+    bool good = isBinarySearchTree(node->left());
+    if (!good) {
+        return false;
+    }
+    good = isBinarySearchTree(node->right());
+    return good;
+}
+```
+
+</details>
+
 <hr/>
 
 ## 6. Successor

@@ -11,6 +11,7 @@
 class Node {
     int id = 0;
     int level = 0;
+
 public:
 
     std::vector<Node *> connectedNodes;
@@ -39,7 +40,26 @@ public:
     void setId(int v) {
         this->id = v;
     }
+};
 
+class BinaryTreeNode : public Node {
+public:
+    BinaryTreeNode(int id, int level) : Node(id, level) {
+    }
+
+    BinaryTreeNode *left() {
+        if (!connectedNodes.empty()) {
+            return (BinaryTreeNode *) connectedNodes[0];
+        }
+        return nullptr;
+    }
+
+    BinaryTreeNode *right() {
+        if (connectedNodes.size() > 1) {
+            return (BinaryTreeNode *) connectedNodes[1];
+        }
+        return nullptr;
+    }
 };
 
 class Graph {

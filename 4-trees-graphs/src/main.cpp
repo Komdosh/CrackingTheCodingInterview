@@ -20,7 +20,9 @@ int main() {
 //    runTest(*new ListOfDepthsOptimized());
 
 //    runTest(*new CheckBalancedNaive());
-    runTest(*new CheckBalancedOptimized());
+//    runTest(*new CheckBalancedOptimized());
+
+    runTest(*new ValidateBSTNaive());
 
     return 0;
 }
