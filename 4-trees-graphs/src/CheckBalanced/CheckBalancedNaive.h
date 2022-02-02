@@ -68,7 +68,7 @@ public:
             return false;
         } else {
             for (auto c: root->connectedNodes) {
-                if (!isBalanced(c)) {
+                if (!isBalancedAlternative(c)) {
                     return false;
                 }
             }
