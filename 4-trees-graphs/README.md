@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![33%](https://progress-bar.dev/33)
+![41%](https://progress-bar.dev/41)
 
 ## 1. Route Between Nodes
 
@@ -128,8 +128,8 @@ with minimal height.
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(1)` - algorithm doesn't use memory for store temporary results. Result tree will consume `O(|V|)`
-  memory.
+- Space Complexity: `O(log N)` - algorithm doesn't use memory for store temporary results, but recursion use call stack.
+  Result tree will consume `O(|V|)` memory.
 
 #### Implementation
 
@@ -281,7 +281,7 @@ defined to be a tree such that the heights of the two subtrees of any node never
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(1)`
+- Space Complexity: `O(log N) - recursion`
 
 #### Implementation
 
@@ -390,12 +390,47 @@ bool isBalanced(Node *root){
 Implement a function to check if a binary tree is a binary search tree.
 
 <details>
+<summary>Notes</summary>
+
+We have some weird cases with duplicates
+
+```
+7         9
+ \       /
+  10    8
+ /       \
+7         9
+```
+
+On the one hand, this tree is BST because every left value is lower or equal with parent value and right values are
+bigger than the parent value. On the other hand, the right subtree can't hold a value smaller or equal to the parent. It fit
+Binary Search Tree conditions. For example, `checkBSTMinMax` implementation can not detect this case.
+
+Moreover, in the book, I have found a mistake in `checkBST`.
+
+Book code:
+
+`if (lastValue != nullptr && n->getId() <= (*lastValue))`
+
+My code:
+
+`if (lastValue != nullptr && (*lastValue) > n->getId())`
+
+Why? - With this compare `n->getId() <= (*lastValue)`, we think that left values can't be equal to parent, but it is
+wrong. I think that this mistake was admitted because of the wrong position of values, if we move `lastValue` to the left of
+comparison, then it will be clear.
+
+</details>
+
+<br/>
+
+<details>
 <summary>Naive Solution</summary>
 
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(1)`
+- Space Complexity: `O(log N) - recursion`
 
 #### Implementation
 
@@ -420,6 +455,72 @@ bool isBinarySearchTree(BinaryTreeNode *node) {
     }
     good = isBinarySearchTree(node->right());
     return good;
+}
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(log N) - recursion`
+
+#### Implementation
+
+```cpp
+// pretty close to mine
+bool checkBST(BinaryTreeNode *n) {
+  if (n == nullptr) return true;
+  
+  if (!checkBST(n->left())) {
+    return false;
+  }
+  if (lastValue != nullptr && (*lastValue) > n->getId()) {
+    return false;
+  }
+  int data = n->getId();
+  
+  lastValue = &data;
+  
+  if (!checkBST(n->right())) {
+    return false;
+  }
+  return true;
+}
+```
+
+</details>
+
+<details>
+<summary>Alternative Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N)`
+- Space Complexity: `O(log N) - recursion`
+
+#### Implementation
+
+```cpp
+bool checkBSTMinMax(BinaryTreeNode *n) {
+    return checkBSTMinMax(n, nullptr, nullptr);
+}
+
+bool checkBSTMinMax(BinaryTreeNode *n, int *min, int *max) {
+   if (n == nullptr) {
+       return true;
+   }
+   if ((min != nullptr && n->getId() <= (*min)) || (max != nullptr && n->getId() > (*max))) {
+       return false;
+   }
+   int data = n->getId();
+   if (!checkBSTMinMax(n->left(), min, &data) || !checkBSTMinMax(n->right(), &data, max)) {
+       return false;
+   }
+   return true;
 }
 ```
 

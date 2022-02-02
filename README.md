@@ -27,7 +27,7 @@ You also be able to clone this project, compile and run my solutions.
 
 3. [Stacks and Queues `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/3-stacks-queues) ![100%](https://progress-bar.dev/100)
 
-4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![33%](https://progress-bar.dev/33)
+4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![41%](https://progress-bar.dev/41)
 
 ## Concepts and Algorithms
 

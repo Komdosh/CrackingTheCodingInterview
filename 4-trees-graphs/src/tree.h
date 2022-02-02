@@ -180,18 +180,18 @@ public:
     }
 
     void createBSTree() {
-        // assumption: id is values
+        // assumption: id is value
         auto root = new BinaryTreeNode(6, 0);
         roots.push_back(root);
 
         BinaryTreeNode *n = new BinaryTreeNode(3, 1);
         root->connect(n);
 
-        n->connect(new BinaryTreeNode(1, 2));
+        n->connect(new BinaryTreeNode(3, 2));
 
         n->connect(new BinaryTreeNode(5, 2));
 
-        n = new BinaryTreeNode(9, 1);
+        n = new BinaryTreeNode(8, 1);
         root->connect(n);
 
         n->connect(new BinaryTreeNode(7, 2));
@@ -199,7 +199,7 @@ public:
         auto additionalNode = new BinaryTreeNode(10, 2);
         n->connect(additionalNode);
 
-        additionalNode->connect(new BinaryTreeNode(9, 2));
+        additionalNode->connect(new BinaryTreeNode(9, 3));
     }
 
     void createDefiniteTree() {
