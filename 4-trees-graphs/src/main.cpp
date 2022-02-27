@@ -23,7 +23,9 @@ int main() {
 //    runTest(*new CheckBalancedOptimized());
 
 //    runTest(*new ValidateBSTNaive());
-    runTest(*new ValidateBSTOptimized());
+//    runTest(*new ValidateBSTOptimized());
+
+    runTest(*new SuccessorNaive());
 
     return 0;
 }

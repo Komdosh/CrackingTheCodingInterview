@@ -180,46 +180,83 @@ public:
     }
 
     void createBSTree() {
+        //                  6
+        //      3                     8
+        //   3     5             7        10
+        //                    5         9
         // assumption: id is value
         auto root = new BinaryTreeNode(6, 0);
         roots.push_back(root);
 
-        BinaryTreeNode *n = new BinaryTreeNode(3, 1);
-        root->connect(n);
+        BinaryTreeNode *nId3 = new BinaryTreeNode(3, 1);
+        root->connect(nId3);
 
-        n->connect(new BinaryTreeNode(3, 2));
+        nId3->connect(new BinaryTreeNode(3, 2));
 
-        n->connect(new BinaryTreeNode(5, 2));
+        nId3->connect(new BinaryTreeNode(5, 2));
 
-        n = new BinaryTreeNode(8, 1);
-        root->connect(n);
+        BinaryTreeNode *nId8 = new BinaryTreeNode(8, 1);
+        root->connect(nId8);
 
-        n->connect(new BinaryTreeNode(7, 2));
+        nId8->connect(new BinaryTreeNode(7, 2));
 
-        auto additionalNode = new BinaryTreeNode(10, 2);
-        n->connect(additionalNode);
+        auto nId10 = new BinaryTreeNode(10, 2);
+        nId8->connect(nId10);
 
-        additionalNode->connect(new BinaryTreeNode(9, 3));
+        nId10->connect(new BinaryTreeNode(9, 3));
     }
 
     void createDefiniteTree() {
+        //                  0
+        //      1                     2
+        //                      3           4
+        //                    5
+        //                  6   7
         auto root = new BinaryTreeNode(0, 0);
         roots.push_back(root);
 
-        BinaryTreeNode *n = new BinaryTreeNode(1, 1);
-        root->connect(n);
-        n = new BinaryTreeNode(2, 1);
-        root->connect(n);
+        root->connect(new BinaryTreeNode(1, 1));
+        BinaryTreeNode *nId2 = new BinaryTreeNode(2, 1);
+        root->connect(nId2);
 
-        n->connect(new BinaryTreeNode(3, 2));
+        auto nId3 = new BinaryTreeNode(3, 2);
+        nId2->connect(nId3);
 
-        n->connect(new BinaryTreeNode(4, 2));
+        nId2->connect(new BinaryTreeNode(4, 2));
 
-        auto tmp = new BinaryTreeNode(5, 2);
-        n->connect(tmp);
+        auto tmp = new BinaryTreeNode(5, 3);
+        nId3->connect(tmp);
 
-        tmp->connect(new BinaryTreeNode(6, 3));
-        tmp->connect(new BinaryTreeNode(7, 3));
+        tmp->connect(new BinaryTreeNode(6, 4));
+        tmp->connect(new BinaryTreeNode(7, 4));
+    }
+
+    void createBiDirectedBinaryTree() {
+        //                  0
+        //      1                     2
+        //                      3           4
+        //                    5           7   8
+        //                  6
+        auto root = new BiDirectedBinaryTreeNode(0, 0, nullptr);
+        roots.push_back(root);
+
+        root->connect(new BiDirectedBinaryTreeNode(1, 1, root));
+        BiDirectedBinaryTreeNode *nId2 = new BiDirectedBinaryTreeNode(2, 1, root);
+        root->connect(nId2);
+
+        auto nId3 = new BiDirectedBinaryTreeNode(3, 2, nId2);
+        nId2->connect(nId3);
+
+        auto nId4 = new BiDirectedBinaryTreeNode(4, 2, nId2);
+        nId2->connect(nId4);
+
+        auto nId5 = new BiDirectedBinaryTreeNode(5, 3, nId3);
+        nId3->connect(nId5);
+
+        nId5->connect(new BiDirectedBinaryTreeNode(6, 4, nId5));
+
+        nId4->connect(new BiDirectedBinaryTreeNode(7, 3, nId4));
+        nId4->connect(new BiDirectedBinaryTreeNode(8, 3, nId4));
     }
 };
 

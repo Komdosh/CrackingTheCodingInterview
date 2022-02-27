@@ -533,6 +533,46 @@ bool checkBSTMinMax(BinaryTreeNode *n, int *min, int *max) {
 Write an algorithm to find the "next" node (i.e., in-order successor) of a given node in a binary search tree. You may
 assume that each node has a link to its parent.
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N) - worst case when we need to find left most child of root right subtree`
+- Space Complexity: `O(1)`
+
+#### Implementation
+
+```cpp
+Node *findSuccessor(BiDirectedBinaryTreeNode *current) {
+    if (current == nullptr) {
+        return nullptr;
+    }
+    if (current->right() != nullptr) {
+        return leftMostChild(current->right());
+    }
+    while (current->parent != nullptr) {
+        auto right = current->parent->right();
+        if (right != nullptr && right != current) {
+            return leftMostChild(right);
+        }
+        current = current->parent;
+    }
+    return nullptr;
+}
+BiDirectedBinaryTreeNode *leftMostChild(BiDirectedBinaryTreeNode *node) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+    auto current = node;
+    while (current->left() != nullptr) {
+        current = current->left();
+    }
+    return current;
+}
+```
+</details>
+
 <hr/>
 
 ## 7. Build Order

@@ -62,6 +62,29 @@ public:
     }
 };
 
+class BiDirectedBinaryTreeNode : public BinaryTreeNode {
+public:
+    BiDirectedBinaryTreeNode *parent;
+
+    BiDirectedBinaryTreeNode(int id, int level, BiDirectedBinaryTreeNode *parent) : BinaryTreeNode(id, level) {
+        this->parent = parent;
+    }
+
+    BiDirectedBinaryTreeNode *left() {
+        if (!connectedNodes.empty()) {
+            return (BiDirectedBinaryTreeNode *) connectedNodes[0];
+        }
+        return nullptr;
+    }
+
+    BiDirectedBinaryTreeNode *right() {
+        if (connectedNodes.size() > 1) {
+            return (BiDirectedBinaryTreeNode *) connectedNodes[1];
+        }
+        return nullptr;
+    }
+};
+
 class Graph {
 public:
     std::vector<Node *> roots;
