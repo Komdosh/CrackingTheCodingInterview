@@ -20,8 +20,7 @@
 #include "PathsWithSum/PathsWithSumOptimized.h"
 #include "RandomNode/RandomNodeNaive.h"
 #include "RandomNode/RandomNodeOptimized.h"
-#include "Successor/SuccessorNaive.h"
-#include "Successor/SuccessorOptimized.h"
+#include "Successor/Successor.h"
 #include "ValidateBST/ValidateBSTNaive.h"
 #include "ValidateBST/ValidateBSTOptimized.h"
 
@@ -48,10 +47,12 @@ static_assert(GraphTaskRunner<FirstCommonAncestorNaive>);
 static_assert(GraphTaskRunner<FirstCommonAncestorOptimized>);
 static_assert(GraphTaskRunner<PathsWithSumNaive>);
 static_assert(GraphTaskRunner<PathsWithSumOptimized>);
+
 static_assert(GraphTaskRunner<RandomNodeNaive>);
 static_assert(GraphTaskRunner<RandomNodeOptimized>);
-static_assert(GraphTaskRunner<SuccessorNaive>);
-static_assert(GraphTaskRunner<SuccessorOptimized>);
+
+static_assert(GraphTaskRunner<Successor>);
+
 static_assert(GraphTaskRunner<ValidateBSTNaive>);
 static_assert(GraphTaskRunner<ValidateBSTOptimized>);
 

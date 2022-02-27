@@ -534,32 +534,34 @@ Write an algorithm to find the "next" node (i.e., in-order successor) of a given
 assume that each node has a link to its parent.
 
 <details>
-<summary>Naive Solution</summary>
+<summary>Solution</summary>
 
 #### Complexity
 
-- Time Complexity: `O(N) - worst case when we need to find left most child of root right subtree`
+- Time Complexity: `O(N) - worst case that right subtree contains almost all elements`
 - Space Complexity: `O(1)`
 
 #### Implementation
 
 ```cpp
-Node *findSuccessor(BiDirectedBinaryTreeNode *current) {
-    if (current == nullptr) {
+Node *inorderSuccessor(BiDirectedBinaryTreeNode *n) {
+    if (n == nullptr) {
         return nullptr;
     }
-    if (current->right() != nullptr) {
-        return leftMostChild(current->right());
+    
+    if (n->right() != nullptr) {
+        return leftMostChild(n);
+    } 
+    
+    BiDirectedBinaryTreeNode *q = n;
+    BiDirectedBinaryTreeNode *x = n->parent;
+    while (x != nullptr && x->left() != q) {
+        q = x;
+        x = x->parent;
     }
-    while (current->parent != nullptr) {
-        auto right = current->parent->right();
-        if (right != nullptr && right != current) {
-            return leftMostChild(right);
-        }
-        current = current->parent;
-    }
-    return nullptr;
+    return x;
 }
+
 BiDirectedBinaryTreeNode *leftMostChild(BiDirectedBinaryTreeNode *node) {
     if (node == nullptr) {
         return nullptr;
