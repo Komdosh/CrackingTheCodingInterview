@@ -8,13 +8,13 @@
 class ListOfDepthsNaive {
 
 public:
-    void run() {
+    static void run() {
         Tree tree;
         tree.createDefiniteTree();
 
         auto levelsList = levelsAsList(tree);
 
-        for (auto lld: levelsList) {
+        for (const auto &lld: levelsList) {
             for (auto n: lld) {
                 std::cout << n->getId() << " ";
             }
@@ -22,20 +22,20 @@ public:
         }
     }
 
-    std::vector<std::vector<Node *>> levelsAsList(Tree tree) {
+    static std::vector<std::vector<Node *>> levelsAsList(Tree tree) {
         if (tree.root() == nullptr) {
-            return std::vector<std::vector<Node *>>();
+            return {};
         }
         std::queue<Node *> nodes;
 
         std::vector<std::vector<Node *>> levelsList;
         std::vector<Node *> level;
 
-        int currentLevelChildren = 1;
-        int nextLevelChildren = 0;
+        unsigned long currentLevelChildren = 1;
+        unsigned long nextLevelChildren = 0;
         int depth = 0;
 
-        levelsList.push_back(std::vector<Node *>());
+        levelsList.emplace_back();
         tree.breadthFirstTraverse([&](Node *current) {
             --currentLevelChildren;
 
@@ -46,7 +46,7 @@ public:
 
             if (currentLevelChildren == 0) {
                 ++depth;
-                levelsList.push_back(std::vector<Node *>());
+                levelsList.emplace_back();
                 currentLevelChildren = nextLevelChildren;
                 nextLevelChildren = 0;
             }

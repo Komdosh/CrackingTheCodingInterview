@@ -48,7 +48,7 @@ public:
             if (current != nullptr) {
                 currentConnectedNodes = &current->connectedNodes;
 
-                for (auto node : *currentConnectedNodes){
+                for (auto node: *currentConnectedNodes) {
                     if (!visitedNodes.contains(node)) {
                         if (node == finishNode) {
                             return true;

@@ -25,7 +25,10 @@ int main() {
 //    runTest(*new ValidateBSTNaive());
 //    runTest(*new ValidateBSTOptimized());
 
-    runTest(*new Successor());
+//    runTest(*new Successor());
+
+    runTest(*new BuildOrderNaive());
+//    runTest(*new BuildOrderOptimized());
 
     return 0;
 }

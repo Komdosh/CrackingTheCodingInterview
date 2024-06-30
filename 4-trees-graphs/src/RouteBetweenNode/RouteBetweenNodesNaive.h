@@ -14,17 +14,20 @@ public:
         connectedGraph.createDefiniteConnectedGraph();
         connectedGraph.printGraph();
 
-        std::cout << search(connectedGraph.getNodeById(0), connectedGraph.getNodeById(3)) << " should be 1" << std::endl;
-        std::cout << search(connectedGraph.getNodeById(3), connectedGraph.getNodeById(0)) << " should be 0" << std::endl;
+        std::cout << search(connectedGraph.getNodeById(0), connectedGraph.getNodeById(3)) << " should be 1"
+                  << std::endl;
+        std::cout << search(connectedGraph.getNodeById(3), connectedGraph.getNodeById(0)) << " should be 0"
+                  << std::endl;
 
         Graph unConnectedGraph;
         unConnectedGraph.createDefiniteUnConnectedGraph();
         unConnectedGraph.printGraph();
-        std::cout << search(unConnectedGraph.getNodeById(0), unConnectedGraph.getNodeById(5)) << " should be 0" << std::endl;
+        std::cout << search(unConnectedGraph.getNodeById(0), unConnectedGraph.getNodeById(5)) << " should be 0"
+                  << std::endl;
     }
 
     bool search(Node *startNode, Node *finishNode) {
-        if(startNode == finishNode){
+        if (startNode == finishNode) {
             return true;
         }
 
@@ -40,7 +43,7 @@ public:
 
             currentConnectedNodes = &current->connectedNodes;
 
-            for (auto node : *currentConnectedNodes){
+            for (auto node: *currentConnectedNodes) {
                 if (!visitedNodes.contains(node)) {
                     q.push(node);
                 }

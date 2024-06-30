@@ -7,6 +7,8 @@
 #include <iomanip>
 #include <queue>
 #include <stack>
+#include <algorithm>
+#include <functional>
 
 class Node {
     int id = 0;
@@ -21,6 +23,17 @@ public:
         this->level = level;
     }
 
+    bool alreadyConnected(Node *node) {
+        if (node != nullptr) {
+            for (Node *c: connectedNodes) {
+                if (c->id == node->id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     void connect(Node *node) {
         if (node != nullptr) {
             connectedNodes.push_back(node);
@@ -33,7 +46,7 @@ public:
         }
     }
 
-    int getId() {
+    int getId() const {
         return id;
     }
 
@@ -143,8 +156,13 @@ public:
     }
 
     template<class container>
-    void traverse(container nodes, std::function<Node *(container)> fetch, std::function<bool(Node *)> action) {
-        for (auto root: roots) {
+    static void traverse(
+            const std::vector<Node *> &providedRoots,
+            container &nodes,
+            const std::function<Node *(container)> &fetch,
+            const std::function<bool(Node *)> &action
+    ) {
+        for (auto root: providedRoots) {
             Node *current = root;
 
             std::vector<Node *> *currentConnectedNodes;
@@ -178,14 +196,14 @@ public:
         }
     }
 
-    void depthFirstTraverse(std::function<bool(Node *)> action) {
+    void depthFirstTraverse(const std::function<bool(Node *)> &action) const {
         std::stack<Node *> nodes;
-        traverse<std::stack<Node *>>(nodes, [](std::stack<Node *> nodes) { return nodes.top(); }, action);
+        traverse<std::stack<Node *>>(roots, nodes, [](std::stack<Node *> nodes) { return nodes.top(); }, action);
     }
 
-    void breadthFirstTraverse(std::function<bool(Node *)> action) {
+    void breadthFirstTraverse(const std::function<bool(Node *)> &action) const {
         std::queue<Node *> nodes;
-        traverse<std::queue<Node *>>(nodes, [](std::queue<Node *> nodes) { return nodes.front(); }, action);
+        traverse<std::queue<Node *>>(roots, nodes, [](std::queue<Node *> nodes) { return nodes.front(); }, action);
     }
 
     void printGraph() {
