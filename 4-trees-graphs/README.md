@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![41%](https://progress-bar.dev/41)
+![41%](https://progress-bar.xyz/41)
 
 ## 1. Route Between Nodes
 

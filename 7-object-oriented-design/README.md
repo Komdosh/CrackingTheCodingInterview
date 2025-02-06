@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.dev/0)
+![0%](https://progress-bar.xyz/0)
 
 ## 1. Deck of Cards
 

@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![16%](https://progress-bar.dev/16)
+![16%](https://progress-bar.xyz/16)
 
 ## 1. Mistake
 
