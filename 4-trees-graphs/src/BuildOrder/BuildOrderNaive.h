@@ -1,51 +1,87 @@
 #ifndef INC_4_TREES_GRAPHS_BUILD_ORDER_NAIVE_H
 #define INC_4_TREES_GRAPHS_BUILD_ORDER_NAIVE_H
 
-#include <queue>
 #include <vector>
 #include <unordered_map>
 
 
 class BuildOrderNaive {
-
-    Node *getProjectNode(char projectName, std::unordered_map<char, Node *> projectsStore) {
+    static Node *getProjectNode(char projectName, std::unordered_map<char, Node *> *projectsStore) {
         Node *projectNode;
-        if (!projectsStore.contains(projectName)) {
-            Node *node = new Node(projectName, 0);
+        if (!projectsStore->contains(projectName)) {
+            auto node = new Node(projectName, 0);
             projectNode = node;
-            projectsStore.insert({projectName, node});
+            projectsStore->insert({projectName, node});
         } else {
-            projectNode = projectsStore.at(projectName);
+            projectNode = projectsStore->at(projectName);
         }
         return projectNode;
     }
 
 public:
     void run() {
-        std::vector<char> projects = {'a', 'b', 'c', 'd', 'e', 'f'};
-        std::vector<std::pair<char, char>> dependencies = {
-                {'a', 'd'},
-                {'f', 'b'},
-                {'b', 'd'},
-                {'f', 'a'},
-                {'d', 'c'},
+        buildDeps();
+    }
+
+    void buildDeps() {
+        std::vector projects = {'a', 'b', 'c', 'd', 'e', 'f'};
+        std::unordered_set tops(projects.begin(), projects.end());
+        std::vector<std::pair<char, char> > dependencies = {
+            {'a', 'd'},
+            {'f', 'b'},
+            {'b', 'd'},
+            {'f', 'a'},
+            {'d', 'c'},
         };
 
-        std::unordered_map<char, Node *> projectsStore;
+        std::unordered_map<char, Node *> projectsWithDependants;
 
         for (auto [in, out]: dependencies) {
-            Node *currentProject = getProjectNode(in, projectsStore);
-            Node *dependantProject = getProjectNode(out, projectsStore);
+            Node *currentProject = getProjectNode(in, &projectsWithDependants);
+            Node *dependantProject = getProjectNode(out, &projectsWithDependants);
+
+            tops.erase(out);
 
             currentProject->connect(dependantProject);
         }
 
-
-        std::vector<Node *> nodes(projectsStore.size());
+        std::vector<Node *> nodes(projectsWithDependants.size());
         auto value_selector = [](auto pair) { return pair.second; };
-        std::ranges::transform(projectsStore, nodes.begin(), value_selector);
+        std::ranges::transform(projectsWithDependants, nodes.begin(), value_selector);
 
-//        Graph::traverse(nodes)
+        std::unordered_set<char> visited;
+
+        for (const auto top: tops) {
+            if (!projectsWithDependants.contains(top)) {
+                visited.insert(top);
+                std::cout << top << " ";
+            }
+        }
+
+        for (const auto top: tops) {
+            if (projectsWithDependants.contains(top) && !visited.contains(top)) {
+                std::cout << top << " ";
+                const auto node = projectsWithDependants.at(top);
+                traverse(node, visited);
+                visited.insert(top);
+            }
+        }
+
+        std::cout << std::endl;
+    }
+
+    // e, f, (a/b), (b/a), d, c
+    void traverse(const Node *node, std::unordered_set<char> &visited) {
+        for (const auto connected: node->connectedNodes) {
+            if (!visited.contains(static_cast<char>(connected->getId()))) {
+                std::cout << static_cast<char>(connected->getId()) << " ";
+            }
+        }
+
+        for (const auto connected: node->connectedNodes) {
+            traverse(connected, visited);
+            visited.insert(static_cast<char>(connected->getId()));
+        }
     }
 };
 

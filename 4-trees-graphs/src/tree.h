@@ -11,10 +11,10 @@
 
 class TreeStatistics {
 public:
-    int height;
-    int maxChildrenOnLevel;
-    int lowestLevelChildrenCount;
-    int maxDigits;
+    int height = 0;
+    int maxChildrenOnLevel = 0;
+    int lowestLevelChildrenCount = 0;
+    int maxDigits = 0;
 
     int evaluateMaxDigits(int value) {
         int digitsCount = 0;
@@ -69,14 +69,14 @@ class Tree : public Graph {
 
         int maxAbsValue = -(1LL << 31);
 
-        breadthFirstTraverse([&](Node *current) {
+        breadthFirstTraverse([&](const Node *current) {
             if (maxAbsValue < current->getId()) {
                 maxAbsValue = current->getId();
             }
 
             --currentLevelChildren;
 
-            std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
+            const std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
 
             nextLevelChildren += currentConnectedNodes->size();
 
@@ -97,7 +97,7 @@ class Tree : public Graph {
     }
 
 public:
-    Node *root() {
+    Node *root() const {
         return roots.back();
     }
 
@@ -106,7 +106,7 @@ public:
     }
 
     void createDefiniteTree() {
-        auto root = new Node(0, 0);
+        const auto root = new Node(0, 0);
         roots.push_back(root);
 
         Node *n = new Node(1, 1);
@@ -127,7 +127,7 @@ public:
 
 
     void createBalancedTree() {
-        auto root = new Node(0, 0);
+        const auto root = new Node(0, 0);
         roots.push_back(root);
 
         Node *n = new Node(1, 1);
@@ -152,7 +152,7 @@ public:
         printGraph();
     }
 
-    void printNumberAlign(int value, int spaceSize) {
+    void printNumberAlign(const int value, int spaceSize) {
         int valueSize = value == 0 ? 1 : 0;
         int tmpValue = value;
         while (tmpValue > 0) {
@@ -212,7 +212,7 @@ public:
         //                      3           4
         //                    5
         //                  6   7
-        auto root = new BinaryTreeNode(0, 0);
+        const auto root = new BinaryTreeNode(0, 0);
         roots.push_back(root);
 
         root->connect(new BinaryTreeNode(1, 1));

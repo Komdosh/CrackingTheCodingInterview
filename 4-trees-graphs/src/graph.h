@@ -18,12 +18,12 @@ public:
 
     std::vector<Node *> connectedNodes;
 
-    Node(int id, int level) {
+    Node(const int id, const int level) {
         this->id = id;
         this->level = level;
     }
 
-    bool alreadyConnected(Node *node) {
+    bool alreadyConnected(const Node *node) const {
         if (node != nullptr) {
             for (Node *c: connectedNodes) {
                 if (c->id == node->id) {
@@ -60,14 +60,14 @@ public:
     BinaryTreeNode(int id, int level) : Node(id, level) {
     }
 
-    BinaryTreeNode *left() {
+    BinaryTreeNode *left() const {
         if (!connectedNodes.empty()) {
             return (BinaryTreeNode *) connectedNodes[0];
         }
         return nullptr;
     }
 
-    BinaryTreeNode *right() {
+    BinaryTreeNode *right() const {
         if (connectedNodes.size() > 1) {
             return (BinaryTreeNode *) connectedNodes[1];
         }
@@ -115,7 +115,7 @@ public:
     }
 
     void createDefiniteConnectedGraph() {
-        auto root = new Node(0, 0);
+        const auto root = new Node(0, 0);
         roots.push_back(root);
 
         Node *n = new Node(1, 1);
@@ -149,7 +149,7 @@ public:
 
         n->connect(new Node(3, 2));
 
-        auto unconnectedNode = new Node(5, 2);
+        const auto unconnectedNode = new Node(5, 2);
         roots.push_back(unconnectedNode);
         unconnectedNode->connect(new Node(6, 3));
         unconnectedNode->connect(new Node(7, 3));
@@ -165,13 +165,12 @@ public:
         for (auto root: providedRoots) {
             Node *current = root;
 
-            std::vector<Node *> *currentConnectedNodes;
             std::unordered_set<Node *> visitedNodes;
 
             while (current != nullptr) {
                 visitedNodes.insert(current);
 
-                currentConnectedNodes = &current->connectedNodes;
+                std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
 
                 if (!currentConnectedNodes->empty()) {
                     for (auto node: *currentConnectedNodes) {
@@ -206,7 +205,7 @@ public:
         traverse<std::queue<Node *>>(roots, nodes, [](std::queue<Node *> nodes) { return nodes.front(); }, action);
     }
 
-    void printGraph() {
+    void printGraph() const {
         std::cout << "DEEP" << std::endl;
         depthFirstTraverse([](Node *current) {
             std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
@@ -216,8 +215,8 @@ public:
                 std::cout << "NodeId: " << current->getId() << std::endl;
                 std::cout << "Connected nodes:" << std::endl;
 
-                std::sort(currentConnectedNodes->begin(), currentConnectedNodes->end(),
-                          [](Node *first, Node *second) { return first->getId() < second->getId(); });
+                std::ranges::sort(*currentConnectedNodes,
+                                  [](const Node *first, const Node *second) { return first->getId() < second->getId(); });
             }
 
             for (Node *c: *currentConnectedNodes) {
@@ -237,8 +236,8 @@ public:
                 std::cout << "NodeId: " << current->getId() << std::endl;
                 std::cout << "Connected nodes:" << std::endl;
 
-                std::sort(currentConnectedNodes->begin(), currentConnectedNodes->end(),
-                          [](Node *first, Node *second) { return first->getId() < second->getId(); });
+                std::ranges::sort(*currentConnectedNodes,
+                                  [](const Node *first, const Node *second) { return first->getId() < second->getId(); });
             }
 
             for (Node *c: *currentConnectedNodes) {
@@ -249,7 +248,7 @@ public:
         });
     }
 
-    Node *getNodeById(int id) {
+    Node *getNodeById(int id) const {
         Node *n = nullptr;
         depthFirstTraverse([=, &n](Node *current) {
             if (current->getId() == id) {
