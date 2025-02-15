@@ -12,9 +12,7 @@ public:
         BinaryTree tree;
         tree.createBiDirectedBinaryTree();
 
-        BiDirectedBinaryTreeNode *current;
-
-        current = leftMostChild((BiDirectedBinaryTreeNode *) tree.root()->right());
+        BiDirectedBinaryTreeNode *current = leftMostChild((BiDirectedBinaryTreeNode *) tree.root()->right());
 //        current = current->parent;
 //        current = (BiDirectedBinaryTreeNode *) tree.root()->right()->right()->right();
 

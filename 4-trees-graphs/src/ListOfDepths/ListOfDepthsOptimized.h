@@ -50,7 +50,7 @@ public:
 
         while (current->size() > 0) {
             result->push_back(current);
-            std::vector<Node *> *parents = current;
+            const std::vector<Node *> *parents = current;
             current = new std::vector<Node *>();
             for (Node *parent: *parents) {
                 for (Node *child: parent->connectedNodes) {

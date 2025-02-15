@@ -10,7 +10,7 @@ public:
     void run() {
         Tree tree;
         tree.createDefiniteTree();
-//        tree.createBalancedTree();
+        //        tree.createBalancedTree();
 
         tree.printTree();
 
@@ -19,13 +19,13 @@ public:
         std::cout << "isBalanced: " << balanced << std::endl;
     }
 
-    int checkHeight(Node *root) {
+    int checkHeight(const Node *root) {
         if (root == nullptr) return -1;
 
         int max = -1;
         int min = INT_MAX;
         for (auto c: root->connectedNodes) {
-            int value = checkHeight(c);
+            const int value = checkHeight(c);
 
             if (value == INT_MIN) {
                 return INT_MIN;
@@ -46,7 +46,7 @@ public:
         return max + 1;
     }
 
-    bool isBalanced(Node *root) {
+    bool isBalanced(const Node *root) {
         return checkHeight(root) != INT_MIN;
     }
 };

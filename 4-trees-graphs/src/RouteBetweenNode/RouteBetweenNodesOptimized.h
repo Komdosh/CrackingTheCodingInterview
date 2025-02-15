@@ -7,27 +7,25 @@
 
 
 class RouteBetweenNodesOptimized {
-
 public:
     void run() {
-
         Graph connectedGraph;
         connectedGraph.createDefiniteConnectedGraph();
         connectedGraph.printGraph();
 
         std::cout << search(connectedGraph.getNodeById(0), connectedGraph.getNodeById(3)) << " should be 1"
-                  << std::endl;
+                << std::endl;
         std::cout << search(connectedGraph.getNodeById(3), connectedGraph.getNodeById(0)) << " should be 0"
-                  << std::endl;
+                << std::endl;
 
         Graph unConnectedGraph;
         unConnectedGraph.createDefiniteUnConnectedGraph();
         unConnectedGraph.printGraph();
         std::cout << search(unConnectedGraph.getNodeById(0), unConnectedGraph.getNodeById(5)) << " should be 0"
-                  << std::endl;
+                << std::endl;
     }
 
-    bool search(Node *startNode, Node *finishNode) {
+    bool search(Node *startNode, const Node *finishNode) {
         if (startNode == finishNode) {
             return true;
         }
@@ -38,24 +36,20 @@ public:
         visitedNodes.insert(startNode);
         q.push(startNode);
 
-        Node *current;
-        std::vector<Node *> *currentConnectedNodes;
-
         while (!q.empty()) {
-            current = q.front();
+            Node *current = q.front();
             q.pop();
 
             if (current != nullptr) {
-                currentConnectedNodes = &current->connectedNodes;
+                std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
 
                 for (auto node: *currentConnectedNodes) {
                     if (!visitedNodes.contains(node)) {
                         if (node == finishNode) {
                             return true;
-                        } else {
-                            visitedNodes.insert(node);
-                            q.push(node);
                         }
+                        visitedNodes.insert(node);
+                        q.push(node);
                     }
                 }
 

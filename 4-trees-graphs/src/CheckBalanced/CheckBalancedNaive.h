@@ -18,13 +18,13 @@ public:
 
         tree.printTree();
 
-        bool balanced = isBalanced(tree.root(), 0);
+        const bool balanced = isBalanced(tree.root(), 0);
 //        bool balanced = isBalancedAlternative(tree.root());
 
         std::cout << "isBalanced: " << balanced << std::endl;
     }
 
-    bool isBalanced(Node *current, int level) {
+    bool isBalanced(const Node *current, const int level) {
         for (auto c: current->connectedNodes) {
             if (level > maxDepth) {
                 if (abs(secondDepth - level) > 1) {
@@ -39,9 +39,9 @@ public:
         }
 
         return true;
-    };
+    }
 
-    int getHeight(Node *root) {
+    int getHeight(const Node *root) {
         if (root == nullptr) return -1;
 
         int max = -1;
@@ -51,7 +51,7 @@ public:
         return max;
     }
 
-    bool isBalancedAlternative(Node *root) {
+    bool isBalancedAlternative(const Node *root) {
         int max = -1;
         int min = INT_MAX;
         for (auto c: root->connectedNodes) {
@@ -66,11 +66,10 @@ public:
 
         if (abs(max - min) > 1) {
             return false;
-        } else {
-            for (auto c: root->connectedNodes) {
-                if (!isBalancedAlternative(c)) {
-                    return false;
-                }
+        }
+        for (const auto c: root->connectedNodes) {
+            if (!isBalancedAlternative(c)) {
+                return false;
             }
         }
         return true;

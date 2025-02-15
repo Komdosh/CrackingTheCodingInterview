@@ -3,32 +3,28 @@
 
 #include <queue>
 #include <vector>
-#include <unordered_set>
 
 class ListOfDepthsNaive {
-
 public:
     static void run() {
         Tree tree;
         tree.createDefiniteTree();
 
-        auto levelsList = levelsAsList(tree);
-
-        for (const auto &lld: levelsList) {
-            for (auto n: lld) {
+        for (const auto levelsList = levelsAsList(tree); const auto &lld: levelsList) {
+            for (const auto n: lld) {
                 std::cout << n->getId() << " ";
             }
             std::cout << std::endl;
         }
     }
 
-    static std::vector<std::vector<Node *>> levelsAsList(Tree tree) {
+    static std::vector<std::vector<Node *> > levelsAsList(Tree tree) {
         if (tree.root() == nullptr) {
             return {};
         }
         std::queue<Node *> nodes;
 
-        std::vector<std::vector<Node *>> levelsList;
+        std::vector<std::vector<Node *> > levelsList;
         std::vector<Node *> level;
 
         unsigned long currentLevelChildren = 1;
@@ -40,7 +36,7 @@ public:
             --currentLevelChildren;
 
             levelsList.at(depth).push_back(current);
-            std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
+            const std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
 
             nextLevelChildren += currentConnectedNodes->size();
 

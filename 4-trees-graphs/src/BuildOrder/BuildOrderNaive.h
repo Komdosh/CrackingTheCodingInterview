@@ -33,9 +33,9 @@ public:
 
         std::unordered_map<char, Node *> projectsStore;
 
-        for (auto d: dependencies) {
-            Node *currentProject = getProjectNode(d.first, projectsStore);
-            Node *dependantProject = getProjectNode(d.second, projectsStore);
+        for (auto [in, out]: dependencies) {
+            Node *currentProject = getProjectNode(in, projectsStore);
+            Node *dependantProject = getProjectNode(out, projectsStore);
 
             currentProject->connect(dependantProject);
         }
@@ -43,7 +43,7 @@ public:
 
         std::vector<Node *> nodes(projectsStore.size());
         auto value_selector = [](auto pair) { return pair.second; };
-        transform(projectsStore.begin(), projectsStore.end(), nodes.begin(), value_selector);
+        std::ranges::transform(projectsStore, nodes.begin(), value_selector);
 
 //        Graph::traverse(nodes)
     }

@@ -40,7 +40,7 @@ public:
             return nullptr;
         }
 
-        int middleId = (end + start) / 2;
+        const int middleId = (end + start) / 2;
 
         Node *node = new Node(orderedNumbers[middleId], level);
         Node *left = createMinimalBST(orderedNumbers, start, middleId - 1, level + 1);

@@ -16,18 +16,18 @@ int main() {
 
 //    runTest(*new MinimalTree());
 
-//    runTest(*new ListOfDepthsNaive());
-//    runTest(*new ListOfDepthsOptimized());
+    runTest(*new ListOfDepthsNaive());
+    runTest(*new ListOfDepthsOptimized());
 
-//    runTest(*new CheckBalancedNaive());
-//    runTest(*new CheckBalancedOptimized());
+    // runTest(*new CheckBalancedNaive());
+    // runTest(*new CheckBalancedOptimized());
 
 //    runTest(*new ValidateBSTNaive());
 //    runTest(*new ValidateBSTOptimized());
 
 //    runTest(*new Successor());
 
-    runTest(*new BuildOrderNaive());
+    // runTest(*new BuildOrderNaive());
 //    runTest(*new BuildOrderOptimized());
 
     return 0;

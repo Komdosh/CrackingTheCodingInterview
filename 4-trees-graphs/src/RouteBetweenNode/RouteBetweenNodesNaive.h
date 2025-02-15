@@ -26,14 +26,13 @@ public:
                   << std::endl;
     }
 
-    bool search(Node *startNode, Node *finishNode) {
+    bool search(Node *startNode, const Node *finishNode) {
         if (startNode == finishNode) {
             return true;
         }
 
         std::queue<Node *> q;
         std::unordered_set<Node *> visitedNodes;
-        std::vector<Node *> *currentConnectedNodes;
 
         Node *current = startNode;
         while (current != nullptr) {
@@ -41,7 +40,7 @@ public:
                 return true;
             }
 
-            currentConnectedNodes = &current->connectedNodes;
+            std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
 
             for (auto node: *currentConnectedNodes) {
                 if (!visitedNodes.contains(node)) {
