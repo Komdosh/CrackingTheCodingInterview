@@ -602,8 +602,8 @@ Output:
 
 #### Complexity
 
-- Time Complexity: `O(N)`
-- Space Complexity: `O(N)`
+- Time Complexity: `O(N) - not N actually, number of edges E, because I built and traverse a full graph of dependant projects`
+- Space Complexity: `O(N) - Graph of dependants with all verticies (projects) + technical structures for better finding performance`
 
 #### Implementation
 
@@ -677,7 +677,6 @@ void traverse(const Node *node, std::unordered_set<char> &visited) {
 
 #### Complexity
 
-
 #### Implementation
 
 ```cpp
@@ -698,6 +697,8 @@ additional nodes in a data structure. NOTE: This is not necessarily a binary sea
 
 #### Complexity
 
+- Time Complexity: `O(N) - the worst case when we have to traverse all tree to find element`
+- Space Complexity: `O(N) - if tree is unbalanced, there is a case when we store whole tree in a path queue`
 
 #### Implementation
 
