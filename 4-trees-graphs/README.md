@@ -609,65 +609,65 @@ Output:
 
 ```cpp
 void buildDeps() {
-        std::vector projects = {'a', 'b', 'c', 'd', 'e', 'f'};
-        std::unordered_set tops(projects.begin(), projects.end());
-        std::vector<std::pair<char, char> > dependencies = {
-            {'a', 'd'},
-            {'f', 'b'},
-            {'b', 'd'},
-            {'f', 'a'},
-            {'d', 'c'},
-        };
+    std::vector projects = {'a', 'b', 'c', 'd', 'e', 'f'};
+    std::unordered_set tops(projects.begin(), projects.end());
+    std::vector<std::pair<char, char> > dependencies = {
+        {'a', 'd'},
+        {'f', 'b'},
+        {'b', 'd'},
+        {'f', 'a'},
+        {'d', 'c'},
+    };
 
-        std::unordered_map<char, Node *> projectsWithDependants;
+    std::unordered_map<char, Node *> projectsWithDependants;
 
-        for (auto [in, out]: dependencies) {
-            Node *currentProject = getProjectNode(in, &projectsWithDependants);
-            Node *dependantProject = getProjectNode(out, &projectsWithDependants);
+    for (auto [in, out]: dependencies) {
+        Node *currentProject = getProjectNode(in, &projectsWithDependants);
+        Node *dependantProject = getProjectNode(out, &projectsWithDependants);
 
-            tops.erase(out);
+        tops.erase(out);
 
-            currentProject->connect(dependantProject);
-        }
-
-        std::vector<Node *> nodes(projectsWithDependants.size());
-        auto value_selector = [](auto pair) { return pair.second; };
-        std::ranges::transform(projectsWithDependants, nodes.begin(), value_selector);
-
-        std::unordered_set<char> visited;
-
-        for (const auto top: tops) {
-            if (!projectsWithDependants.contains(top)) {
-                visited.insert(top);
-                std::cout << top << " ";
-            }
-        }
-
-        for (const auto top: tops) {
-            if (projectsWithDependants.contains(top) && !visited.contains(top)) {
-                std::cout << top << " ";
-                const auto node = projectsWithDependants.at(top);
-                traverse(node, visited);
-                visited.insert(top);
-            }
-        }
-
-        std::cout << std::endl;
+        currentProject->connect(dependantProject);
     }
 
-    // e, f, (a/b), (b/a), d, c
-    void traverse(const Node *node, std::unordered_set<char> &visited) {
-        for (const auto connected: node->connectedNodes) {
-            if (!visited.contains(static_cast<char>(connected->getId()))) {
-                std::cout << static_cast<char>(connected->getId()) << " ";
-            }
-        }
+    std::vector<Node *> nodes(projectsWithDependants.size());
+    auto value_selector = [](auto pair) { return pair.second; };
+    std::ranges::transform(projectsWithDependants, nodes.begin(), value_selector);
 
-        for (const auto connected: node->connectedNodes) {
-            traverse(connected, visited);
-            visited.insert(static_cast<char>(connected->getId()));
+    std::unordered_set<char> visited;
+
+    for (const auto top: tops) {
+        if (!projectsWithDependants.contains(top)) {
+            visited.insert(top);
+            std::cout << top << " ";
         }
     }
+
+    for (const auto top: tops) {
+        if (projectsWithDependants.contains(top) && !visited.contains(top)) {
+            std::cout << top << " ";
+            const auto node = projectsWithDependants.at(top);
+            traverse(node, visited);
+            visited.insert(top);
+        }
+    }
+
+    std::cout << std::endl;
+}
+
+// e, f, (a/b), (b/a), d, c
+void traverse(const Node *node, std::unordered_set<char> &visited) {
+    for (const auto connected: node->connectedNodes) {
+        if (!visited.contains(static_cast<char>(connected->getId()))) {
+            std::cout << static_cast<char>(connected->getId()) << " ";
+        }
+    }
+
+    for (const auto connected: node->connectedNodes) {
+        traverse(connected, visited);
+        visited.insert(static_cast<char>(connected->getId()));
+    }
+}
 ```
 
 </details>
@@ -702,43 +702,43 @@ additional nodes in a data structure. NOTE: This is not necessarily a binary sea
 #### Implementation
 
 ```cpp
-    void run() {
-        Tree tree;
-        tree.createDefiniteTree();
+void run() {
+    Tree tree;
+    tree.createDefiniteTree();
 
-        constexpr int first = 3;
-        constexpr int second = 6;
+    constexpr int first = 3;
+    constexpr int second = 6;
 
-        auto firstNodePath = path(tree, first);
-        auto secondNodePath = path(tree, second);
+    auto firstNodePath = path(tree, first);
+    auto secondNodePath = path(tree, second);
 
-        while (firstNodePath.size() > secondNodePath.size()) {
-            firstNodePath.pop();
-        }
-
-        while (secondNodePath.size() > firstNodePath.size()) {
-            secondNodePath.pop();
-        }
-
-        while (!firstNodePath.empty() && !secondNodePath.empty() && firstNodePath.front()->getId() != secondNodePath.front()->getId()) {
-            firstNodePath.pop();
-            secondNodePath.pop();
-        }
-
-        if (firstNodePath.empty()) { // anyway
-            std::cout << "Can't find first common ancestor looks like an error" << std::endl;
-        } else {
-            std::cout << "First common ancestor is : " << firstNodePath.front()->getId() << std::endl;
-        }
+    while (firstNodePath.size() > secondNodePath.size()) {
+        firstNodePath.pop();
     }
 
-    std::queue<Node *> path(const Tree &tree, const int value) {
-        std::queue<Node *> nodePath;
-
-        tree.findPath(tree.roots, nodePath, value);
-
-        return nodePath;
+    while (secondNodePath.size() > firstNodePath.size()) {
+        secondNodePath.pop();
     }
+
+    while (!firstNodePath.empty() && !secondNodePath.empty() && firstNodePath.front()->getId() != secondNodePath.front()->getId()) {
+        firstNodePath.pop();
+        secondNodePath.pop();
+    }
+
+    if (firstNodePath.empty()) { // anyway
+        std::cout << "Can't find first common ancestor looks like an error" << std::endl;
+    } else {
+        std::cout << "First common ancestor is : " << firstNodePath.front()->getId() << std::endl;
+    }
+}
+
+std::queue<Node *> path(const Tree &tree, const int value) {
+    std::queue<Node *> nodePath;
+
+    tree.findPath(tree.roots, nodePath, value);
+
+    return nodePath;
+}
 ```
 
 </details>
