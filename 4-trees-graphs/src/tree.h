@@ -39,7 +39,7 @@ public:
 
     int spaces = 1 * 2; // * 2 - for both sides
 
-    PrintTreeStatistics(int depth, int maxAbsValue, int maxChildrenOnLevel) {
+    PrintTreeStatistics(const int depth, const int maxAbsValue, const int maxChildrenOnLevel) {
         this->height = depth;
         this->maxChildrenOnLevel = maxChildrenOnLevel;
 
@@ -49,7 +49,7 @@ public:
         this->width = this->lowestLevelChildrenCount * (maxDigits + spaces);
     }
 
-    void print() {
+    void print() const {
         std::cout << this->height << std::endl;
         std::cout << this->width << std::endl;
         std::cout << this->maxChildrenOnLevel << std::endl;
@@ -61,7 +61,7 @@ public:
 class TreePrinter;
 
 class Tree : public Graph {
-    PrintTreeStatistics *evaluateStatistics() {
+    PrintTreeStatistics *evaluateStatistics() const {
         int currentLevelChildren = 1;
         int nextLevelChildren = 0;
         int depth = 0;
@@ -106,6 +106,10 @@ public:
     }
 
     void createDefiniteTree() {
+        //              0
+        //      1               2
+        //                  3   4   5
+        //                         6  7
         const auto root = new Node(0, 0);
         roots.push_back(root);
 
@@ -118,7 +122,7 @@ public:
 
         n->connect(new Node(4, 2));
 
-        auto tmp = new Node(5, 2);
+        const auto tmp = new Node(5, 2);
         n->connect(tmp);
 
         tmp->connect(new Node(6, 3));
@@ -145,11 +149,31 @@ public:
         n->connect(new Node(6, 2));
     }
 
-    void printTree() {
+    void printTree() const {
         PrintTreeStatistics *pts = evaluateStatistics();
 
         // TODO(AT): implement real print tree
         printGraph();
+    }
+
+    void printNode(Node *current) const {
+        std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
+        if (!currentConnectedNodes->empty()) {
+            std::cout << "--------" << std::endl;
+
+            std::cout << "NodeId: " << current->getId() << " (Level: " << current->getLevel() << ")" << std::endl;
+
+            std::cout << "Connected nodes:" << std::endl;
+
+            std::ranges::sort(*currentConnectedNodes,
+                              [](const Node *first, const Node *second) {
+                                  return first->getId() < second->getId();
+                              });
+        }
+
+        for (const Node *c: *currentConnectedNodes) {
+            std::cout << " - " << c->getId() << std::endl;
+        }
     }
 
     void printNumberAlign(const int value, int spaceSize) {
@@ -219,12 +243,12 @@ public:
         BinaryTreeNode *nId2 = new BinaryTreeNode(2, 1);
         root->connect(nId2);
 
-        auto nId3 = new BinaryTreeNode(3, 2);
+        const auto nId3 = new BinaryTreeNode(3, 2);
         nId2->connect(nId3);
 
         nId2->connect(new BinaryTreeNode(4, 2));
 
-        auto tmp = new BinaryTreeNode(5, 3);
+        const auto tmp = new BinaryTreeNode(5, 3);
         nId3->connect(tmp);
 
         tmp->connect(new BinaryTreeNode(6, 4));
@@ -237,20 +261,20 @@ public:
         //                      3           4
         //                    5           7   8
         //                  6
-        auto root = new BiDirectedBinaryTreeNode(0, 0, nullptr);
+        const auto root = new BiDirectedBinaryTreeNode(0, 0, nullptr);
         roots.push_back(root);
 
         root->connect(new BiDirectedBinaryTreeNode(1, 1, root));
         BiDirectedBinaryTreeNode *nId2 = new BiDirectedBinaryTreeNode(2, 1, root);
         root->connect(nId2);
 
-        auto nId3 = new BiDirectedBinaryTreeNode(3, 2, nId2);
+        const auto nId3 = new BiDirectedBinaryTreeNode(3, 2, nId2);
         nId2->connect(nId3);
 
-        auto nId4 = new BiDirectedBinaryTreeNode(4, 2, nId2);
+        const auto nId4 = new BiDirectedBinaryTreeNode(4, 2, nId2);
         nId2->connect(nId4);
 
-        auto nId5 = new BiDirectedBinaryTreeNode(5, 3, nId3);
+        const auto nId5 = new BiDirectedBinaryTreeNode(5, 3, nId3);
         nId3->connect(nId5);
 
         nId5->connect(new BiDirectedBinaryTreeNode(6, 4, nId5));

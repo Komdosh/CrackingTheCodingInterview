@@ -55,7 +55,7 @@ public:
         int max = -1;
         int min = INT_MAX;
         for (auto c: root->connectedNodes) {
-            int value = getHeight(c) + 1;
+            const int value = getHeight(c) + 1;
             if (value > max) {
                 max = value;
             }

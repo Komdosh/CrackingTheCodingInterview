@@ -15,7 +15,6 @@ class Node {
     int level = 0;
 
 public:
-
     std::vector<Node *> connectedNodes;
 
     Node(const int id, const int level) {
@@ -52,6 +51,10 @@ public:
 
     void setId(int v) {
         this->id = v;
+    }
+
+    int getLevel() const {
+        return level;
     }
 };
 
@@ -128,7 +131,7 @@ public:
         n->connect(root);
         n->connect(new Node(4, 2));
 
-        auto tmp = new Node(5, 2);
+        const auto tmp = new Node(5, 2);
         n->connect(tmp);
 
         tmp->connect(new Node(6, 3));
@@ -157,10 +160,10 @@ public:
 
     template<class container>
     static void traverse(
-            const std::vector<Node *> &providedRoots,
-            container &nodes,
-            const std::function<Node *(container)> &fetch,
-            const std::function<bool(Node *)> &action
+        const std::vector<Node *> &providedRoots,
+        container &nodes,
+        const std::function<Node *(container)> &fetch,
+        const std::function<bool(Node *)> &action
     ) {
         for (auto root: providedRoots) {
             Node *current = root;
@@ -180,7 +183,7 @@ public:
                     }
                 }
 
-                bool finished = action(current);
+                const bool finished = action(current);
                 if (finished) {
                     return;
                 }
@@ -197,58 +200,52 @@ public:
 
     void depthFirstTraverse(const std::function<bool(Node *)> &action) const {
         std::stack<Node *> nodes;
-        traverse<std::stack<Node *>>(roots, nodes, [](std::stack<Node *> nodes) { return nodes.top(); }, action);
+        traverse<std::stack<Node *> >(roots, nodes, [](std::stack<Node *> nodes) { return nodes.top(); }, action);
     }
 
     void breadthFirstTraverse(const std::function<bool(Node *)> &action) const {
         std::queue<Node *> nodes;
-        traverse<std::queue<Node *>>(roots, nodes, [](std::queue<Node *> nodes) { return nodes.front(); }, action);
+        traverse<std::queue<Node *> >(roots, nodes, [](std::queue<Node *> nodes) { return nodes.front(); }, action);
     }
 
     void printGraph() const {
         std::cout << "DEEP" << std::endl;
-        depthFirstTraverse([](Node *current) {
-            std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
-
-            if (!currentConnectedNodes->empty()) {
-                std::cout << "--------" << std::endl;
-                std::cout << "NodeId: " << current->getId() << std::endl;
-                std::cout << "Connected nodes:" << std::endl;
-
-                std::ranges::sort(*currentConnectedNodes,
-                                  [](const Node *first, const Node *second) { return first->getId() < second->getId(); });
-            }
-
-            for (Node *c: *currentConnectedNodes) {
-                std::cout << " - " << c->getId() << std::endl;
-            }
+        depthFirstTraverse([this](Node *current) {
+            printNode(current);
 
             return false;
         });
 
         std::cout << "BREADTH" << std::endl;
 
-        breadthFirstTraverse([](Node *current) {
-            std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
-
-            if (!currentConnectedNodes->empty()) {
-                std::cout << "--------" << std::endl;
-                std::cout << "NodeId: " << current->getId() << std::endl;
-                std::cout << "Connected nodes:" << std::endl;
-
-                std::ranges::sort(*currentConnectedNodes,
-                                  [](const Node *first, const Node *second) { return first->getId() < second->getId(); });
-            }
-
-            for (Node *c: *currentConnectedNodes) {
-                std::cout << " - " << c->getId() << std::endl;
-            }
+        breadthFirstTraverse([this](Node *current) {
+            printNode(current);
 
             return false;
         });
     }
 
-    Node *getNodeById(int id) const {
+    virtual void printNode(Node *current) const {
+        std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
+        if (!currentConnectedNodes->empty()) {
+            std::cout << "--------" << std::endl;
+
+            std::cout << "NodeId: " << current->getId() << std::endl;
+
+            std::cout << "Connected nodes:" << std::endl;
+
+            std::ranges::sort(*currentConnectedNodes,
+                              [](const Node *first, const Node *second) {
+                                  return first->getId() < second->getId();
+                              });
+        }
+
+        for (const Node *c: *currentConnectedNodes) {
+            std::cout << " - " << c->getId() << std::endl;
+        }
+    }
+
+    Node *getNodeById(const int id) const {
         Node *n = nullptr;
         depthFirstTraverse([=, &n](Node *current) {
             if (current->getId() == id) {

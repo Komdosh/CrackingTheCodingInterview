@@ -27,8 +27,11 @@ int main() {
 
     // runTest(*new Successor());
 
-    runTest(*new BuildOrderNaive());
+    // runTest(*new BuildOrderNaive());
     // runTest(*new BuildOrderOptimized());
+
+    runTest(*new FirstCommonAncestorNaive());
+    // runTest(*new FirstCommonAncestorOptimized());
 
     return 0;
 }

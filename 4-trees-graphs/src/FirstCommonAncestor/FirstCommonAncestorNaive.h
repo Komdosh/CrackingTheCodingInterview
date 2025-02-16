@@ -9,7 +9,13 @@ class FirstCommonAncestorNaive {
 
 public:
     void run() {
+        Tree tree;
+        tree.createDefiniteTree();
 
+        int first = 3;
+        int second = 6;
+
+        tree.printTree();
     }
 };
 

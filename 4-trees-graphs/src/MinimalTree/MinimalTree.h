@@ -13,14 +13,14 @@ public:
         Tree connectedGraph;
 
         std::cout << "Even array" << std::endl;
-        int *ordered = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        const auto ordered = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         Node *node = createMinimalBST(ordered, 0, 9, 0);
         connectedGraph.setRoot(node);
 
         connectedGraph.printTree();
 
-        int *ordered2 = new int[]{8, 12, 23, 2392, 3291, 29922, 30000, 39191, 49919, 59234, 128122, 943119, 992821};
+        const auto ordered2 = new int[]{8, 12, 23, 2392, 3291, 29922, 30000, 39191, 49919, 59234, 128122, 943119, 992821};
 
         std::cout << "Odd array" << std::endl;
 
