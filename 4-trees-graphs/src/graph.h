@@ -165,7 +165,7 @@ public:
         const std::function<Node *(container)> &fetch,
         const std::function<bool(Node *)> &action
     ) {
-        for (auto root: providedRoots) {
+        for (const auto root: providedRoots) {
             Node *current = root;
 
             std::unordered_set<Node *> visitedNodes;
@@ -199,13 +199,13 @@ public:
     }
 
     void depthFirstTraverse(const std::function<bool(Node *)> &action) const {
-        std::stack<Node *> nodes;
-        traverse<std::stack<Node *> >(roots, nodes, [](std::stack<Node *> nodes) { return nodes.top(); }, action);
+        std::stack<Node *> nodeStore;
+        traverse<std::stack<Node *> >(roots, nodeStore, [](const std::stack<Node *> &nodes) { return nodes.top(); }, action);
     }
 
     void breadthFirstTraverse(const std::function<bool(Node *)> &action) const {
-        std::queue<Node *> nodes;
-        traverse<std::queue<Node *> >(roots, nodes, [](std::queue<Node *> nodes) { return nodes.front(); }, action);
+        std::queue<Node *> nodeStore;
+        traverse<std::queue<Node *> >(roots, nodeStore, [](const std::queue<Node *> &nodes) { return nodes.front(); }, action);
     }
 
     void printGraph() const {

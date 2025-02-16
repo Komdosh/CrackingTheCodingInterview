@@ -149,6 +149,31 @@ public:
         n->connect(new Node(6, 2));
     }
 
+
+    bool findPath(
+        const std::vector<Node *> &providedRoots,
+        std::queue<Node *> &path,
+        const int id
+    ) const {
+        for (const auto root: providedRoots) {
+            if (root == nullptr) {
+                return false;
+            }
+            if (root->getId() == id) {
+                path.push(root);
+                return true;
+            }
+
+            const bool found = findPath(root->connectedNodes, path, id);
+            if (found) {
+                path.push(root);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void printTree() const {
         PrintTreeStatistics *pts = evaluateStatistics();
 
@@ -209,7 +234,7 @@ public:
         //   3     5             7        10
         //                    5         9
         // assumption: id is value
-        auto root = new BinaryTreeNode(6, 0);
+        const auto root = new BinaryTreeNode(6, 0);
         roots.push_back(root);
 
         BinaryTreeNode *nId3 = new BinaryTreeNode(3, 1);
