@@ -7,7 +7,7 @@ Completed tasks:
 ## 1. The Heavy Pill
 
 You have 20 bottles of pills. 19 bottles have 1.0 gram pills, but one has pills of weight 1.1 grams. Given a scale that provides an exact
-measurement, how would you find the heavy bottle? You can only use the scale once
+measurement, how would you find the heavy bottle? You can only use the scale once.
 
 <hr/>
 
@@ -17,15 +17,15 @@ You have a basketball hoop and someone says that you can play one of two games.
 
 Game 1: You get one shot to make the hoop.
 
-Game 2: You get three shots and you have to make two of three shots.
+Game 2: You get three shots, and you have to make two of three shots.
 
-If p is the probability of making a particular shot, for which values of p should you pick one game or the other?
+If `p` is the probability of making a particular shot, for which values of p should you pick one game or the other?
 
 <hr/>
 
 ## 3. Dominos
 
-There is a 8x8 chessboard in which two diagonally opposite corners have been cut off. You are given 31 dominos, and a single domino can
+There is an 8x8 chessboard in which two diagonally opposite corners have been cut off. You are given 31 dominos, and a single domino can
 cover exactly two squares. Can you use the 31 dominos to cover the entire board? Prove your answer (by providing an example or showing why
 it's impossible).
 
