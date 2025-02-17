@@ -12,7 +12,7 @@ Write a method to print the last K lines of an input file using C++.
 
 ## 2. Reverse String
 
-Implement a function `void reverse( char* str)` in C or C++ which reverses a null-terminated string.
+Implement a function `void reverse(char* str)` in C or C++ which reverses a null-terminated string.
 
 <hr/>
 

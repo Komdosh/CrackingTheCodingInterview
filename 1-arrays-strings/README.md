@@ -22,7 +22,7 @@ Implement an algorithm to determine if a string has all unique characters. What 
 
 #### Implementation
 
-   ```kotlin
+```kotlin
 fun naiveIsUniqueChars(testStr: String): Boolean {
     if (testStr.length > 128) return false
 
@@ -37,7 +37,7 @@ fun naiveIsUniqueChars(testStr: String): Boolean {
     }
     return true
 }
-   ```
+```
 
 </details>
 
