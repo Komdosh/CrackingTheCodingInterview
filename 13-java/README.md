@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![25%](https://progress-bar.xyz/25)
+![50%](https://progress-bar.xyz/50)
 
 ## 1. Private Constructor
 
@@ -55,11 +55,13 @@ In Java, does the `finally` block get executed if we insert a return statement i
 <summary>Answer</summary>
 
 Yes, the `finally` block will be executed anyway.
+
 It is better shown in compiled bytecode.
 If we have a return statement inside `finally` block, then we execute every branch,
-store the result values, but always will return a statement in finally. If finally block doesn't have a return
-statement,
-then we will return the value from try or catch block.
+store the result values, but always will return a statement in finally. If the final block doesn't have a return
+statement, then we will return the value from the try or catch block.
+
+The only case when the final block will not be executed is when an unhandled error occurs. Like JVM stops or Thread is killed.
 
 #### Implementation
 
@@ -146,7 +148,7 @@ What is the difference between final, finally, and finalize?
 <details>
 <summary>Answer</summary>
 
-`final` - is a marker of a class or a method that can't be overridden.
+`final` - is a marker of a class, method or a variable that can't be overridden.
 
 `finally` - is a block of code that will be executed after `try-catch-finally` block.
 
@@ -182,8 +184,22 @@ public class FinalDifference {
 
 ## 4. Generics vs. Templates
 
-Explain the difference between templates in C ++ and generics in Java.
+Explain the difference between templates in C++ and generics in Java.
 
+<details>
+<summary>Answer</summary>
+
+In C++, templates are compile-time types, while in Java, generics are runtime types. 
+
+In C++, after compilation, templates are replaced with concrete types, which helps ensure type safety. Even at runtime, we know exactly what type we are working with. 
+
+In Java, however, type erasure occurs, so we don’t know the exact type at runtime. We need to perform casting to make sure we are working with the correct type.
+
+So C++ can and java can't:
+- Use primitive types in templates
+- Create an instance of a template type
+- Use static class in template, because C++ will compile two different versions of class.
+</details>
 <hr/>
 
 ## 5. TreeMap, HashMap, LinkedHashMap
