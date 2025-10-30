@@ -27,7 +27,7 @@ You will also be able to clone this project, compile and run my solutions.
 
 3. [Stacks and Queues `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/3-stacks-queues) ![100%](https://progress-bar.xyz/100)
 
-4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![41%](https://progress-bar.xyz/41)
+4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![66%](https://progress-bar.xyz/66)
 
 ## Concepts and Algorithms
 
@@ -49,7 +49,7 @@ You will also be able to clone this project, compile and run my solutions.
 
 12. [C and C++ `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/12-c-cpp) ![0%](https://progress-bar.xyz/0)
 
-13. [Java `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/13-java) ![0%](https://progress-bar.xyz/0)
+13. [Java `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/13-java) ![100%](https://progress-bar.xyz/100)
 
 14. [Databases `SQL`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/14-databases) ![0%](https://progress-bar.xyz/0)
 
