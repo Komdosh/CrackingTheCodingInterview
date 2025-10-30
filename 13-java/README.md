@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![50%](https://progress-bar.xyz/50)
+![62%](https://progress-bar.xyz/62)
 
 ## 1. Private Constructor
 
@@ -61,7 +61,8 @@ If we have a return statement inside `finally` block, then we execute every bran
 store the result values, but always will return a statement in finally. If the final block doesn't have a return
 statement, then we will return the value from the try or catch block.
 
-The only case when the final block will not be executed is when an unhandled error occurs. Like JVM stops or Thread is killed.
+The only case when the final block will not be executed is when an unhandled error occurs. Like JVM stops or Thread is
+killed.
 
 #### Implementation
 
@@ -153,7 +154,8 @@ What is the difference between final, finally, and finalize?
 `finally` - is a block of code that will be executed after `try-catch-finally` block.
 
 `finalize` - is a method called when an object is garbage collected. Shall be used as a cleanup point. BUT it is marked
-for removal in Java 9, it actually creates a number of issues with gc. So java has moved to another approach using `java.lang.ref.Cleaner` and `java.lang.ref.PhantomReference`.
+for removal in Java 9, it actually creates a number of issues with gc. So java has moved to another approach using
+`java.lang.ref.Cleaner` and `java.lang.ref.PhantomReference`.
 
 #### Implementation
 
@@ -189,16 +191,20 @@ Explain the difference between templates in C++ and generics in Java.
 <details>
 <summary>Answer</summary>
 
-In C++, templates are compile-time types, while in Java, generics are runtime types. 
+In C++, templates are compile-time types, while in Java, generics are runtime types.
 
-In C++, after compilation, templates are replaced with concrete types, which helps ensure type safety. Even at runtime, we know exactly what type we are working with. 
+In C++, after compilation, templates are replaced with concrete types, which helps ensure type safety. Even at runtime,
+we know exactly what type we are working with.
 
-In Java, however, type erasure occurs, so we don’t know the exact type at runtime. We need to perform casting to make sure we are working with the correct type.
+In Java, however, type erasure occurs, so we don’t know the exact type at runtime. We need to perform casting to make
+sure we are working with the correct type.
 
 So C++ can and java can't:
+
 - Use primitive types in templates
 - Create an instance of a template type
 - Use static class in template, because C++ will compile two different versions of class.
+
 </details>
 <hr/>
 
@@ -206,6 +212,75 @@ So C++ can and java can't:
 
 Explain the differences between TreeMap, HashMap, and LinkedHashMap. Provide an example of when each one would be best.
 
+<details>
+<summary>Answer</summary>
+
+`TreeMap` - is a sorted map (balanced tree (red-black tree in case of java)), which means that keys are always sorted.
+Keys should implement `Comparable` interface.
+
+`HashMap` - store keys in the hash table, so it doesn't have an order, but it uses a tree node in case of collisions (if
+a threshold is reached).
+
+`LinkedHashMap` - store keys in the hash table, so it doesn't have an order, but every entry stores a link to the
+previous and next entry (double linked list).
+
+```java
+
+public class MapUsage {
+    TreeMap<String, String> treeMap = new TreeMap<>();
+    HashMap<String, String> hashMap = new HashMap<>();
+    LinkedHashMap<String, String> linkedHashMap = new LinkedHashMap<>();
+
+    static void main() {
+        MapUsage mapUsage = new MapUsage();
+        mapUsage.treeMapUsage();
+        mapUsage.hashMapUsage();
+        mapUsage.linkedHashMapUsage();
+    }
+
+    private void treeMapUsage() {
+        for (int i = 0; i < 5; i++) {
+            treeMap.put("" + i, "value" + i); // O(log(n))
+        }
+
+        for (String key : treeMap.descendingKeySet()) { // keys are always sorted
+            System.out.println(key);
+        }
+
+        System.out.printf(treeMap.get("1")); // O(log(n)) - this map doesn't use hash methods, so we have to traverse the whole tree
+    }
+
+    private void hashMapUsage() {
+        for (int i = 0; i < 5; i++) {
+            hashMap.put("" + i, "value" + i); // O(1)
+        }
+
+        // keys are stored in the hash table, so it doesn't have an order,
+        // but it can be transformed in a tree in case of collisions
+        for (String key : hashMap.keySet()) {
+            System.out.println(key);
+        }
+
+        System.out.println(hashMap.get("1")); // O(1) - amortized cost, but O(log(n)) in case of collisions
+    }
+
+    private void linkedHashMapUsage() {
+        for (int i = 0; i < 5; i++) {
+            linkedHashMap.put("" + i, "value" + i); // O(1) - but entry stores a link to the previous entry and next (double linked list)
+        }
+
+        // keys are stored in the hash table, so it doesn't have an order,
+        // but it can be transformed in a tree in case of collisions
+        for (String key : linkedHashMap.sequencedKeySet()) { // Just get the first inserted entry and iterate over
+            System.out.println(key);
+        }
+
+        System.out.println(linkedHashMap.get("1"));  // O(1) - amortized cost, but O(log(n)) in case of collisions, traditional hashmap
+    }
+}
+```
+
+</details>
 <hr/>
 
 ## 6. Object Reflection
