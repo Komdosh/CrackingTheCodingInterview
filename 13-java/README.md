@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![87%](https://progress-bar.xyz/87)
+![100%](https://progress-bar.xyz/100)
 
 ## 1. Private Constructor
 
@@ -293,7 +293,8 @@ Explain what object reflection is in Java and why it is useful
 <summary>Answer</summary>
 
 Object reflection is a way to access and manipulate objects at runtime. We can investigate the object metadata and
-manipulate it. In some cases it can be used to bypass security restrictions. For example, we can call a private method by 
+manipulate it. In some cases it can be used to bypass security restrictions. For example, we can call a private method
+by
 it's String name or read a private value of the object. But it is often a bad practice.
 
 It can be used for a good reason, for example, to create a dynamic proxy, profiling, logging, testing. It is often used
@@ -311,7 +312,7 @@ class ExampleProcessorFirst implements ExampleProcessor {
         return "Processed: " + input.toUpperCase();
     }
 
-    public String firstName(){
+    public String firstName() {
         return "I'm first";
     }
 }
@@ -328,7 +329,7 @@ class ExampleProcessorSecond implements ExampleProcessor {
 
 public class ExampleProcessorFactory {
     public static ExampleProcessor getExampleProcessor(boolean isFirst) {
-        if(isFirst) {
+        if (isFirst) {
             return new ExampleProcessorFirst();
         } else {
             return new ExampleProcessorSecond();
@@ -376,8 +377,9 @@ public class ReflectionExample {
 
 ## 7. Lambda Expressions
 
-There is a class `Country` that has methods `getContinent()` and `getPopulation()`. Write a function 
-`int getPopulation(List<Country> countries, String continent)` that computes the total population of a given continent, given a list of all countries and the name of
+There is a class `Country` that has methods `getContinent()` and `getPopulation()`. Write a function
+`int getPopulation(List<Country> countries, String continent)` that computes the total population of a given continent,
+given a list of all countries and the name of
 a continent.
 
 <details>
@@ -430,9 +432,34 @@ public class CountryProcessor {
 ## 8. Lambda Random
 
 Using Lambda expressions, write a function `List<Integer> getRandomSubset(List<Integer> list)` that returns a random
-subset of arbitrary
-size. All subsets (including the empty set) should be equally likely to be chosen.
+subset of arbitrary size. All subsets (including the empty set) should be equally likely to be chosen.
 
 
+<details>
+<summary>Answer</summary>
+
+It's simple, just filter stream by random boolean value. We assume that Random class provides us a real random boolean
+value (it's not, but let's pretend it is).
+
+#### Implementation
+
+```java
+public class LambdaRandom {
+
+    static void main() {
+        List<Integer> list = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        getRandomSubset(list).forEach(System.out::println);
+    }
+
+    static List<Integer> getRandomSubset(List<Integer> list) {
+        Random random = new Random();
+        return list.stream()
+                .filter(_ -> random.nextBoolean())
+                .toList();
+    }
+}
+```
+
+</details>
 
 <hr/>
