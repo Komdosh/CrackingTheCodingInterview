@@ -9,7 +9,7 @@ Completed tasks:
 In terms of inheritance, what is the effect of keeping a constructor private?
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 We can hide the constructor from the outside world, but we can still create an instance of the class using the internal
 static class, for example.
@@ -52,7 +52,7 @@ In Java, does the `finally` block get executed if we insert a return statement i
 `try-catch-finally`?
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 Yes, the `finally` block will be executed anyway.
 
@@ -147,7 +147,7 @@ public class FinallyBlock {
 What is the difference between final, finally, and finalize?
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 `final` - is a marker of a class, method, or a variable that can't be overridden.
 
@@ -189,7 +189,7 @@ public class FinalDifference {
 Explain the difference between templates in C++ and generics in Java.
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 In C++, templates are compile-time types, while in Java, generics are runtime types.
 
@@ -213,7 +213,7 @@ So C++ can and java can't:
 Explain the differences between TreeMap, HashMap, and LinkedHashMap. Provide an example of when each one would be best.
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 `TreeMap` - is a sorted map (balanced tree (red-black tree in case of java)), which means that keys are always sorted.
 Keys should implement `Comparable` interface.
@@ -290,7 +290,7 @@ public class MapUsage {
 Explain what object reflection is in Java and why it is useful
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 Object reflection is a way to access and manipulate objects at runtime. We can investigate the object metadata and
 manipulate it. In some cases it can be used to bypass security restrictions. For example, we can call a private method
@@ -383,7 +383,7 @@ given a list of all countries and the name of
 a continent.
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 It's simple, just filter countries by continent, map stream to int stream of population, and sum it.
 
@@ -436,7 +436,7 @@ subset of arbitrary size. All subsets (including the empty set) should be equall
 
 
 <details>
-<summary>Answer</summary>
+<summary>Solution</summary>
 
 It's simple, just filter stream by random boolean value. We assume that Random class provides us a real random boolean
 value (it's not, but let's pretend it is).
