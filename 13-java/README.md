@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![75%](https://progress-bar.xyz/75)
+![87%](https://progress-bar.xyz/87)
 
 ## 1. Private Constructor
 
@@ -149,7 +149,7 @@ What is the difference between final, finally, and finalize?
 <details>
 <summary>Answer</summary>
 
-`final` - is a marker of a class, method or a variable that can't be overridden.
+`final` - is a marker of a class, method, or a variable that can't be overridden.
 
 `finally` - is a block of code that will be executed after `try-catch-finally` block.
 
@@ -376,10 +376,54 @@ public class ReflectionExample {
 
 ## 7. Lambda Expressions
 
-There is a class Country that has methods getContinent() and getPopulation(). Write a function int getPopulation(
-List<Country> countries,
-String continent) that computes the total population of a given continent, given a list of all countries and the name of
+There is a class `Country` that has methods `getContinent()` and `getPopulation()`. Write a function 
+`int getPopulation(List<Country> countries, String continent)` that computes the total population of a given continent, given a list of all countries and the name of
 a continent.
+
+<details>
+<summary>Answer</summary>
+
+It's simple, just filter countries by continent, map stream to int stream of population, and sum it.
+
+#### Implementation
+
+```java
+public class Country {
+    String name;
+    String continent;
+    public int population;
+
+    public Country(String name, String continent, int population) {
+        this.name = name;
+        this.continent = continent;
+        this.population = population;
+    }
+}
+
+public class CountryProcessor {
+    static void main() {
+        List<Country> countries = new ArrayList<>();
+        countries.add(new Country("Russia", "Europe", 100_000_000));
+        countries.add(new Country("USA", "North America", 300_000_000));
+        countries.add(new Country("China", "Asia", 2_000_000_000));
+        countries.add(new Country("Japan", "Asia", 120_000_000));
+        countries.add(new Country("France", "Europe", 60_000_000));
+        countries.add(new Country("Germany", "Europe", 80_000_000));
+        countries.add(new Country("Italy", "Europe", 600_000_000));
+
+        System.out.println("Europe: " + getPopulation(countries, "Europe"));
+        System.out.println("Asia: " + getPopulation(countries, "Asia"));
+    }
+
+    static int getPopulation(List<Country> countries, String continent) {
+        return countries.stream().filter(country -> continent.equals(country.continent))
+                .mapToInt(country -> country.population)
+                .sum();
+    }
+}
+```
+
+</details>
 
 <hr/>
 
@@ -388,5 +432,7 @@ a continent.
 Using Lambda expressions, write a function `List<Integer> getRandomSubset(List<Integer> list)` that returns a random
 subset of arbitrary
 size. All subsets (including the empty set) should be equally likely to be chosen.
+
+
 
 <hr/>
