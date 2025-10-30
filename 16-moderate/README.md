@@ -2,11 +2,32 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.xyz/0)
+![3%](https://progress-bar.xyz/3)
 
 ## 1. Number Swapper
 
 Write a function to swap a number in place (that is, without temporary variables).
+
+<details>
+<summary>Solution</summary>
+
+Just flip the bits of each other two times.
+
+#### Implementation
+
+```kotlin
+fun main() {
+    var a = 3 // 011
+    var b = 5 // 101
+    println("a = $a, b = $b") // a = 3, b = 5
+    a = a xor b // 011^101 = 110 - middle state
+    b = a xor b // 110^101 = 011 - inverse the state of `b` with middle state -> get `a` value
+    a = a xor b // 110^011 = 101 - inverse the middle state with state `a` (that stores in `b` now) -> get `b` value
+    println("a = $a, b = $b") // a = 3, b = 5
+}
+```
+
+</details>
 
 <hr/>
 
