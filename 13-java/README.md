@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![62%](https://progress-bar.xyz/62)
+![75%](https://progress-bar.xyz/75)
 
 ## 1. Private Constructor
 
@@ -224,6 +224,8 @@ a threshold is reached).
 `LinkedHashMap` - store keys in the hash table, so it doesn't have an order, but every entry stores a link to the
 previous and next entry (double linked list).
 
+#### Implementation
+
 ```java
 
 public class MapUsage {
@@ -286,6 +288,89 @@ public class MapUsage {
 ## 6. Object Reflection
 
 Explain what object reflection is in Java and why it is useful
+
+<details>
+<summary>Answer</summary>
+
+Object reflection is a way to access and manipulate objects at runtime. We can investigate the object metadata and
+manipulate it. In some cases it can be used to bypass security restrictions. For example, we can call a private method by 
+it's String name or read a private value of the object. But it is often a bad practice.
+
+It can be used for a good reason, for example, to create a dynamic proxy, profiling, logging, testing. It is often used
+in Annotation Processing.
+
+#### Implementation
+
+```java
+public interface ExampleProcessor {
+    String processData(String input);
+}
+
+class ExampleProcessorFirst implements ExampleProcessor {
+    public String processData(String input) {
+        return "Processed: " + input.toUpperCase();
+    }
+
+    public String firstName(){
+        return "I'm first";
+    }
+}
+
+class ExampleProcessorSecond implements ExampleProcessor {
+    public String processData(String input) {
+        return "Processed: " + input.toUpperCase();
+    }
+
+    public String secondName() {
+        return "I'm second";
+    }
+}
+
+public class ExampleProcessorFactory {
+    public static ExampleProcessor getExampleProcessor(boolean isFirst) {
+        if(isFirst) {
+            return new ExampleProcessorFirst();
+        } else {
+            return new ExampleProcessorSecond();
+        }
+    }
+}
+
+public class ReflectionExample {
+    static void main() {
+        Object someProcessor = ExampleProcessorFactory.getExampleProcessor(false);
+
+        // We don't know the class type at compile time
+        Class<?> clazz = someProcessor.getClass();
+        System.out.println("Class Name: " + clazz.getName());
+
+        Arrays.stream(clazz.getMethods()).forEach(m -> {
+
+            try {
+                Class<?>[] parameterTypes = m.getParameterTypes();
+
+                if (m.getDeclaringClass().getSimpleName().equals(clazz.getSimpleName())) {
+                    System.out.println("I have a method: " + m.getName());
+
+                    if (parameterTypes.length == 1 && parameterTypes[0].getName().equals("java.lang.String")) {
+                        Object result = m.invoke(someProcessor, "Hello Reflection!");
+                        // Print result (if the method returns something)
+                        System.out.println("Result: " + result);
+                    } else {
+                        Object result = m.invoke(someProcessor);
+                        System.out.println(result);
+                    }
+                }
+
+            } catch (Exception e) {
+                System.out.println("Exception caught: " + e.getMessage());
+            }
+        });
+    }
+}
+```
+
+</details>
 
 <hr/>
 

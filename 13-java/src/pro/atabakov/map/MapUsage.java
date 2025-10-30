@@ -25,7 +25,7 @@ public class MapUsage {
             System.out.println(key);
         }
 
-        System.out.printf(treeMap.get("1")); // O(log(n)) - this map doesn't use hash methods, so we have to traverse the whole tree
+        System.out.println(treeMap.get("1")); // O(log(n)) - this map doesn't use hash methods, so we have to traverse the whole tree
     }
 
     private void hashMapUsage() {
