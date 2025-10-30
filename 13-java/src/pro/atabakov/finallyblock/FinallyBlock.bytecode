@@ -1,0 +1,27 @@
+public class FinallyBlock {
+    int someExceptionMethod() {
+        throw new RuntimeException("Some exception");
+    }
+
+    int someMethod() {
+        return 42;
+    }
+
+    int withFinallyBlock() {
+        try {
+            System.out.println("Executing someMethod");
+            int var1 = this.someExceptionMethod();
+        } catch (Exception exception) {
+            System.out.println("Exception caught: " + exception.getMessage());
+            int var2 = this.someMethod();
+        } finally {
+            System.out.println("Finally executed");
+            return 0;
+        }
+    }
+
+    static void main() {
+        FinallyBlock finallyBlock = new FinallyBlock();
+        System.out.println(finallyBlock.withFinallyBlock());
+    }
+}
