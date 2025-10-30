@@ -677,19 +677,6 @@ void traverse(const Node *node, std::unordered_set<char> &visited) {
 
 </details>
 
-<details>
-<summary>Optimized Solution</summary>
-
-#### Complexity
-
-#### Implementation
-
-```cpp
-
-```
-
-</details>
-
 <hr/>
 
 ## 8. First Common Ancestor
