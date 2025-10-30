@@ -30,10 +30,10 @@ int main() {
     // runTest(*new BuildOrderNaive());
     // runTest(*new BuildOrderOptimized());
 
-    runTest(*new FirstCommonAncestorNaive());
+    // runTest(*new FirstCommonAncestorNaive());
     // runTest(*new FirstCommonAncestorOptimized());
+
+    runTest(*new BSTSequencesNaive());
 
     return 0;
 }
-
-

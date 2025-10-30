@@ -2,11 +2,45 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.xyz/0)
+![12%](https://progress-bar.xyz/12)
 
 ## 1. Private Constructor
 
 In terms of inheritance, what is the effect of keeping a constructor private?
+
+<details>
+<summary>Answer</summary>
+
+We can hide the constructor from the outside world, but we can still create an instance of the class using the static class. 
+Useful for creating a builder or singleton pattern.
+
+#### Implementation
+
+```java
+public class MyClass {
+    public int num = 1;
+    
+    private MyClass(){}
+    
+    private MyClass(int num){
+        this.num = num;
+    }
+
+    static class Builder extends MyClass {
+        public Builder() {
+            super(14);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(new MyClass.Builder().num); // 14
+    }
+}
+```
+
+</details>
 
 <hr/>
 

@@ -9,6 +9,15 @@ class BSTSequencesNaive {
 
 public:
     void run() {
+        Tree tree;
+        tree.createDefiniteTree();
+
+
+    }
+
+    void bst(Tree *tree, std::queue<Node *> *sequence) {
+
+
 
     }
 };
