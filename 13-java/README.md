@@ -54,10 +54,11 @@ In Java, does the `finally` block get executed if we insert a return statement i
 <details>
 <summary>Answer</summary>
 
-Yes, the `finally` block will be executed anyway. 
-It is better shown in compiled bytecode. 
+Yes, the `finally` block will be executed anyway.
+It is better shown in compiled bytecode.
 If we have a return statement inside `finally` block, then we execute every branch,
-store the result values, but always will return a statement in finally. If finally block doesn't have a return statement,
+store the result values, but always will return a statement in finally. If finally block doesn't have a return
+statement,
 then we will return the value from try or catch block.
 
 #### Implementation
@@ -86,8 +87,7 @@ public class FinallyBlock {
         } catch (Exception exception) {
             System.out.println("Exception caught: " + exception.getMessage());
             return someMethod();
-        }
-        finally {
+        } finally {
             System.out.println("Finally executed");
             return 0;
         }
@@ -142,6 +142,41 @@ public class FinallyBlock {
 ## 3. Final, etc.
 
 What is the difference between final, finally, and finalize?
+
+<details>
+<summary>Answer</summary>
+
+`final` - is a marker of a class or a method that can't be overridden.
+
+`finally` - is a block of code that will be executed after `try-catch-finally` block.
+
+`finalize` - is a method called when an object is garbage collected. Shall be used as a cleanup point. BUT it is marked
+for removal in Java 9, it actually creates a number of issues with gc. So java has moved to another approach using `java.lang.ref.Cleaner` and `java.lang.ref.PhantomReference`.
+
+#### Implementation
+
+```java
+public class FinalDifference {
+    @SuppressWarnings({"removal", "FinalizeCalledExplicitly"})
+    final void tryToFinalize() {
+        System.out.println("Call to finalize");
+        try {
+            this.finalize();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.out.println("Finalize finished");
+        }
+    }
+
+    static void main() {
+        FinalDifference finalDifference = new FinalDifference();
+        finalDifference.tryToFinalize();
+    }
+}
+```
+
+</details>
 
 <hr/>
 
