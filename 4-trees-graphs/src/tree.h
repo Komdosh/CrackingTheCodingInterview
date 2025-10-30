@@ -131,6 +131,7 @@ public:
 
 
     void createBalancedTree() {
+
         const auto root = new Node(0, 0);
         roots.push_back(root);
 
@@ -232,7 +233,7 @@ public:
         //                  6
         //      3                     8
         //   3     5             7        10
-        //                    5         9
+        //                              9
         // assumption: id is value
         const auto root = new BinaryTreeNode(6, 0);
         roots.push_back(root);

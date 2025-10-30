@@ -200,12 +200,14 @@ public:
 
     void depthFirstTraverse(const std::function<bool(Node *)> &action) const {
         std::stack<Node *> nodeStore;
-        traverse<std::stack<Node *> >(roots, nodeStore, [](const std::stack<Node *> &nodes) { return nodes.top(); }, action);
+        traverse<std::stack<Node *> >(roots, nodeStore, [](const std::stack<Node *> &nodes) { return nodes.top(); },
+                                      action);
     }
 
     void breadthFirstTraverse(const std::function<bool(Node *)> &action) const {
         std::queue<Node *> nodeStore;
-        traverse<std::queue<Node *> >(roots, nodeStore, [](const std::queue<Node *> &nodes) { return nodes.front(); }, action);
+        traverse<std::queue<Node *> >(roots, nodeStore, [](const std::queue<Node *> &nodes) { return nodes.front(); },
+                                      action);
     }
 
     void printGraph() const {

@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![41%](https://progress-bar.xyz/41)
+![75%](https://progress-bar.xyz/75)
 
 ## 1. Route Between Nodes
 
@@ -281,7 +281,7 @@ defined to be a tree such that the heights of the two subtrees of any node never
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(log N) - recursion`
+- Space Complexity: `O(log N)` - recursion
 
 #### Implementation
 
@@ -403,7 +403,8 @@ We have some weird cases with duplicates
 ```
 
 On the one hand, this tree is BST because every left value is lower or equal with parent value and right values are
-bigger than the parent value. On the other hand, the right subtree can't hold a value smaller or equal to the parent. It fit
+bigger than the parent value. On the other hand, the right subtree can't hold a value smaller or equal to the parent. It
+fit
 Binary Search Tree conditions. For example, `checkBSTMinMax` implementation can not detect this case.
 
 Moreover, in the book, I have found a mistake in `checkBST`.
@@ -417,7 +418,8 @@ My code:
 `if (lastValue != nullptr && (*lastValue) > n->getId())`
 
 Why? - With this compare `n->getId() <= (*lastValue)`, we think that left values can't be equal to parent, but it is
-wrong. I think that this mistake was admitted because of the wrong position of values, if we move `lastValue` to the left of
+wrong. I think that this mistake was admitted because of the wrong position of values, if we move `lastValue` to the
+left of
 comparison, then it will be clear.
 
 </details>
@@ -430,7 +432,7 @@ comparison, then it will be clear.
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(log N) - recursion`
+- Space Complexity: `O(log N)` - recursion
 
 #### Implementation
 
@@ -466,7 +468,7 @@ bool isBinarySearchTree(BinaryTreeNode *node) {
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(log N) - recursion`
+- Space Complexity: `O(log N)` - recursion
 
 #### Implementation
 
@@ -500,7 +502,7 @@ bool checkBST(BinaryTreeNode *n) {
 #### Complexity
 
 - Time Complexity: `O(N)`
-- Space Complexity: `O(log N) - recursion`
+- Space Complexity: `O(log N)` - recursion
 
 #### Implementation
 
@@ -538,7 +540,7 @@ assume that each node has a link to its parent.
 
 #### Complexity
 
-- Time Complexity: `O(N) - worst case that right subtree contains almost all elements`
+- Time Complexity: `O(N)` - worst case that right subtree contains almost all elements
 - Space Complexity: `O(1)`
 
 #### Implementation
@@ -573,6 +575,7 @@ BiDirectedBinaryTreeNode *leftMostChild(BiDirectedBinaryTreeNode *node) {
     return current;
 }
 ```
+
 </details>
 
 <hr/>
@@ -602,8 +605,10 @@ Output:
 
 #### Complexity
 
-- Time Complexity: `O(N) - not N actually, number of edges E, because I built and traverse a full graph of dependant projects`
-- Space Complexity: `O(N) - Graph of dependants with all verticies (projects) + technical structures for better finding performance`
+- Time Complexity:
+  `O(N)` - not N actually, number of edges E, because I built and traverse a full graph of dependant projects
+- Space Complexity:
+  `O(N)` - Graph of dependants with all verticies (projects) + technical structures for better finding performance
 
 #### Implementation
 
@@ -697,8 +702,8 @@ additional nodes in a data structure. NOTE: This is not necessarily a binary sea
 
 #### Complexity
 
-- Time Complexity: `O(N) - the worst case when we have to traverse all tree to find element`
-- Space Complexity: `O(N) - if tree is unbalanced, there is a case when we store whole tree in a path queue`
+- Time Complexity: `O(N)` - the worst case when we have to traverse all tree to find element
+- Space Complexity: `O(N)` - if tree is unbalanced, there is a case when we store whole tree in a path queue
 
 #### Implementation
 
@@ -760,6 +765,99 @@ Input:
 Output:
      {2, 1, 3}, {2, 3, 1} 
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N * N!)` - we have to traverse all possible subsequences (permutation). For each node we have N! permutations.
+- Space Complexity: `O(N * N!)` - we have to store all possible subsequences (permutation) on each level.
+
+#### Implementation
+
+```cpp
+void run() {
+    BinaryTree tree;
+    tree.createBSTree();
+
+    const std::vector<std::deque<const BinaryTreeNode *> > result = dfs(tree.root());
+
+    for (const std::deque<const BinaryTreeNode *> &l: result) {
+        std::cout << "{ ";
+        for (const BinaryTreeNode *n: l) {
+            std::cout << n->getId() << ", ";
+        }
+        std::cout << "}" << std::endl;
+    }
+}
+
+static std::vector<std::deque<const BinaryTreeNode *> > dfs(const BinaryTreeNode *node) {
+    std::vector<std::deque<const BinaryTreeNode *> > result;
+
+    if (node == nullptr) {
+        result.emplace_back();
+        return result;
+    }
+
+    std::vector<std::deque<const BinaryTreeNode *> > leftSubResult = dfs(node->left());
+    std::vector<std::deque<const BinaryTreeNode *> > rightSubResult = dfs(node->right());
+
+    std::deque<const BinaryTreeNode *> current;
+    current.push_back(node);
+
+    for (std::deque<const BinaryTreeNode *> &l: leftSubResult) {
+        for (std::deque<const BinaryTreeNode *> &r: rightSubResult) {
+            std::vector<std::deque<const BinaryTreeNode *> > shuffled;
+
+            shuffle(l, r, current, shuffled); // create a shuffled list of all subbranches
+
+            result.insert(result.end(), shuffled.begin(), shuffled.end());
+        }
+    }
+
+    return result;
+}
+
+static void shuffle(std::deque<const BinaryTreeNode *> &l, std::deque<const BinaryTreeNode *> &r,
+                    std::deque<const BinaryTreeNode *> &current,
+                    std::vector<std::deque<const BinaryTreeNode *> > &results) {
+    if (l.empty() || r.empty()) {
+        std::deque<const BinaryTreeNode *> result;
+
+        // all current values are start of the subsequence
+        result.insert(result.end(), current.begin(), current.end());
+        if (!l.empty()) {
+            // add all last in the left subtree
+            result.insert(result.end(), l.begin(), l.end());
+        }
+        if (!r.empty()) {
+            // add all last in the right subtree
+            result.insert(result.end(), r.begin(), r.end());
+        }
+
+        results.emplace_back(result);
+        return;
+    }
+
+    // backtracking algorigthm (delete, process, recover)
+    const BinaryTreeNode *leftHead = l.front();
+    l.pop_front();
+    current.push_back(leftHead);
+    shuffle(l, r, current, results);
+    current.pop_back();
+    l.push_front(leftHead);
+
+    const BinaryTreeNode *rightHead = r.front();
+    r.pop_front();
+    current.push_back(rightHead);
+    shuffle(l, r, current, results);
+    current.pop_back();
+    r.push_front(rightHead);
+}
+```
+
+</details>
 
 <hr/>
 
