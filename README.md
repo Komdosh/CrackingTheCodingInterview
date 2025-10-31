@@ -13,7 +13,7 @@ completed.
 
 There you can find a readme file with implementation details. Each task has a naive (mine) and an optimized (described
 in the book) implementation. Does this mean that the naive will always be worse than the optimized one? — No, it's just
- my own solution. First, I try to solve the problem on my own, this is how a naive implementation was created, then I read
+my own solution. First, I try to solve the problem on my own, this is how a naive implementation was created, then I read
 the solution described in the book and implement it in a specific language. Sometimes I have exactly the same point of view, then
 the task will have one solution.
 
@@ -57,6 +57,6 @@ You will also be able to clone this project, compile and run my solutions.
 
 ## Tasks
 
-16. [Moderate](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/16-moderate) ![0%](https://progress-bar.xyz/0)
+16. [Moderate](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/16-moderate) ![3%](https://progress-bar.xyz/3)
 
-17. [Hard](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/17-hard) ![0%](https://progress-bar.xyz/0)
+17. [Hard](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/17-hard) ![15%](https://progress-bar.xyz/15)
