@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![10%](https://progress-bar.xyz/10)
+![15%](https://progress-bar.xyz/15)
 
 ## 1. Add Without Plus
 
@@ -124,8 +124,8 @@ the deck has to be equally likely. Assume that you are given a random number gen
 We can rely on kotlin (JVM) implementation.
 
 #### Complexity
-Time Complexity: `O(n)`
-Space Complexity: `O(n)`
+Time Complexity: `O(N)`
+Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -140,8 +140,8 @@ fun stupidShuffleCards(cards: List<Int>): List<Int> = cards.shuffled()
 
 
 #### Complexity
-Time Complexity: `O(n)` - we iterate over cards list and then remove one element from it until list is not empty
-Space Complexity: `O(n)`
+Time Complexity: `O(N)` - we iterate over cards list and then remove one element from it until list is not empty
+Space Complexity: `O(N)`
 
 #### Implementation
 
@@ -164,7 +164,7 @@ fun shuffleCards(cards: MutableList<Int>): List<Int> {
 <summary>Optimized Solution</summary>
 
 #### Complexity
-Time Complexity: `O(n)` - we iterate over cards list and then remove one element from it until list is not empty
+Time Complexity: `O(N)` - we iterate over cards list and then remove one element from it until list is not empty
 Space Complexity: `O(1)` 
 
 #### Implementation
@@ -205,6 +205,9 @@ Space Complexity: `O(m)`
 ```kotlin
 val randomGenerator = Random(0)
 fun randomSubset(nums: List<Int>, m: Int): List<Int> {
+    if (m > nums.size) {
+        error("Subset can't be constructed")
+    }
     val subset = ArrayList<Int>(m)
     val copyOfOriginalList = nums.toMutableList()
 
@@ -223,14 +226,14 @@ fun randomSubset(nums: List<Int>, m: Int): List<Int> {
 <summary>Optimized Solution</summary>
 
 #### Complexity
-Time Complexity: `O(n)`
+Time Complexity: `O(N)`
 Space Complexity: `O(m)`
 
 #### Implementation
 
 ```kotlin
 fun optimizedRandomSubset(nums: List<Int>, m: Int): List<Int> {
-    if (m >= nums.size) {
+    if (m > nums.size) {
         error("Subset can't be constructed")
     }
 
@@ -256,11 +259,46 @@ fun optimizedRandomSubset(nums: List<Int>, m: Int): List<Int> {
 ## 4. Missing Number
 
 An array `A` contains all the integers from 0 to n, except for one number which is missing. In this problem, we cannot
-access an entire
-integer in A with a single operation. The elements of A are represented in binary, and the only operation we can use to
-access them
-is `fetch the jth bit of A[i]`, which takes constant time. Write code to find the missing integer. Can you do it in
-`O(n)` time?
+access an entire integer in A with a single operation. The elements of A are represented in binary, and the only 
+operation we can use to access them is `fetch the j-th bit of A[i]`, which takes constant time. 
+Write code to find the missing integer. Can you do it in `O(N)` time?
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+Time Complexity: `O(N)`
+Space Complexity: `O(N*log(N))`
+
+#### Implementation
+
+```kotlin
+fun missingNumber(array: List<BitInteger>, index: Int): Int {
+    if (index > 31) {
+        return 0
+    }
+
+    val listCapacity = array.size / 2
+    val zeroes = ArrayList<BitInteger>(listCapacity)
+    val ones = ArrayList<BitInteger>(listCapacity)
+
+    for (currentValue in array) {
+        if (currentValue.fetch(index) == 1) {
+            ones.add(currentValue)
+        } else {
+            zeroes.add(currentValue)
+        }
+    }
+
+    val missedBit = if (zeroes.size <= ones.size) 0 else 1
+    val nextCandidate = if (missedBit == 0) zeroes else ones
+    val value = missingNumber(nextCandidate, index + 1)
+
+    return value or (missedBit shl index)
+}
+```
+
+</details>
 
 <hr/>
 
@@ -487,7 +525,7 @@ Output:
 
 You are given an array with all the numbers from 1 to N appearing exactly once, except for one number that is missing.
 How can you find the
-missing number in `O(n)` time and 0(1) space? What if there were two numbers missing?
+missing number in `O(N)` time and 0(1) space? What if there were two numbers missing?
 
 <hr/>
 

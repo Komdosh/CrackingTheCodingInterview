@@ -4,7 +4,7 @@ import kotlin.random.Random
 
 val randomGenerator = Random(0)
 fun randomSubset(nums: List<Int>, m: Int): List<Int> {
-    if (m >= nums.size) {
+    if (m > nums.size) {
         error("Subset can't be constructed")
     }
 
@@ -20,7 +20,7 @@ fun randomSubset(nums: List<Int>, m: Int): List<Int> {
 }
 
 fun optimizedRandomSubset(nums: List<Int>, m: Int): List<Int> {
-    if (m >= nums.size) {
+    if (m > nums.size) {
         error("Subset can't be constructed")
     }
 
@@ -39,6 +39,6 @@ fun optimizedRandomSubset(nums: List<Int>, m: Int): List<Int> {
 }
 
 fun main() {
-    println(randomSubset((0..<10).toList().shuffled(), 4))
-    println(optimizedRandomSubset((0..<10).toList().shuffled(), 4))
+    println(randomSubset((0..<10).toList().shuffled(), 10))
+    println(optimizedRandomSubset((0..<10).toList().shuffled(), 10))
 }
