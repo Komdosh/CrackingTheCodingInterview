@@ -75,6 +75,30 @@ fun sum32(a: Int, b: Int): Int {
 
 </details>
 
+<details>
+<summary>Optimized Solution</summary>
+
+We can iterate over the bits in the numbers and make a logical sum. It is not the most efficient solution.
+The main problem is to handle the carry bit.
+
+#### Implementation
+
+```kotlin
+fun optimizedSum32(a: Int, b: Int): Int {
+    var a = a
+    var b = b
+    while (b != 0) {
+        val sum = a xor b // суммирование без переноса
+        val carry = (a and b) shl 1 // перенос без суммирования
+        a = sum
+        b = carry
+    }
+    return a
+}
+```
+
+</details>
+
 <hr/>
 
 ## 2. Shuffle
