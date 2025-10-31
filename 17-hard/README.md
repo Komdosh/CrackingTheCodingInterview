@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![3%](https://progress-bar.xyz/3)
+![7%](https://progress-bar.xyz/7)
 
 ## 1. Add Without Plus
 
@@ -13,6 +13,10 @@ Write a function that adds two numbers. You should not use `+` or any arithmetic
 
 At first, we can show a naive solution that interviewers will probably not accept. But it actually meets the
 requirements.
+
+#### Complexity
+Time Complexity: `O(1)` 
+Space Complexity: `O(1)`
 
 #### Implementation
 
@@ -27,6 +31,10 @@ fun sumNumbers(a: Int, b: Int) = arrayOf(a, b).sum()
 
 We can iterate over the bits in the numbers and make a logical sum. It is not the most efficient solution.
 The main problem is to handle the carry bit.
+
+#### Complexity
+Time Complexity: `O(1)` - we have a loop, but it is always in const range of bits
+Space Complexity: `O(1)`
 
 #### Implementation
 
@@ -81,6 +89,10 @@ fun sum32(a: Int, b: Int): Int {
 We can iterate over the bits in the numbers and make a logical sum. It is not the most efficient solution.
 The main problem is to handle the carry bit.
 
+#### Complexity
+Time Complexity: `O(1)` - we have a loop, but it is always in const range of bits
+Space Complexity: `O(1)`
+
 #### Implementation
 
 ```kotlin
@@ -104,8 +116,74 @@ fun optimizedSum32(a: Int, b: Int): Int {
 ## 2. Shuffle
 
 Write a method to shuffle a deck of cards. It must be a perfect shuffle-in other words, each of the 52! permutations of
-the deck has to be
-equally likely. Assume that you are given a random number generator which is perfect.
+the deck has to be equally likely. Assume that you are given a random number generator which is perfect.
+
+<details>
+<summary>Naive Solution</summary>
+
+We can rely on kotlin implementation.
+
+#### Complexity
+Time Complexity: `O(n)`
+Space Complexity: `O(n)`
+
+#### Implementation
+
+```kotlin
+fun stupidShuffleCards(cards: List<Int>): List<Int> = cards.shuffled()
+```
+
+</details>
+
+<details>
+<summary>Naive Real Solution</summary>
+
+
+#### Complexity
+Time Complexity: `O(n)` - we iterate over cards list and then remove one element from it until list is not empty
+Space Complexity: `O(n)`
+
+#### Implementation
+
+```kotlin
+val randomGenerator = Random
+fun shuffleCards(cards: MutableList<Int>): List<Int> {
+    val shuffledCards: MutableList<Int> = mutableListOf()
+    while (cards.isNotEmpty()) {
+        val index = randomGenerator.nextInt(cards.size)
+        shuffledCards.add(cards.removeAt(index))
+    }
+
+    return shuffledCards
+}
+
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+Time Complexity: `O(n)` - we iterate over cards list and then remove one element from it until list is not empty
+Space Complexity: `O(1)` 
+
+#### Implementation
+
+```kotlin
+fun shuffleCardsInplace(cards: MutableList<Int>): List<Int> {
+    for (index in cards.indices) {
+        val randomIndex = randomGenerator.nextInt(cards.size)
+        val temp = cards[randomIndex]
+        cards[randomIndex] = cards[index]
+        cards[index] = temp
+    }
+
+    return cards
+}
+```
+
+</details>
 
 <hr/>
 
@@ -350,7 +428,7 @@ Output:
 
 You are given an array with all the numbers from 1 to N appearing exactly once, except for one number that is missing.
 How can you find the
-missing number in O(N) time and 0(1) space? What if there were two numbers missing?
+missing number in `O(n)` time and 0(1) space? What if there were two numbers missing?
 
 <hr/>
 
