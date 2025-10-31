@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![7%](https://progress-bar.xyz/7)
+![10%](https://progress-bar.xyz/10)
 
 ## 1. Add Without Plus
 
@@ -121,7 +121,7 @@ the deck has to be equally likely. Assume that you are given a random number gen
 <details>
 <summary>Naive Solution</summary>
 
-We can rely on kotlin implementation.
+We can rely on kotlin (JVM) implementation.
 
 #### Complexity
 Time Complexity: `O(n)`
@@ -156,7 +156,6 @@ fun shuffleCards(cards: MutableList<Int>): List<Int> {
 
     return shuffledCards
 }
-
 ```
 
 </details>
@@ -191,6 +190,66 @@ fun shuffleCardsInplace(cards: MutableList<Int>): List<Int> {
 
 Write a method to randomly generate a set of m integers from an array of size n. Each element must have equal
 probability of being chosen.
+
+<details>
+<summary>Naive Solution</summary>
+
+
+#### Complexity
+
+Time Complexity: `O(m)`
+Space Complexity: `O(m)`
+
+#### Implementation
+
+```kotlin
+val randomGenerator = Random(0)
+fun randomSubset(nums: List<Int>, m: Int): List<Int> {
+    val subset = ArrayList<Int>(m)
+    val copyOfOriginalList = nums.toMutableList()
+
+    repeat(m) {
+        val randomIndex = randomGenerator.nextInt(copyOfOriginalList.size)
+        subset.add(copyOfOriginalList.removeAt(randomIndex))
+    }
+
+    return subset
+}
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+Time Complexity: `O(n)`
+Space Complexity: `O(m)`
+
+#### Implementation
+
+```kotlin
+fun optimizedRandomSubset(nums: List<Int>, m: Int): List<Int> {
+    if (m >= nums.size) {
+        error("Subset can't be constructed")
+    }
+
+    val subset = Array(m) { i -> nums[i] }
+
+    var i = m
+    while (i < nums.size) {
+        val randomIndex = randomGenerator.nextInt(i)
+        if (randomIndex < m) {
+            subset[randomIndex] = nums[i]
+        }
+        ++i
+    }
+
+    return subset.toList()
+}
+```
+
+</details>
 
 <hr/>
 
