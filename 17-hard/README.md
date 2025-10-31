@@ -2,32 +2,104 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.xyz/0)
+![3%](https://progress-bar.xyz/3)
 
 ## 1. Add Without Plus
 
 Write a function that adds two numbers. You should not use `+` or any arithmetic operators.
 
+<details>
+<summary>Naive Solution</summary>
+
+At first, we can show a naive solution that interviewers will probably not accept. But it actually meets the
+requirements.
+
+#### Implementation
+
+```kotlin
+fun sumNumbers(a: Int, b: Int) = arrayOf(a, b).sum()
+```
+
+</details>
+
+<details>
+<summary>Naive Real Solution</summary>
+
+We can iterate over the bits in the numbers and make a logical sum. It is not the most efficient solution.
+The main problem is to handle the carry bit.
+
+#### Implementation
+
+```kotlin
+
+fun sum32(a: Int, b: Int): Int {
+    var carryBit = false
+
+    var bitMaskPosition = 1
+    var result = 0
+    while (bitMaskPosition != 0) { // when bitMaskPosition is 0, it is actually an overflow
+        val aBit = (a and bitMaskPosition) != 0
+        val bBit = (b and bitMaskPosition) != 0
+
+        when {
+            !aBit && !bBit -> {
+                if (carryBit) {
+                    result = result or bitMaskPosition
+                    carryBit = false
+                }
+            }
+
+            (aBit && !bBit) || (!aBit && bBit) -> {
+                if (carryBit) {
+                    // do nothing
+                } else {
+                    result = result or bitMaskPosition
+                }
+            }
+
+            aBit && bBit /*else*/ -> {
+                if (carryBit) {
+                    result = result or bitMaskPosition
+                } else {
+                    carryBit = true
+                }
+            }
+        }
+
+        bitMaskPosition = bitMaskPosition shl 1
+    }
+
+    return result
+}
+```
+
+</details>
+
 <hr/>
 
 ## 2. Shuffle
 
-Write a method to shuffle a deck of cards. It must be a perfect shuffle-in other words, each of the 52! permutations of the deck has to be
+Write a method to shuffle a deck of cards. It must be a perfect shuffle-in other words, each of the 52! permutations of
+the deck has to be
 equally likely. Assume that you are given a random number generator which is perfect.
 
 <hr/>
 
 ## 3. Random Set
 
-Write a method to randomly generate a set of m integers from an array of size n. Each element must have equal probability of being chosen.
+Write a method to randomly generate a set of m integers from an array of size n. Each element must have equal
+probability of being chosen.
 
 <hr/>
 
 ## 4. Missing Number
 
-An array `A` contains all the integers from 0 to n, except for one number which is missing. In this problem, we cannot access an entire
-integer in A with a single operation. The elements of A are represented in binary, and the only operation we can use to access them
-is `fetch the jth bit of A[i]`, which takes constant time. Write code to find the missing integer. Can you do it in `O(n)` time?
+An array `A` contains all the integers from 0 to n, except for one number which is missing. In this problem, we cannot
+access an entire
+integer in A with a single operation. The elements of A are represented in binary, and the only operation we can use to
+access them
+is `fetch the jth bit of A[i]`, which takes constant time. Write code to find the missing integer. Can you do it in
+`O(n)` time?
 
 <hr/>
 
@@ -55,11 +127,16 @@ Output:
 
 ## 7. Baby Names
 
-Each year, the government releases a list of the 10000 most common baby names and their frequencies (the number of babies with that name).
-The only problem with this is that some names have multiple spellings. For example, "John" and "Jon" are essentially the same name but would
-be listed separately in the list. Given two lists, one of names/frequencies and the other of pairs of equivalent names, write an algorithm
-to print a new list of the true frequency of each name. Note that if John and Jon are synonyms, and Jon and Johnny are synonyms, then John
-and Johnny are synonyms. (It is both transitive and symmetric.) In the final list, any name can be used as the "real" name.
+Each year, the government releases a list of the 10000 most common baby names and their frequencies (the number of
+babies with that name).
+The only problem with this is that some names have multiple spellings. For example, "John" and "Jon" are essentially the
+same name but would
+be listed separately in the list. Given two lists, one of names/frequencies and the other of pairs of equivalent names,
+write an algorithm
+to print a new list of the true frequency of each name. Note that if John and Jon are synonyms, and Jon and Johnny are
+synonyms, then John
+and Johnny are synonyms. (It is both transitive and symmetric.) In the final list, any name can be used as the "real"
+name.
 
 ### Example
 
@@ -75,8 +152,10 @@ Output:
 
 ## 8. Circus Tower
 
-A circus is designing a tower routine consisting of people standing atop one another's shoulders. For practical and aesthetic reasons, each
-person must be both shorter and lighter than the person below him or her. Given the heights and weights of each person in the circus, write
+A circus is designing a tower routine consisting of people standing atop one another's shoulders. For practical and
+aesthetic reasons, each
+person must be both shorter and lighter than the person below him or her. Given the heights and weights of each person
+in the circus, write
 a method to compute the largest possible number of people in such a tower.
 
 ### Example
@@ -93,8 +172,10 @@ Output:
 
 ## 9. Kth Multiple
 
-Design an algorithm to find the kth number such that the only prime factors are 3, 5, and 7. Note that 3, 5, and 7 do not have to be
-factors, but it should not have any other prime factors. For example, the first several multiples would be (in order) 1, 3, 5, 7, 9, 15, 21.
+Design an algorithm to find the kth number such that the only prime factors are 3, 5, and 7. Note that 3, 5, and 7 do
+not have to be
+factors, but it should not have any other prime factors. For example, the first several multiples would be (in order) 1,
+3, 5, 7, 9, 15, 21.
 
 ### Example
 
@@ -107,7 +188,8 @@ Output:
 
 ## 10. Majority Element
 
-A majority element is an element that makes up more than half of the items in an array. Given a positive integers array, find the majority
+A majority element is an element that makes up more than half of the items in an array. Given a positive integers array,
+find the majority
 element. If there is no majority element, return `-1`. Do this in `O(N)` time and `0(1)` space.
 
 ### Example
@@ -123,8 +205,10 @@ Output:
 
 ## 11. Word Distance
 
-You have a large text file containing words. Given any two words, find the shortest distance (in terms of number of words) between them in
-the file. If the operation will be repeated many times for the same file (but different pairs of words), can you optimize your solution?
+You have a large text file containing words. Given any two words, find the shortest distance (in terms of number of
+words) between them in
+the file. If the operation will be repeated many times for the same file (but different pairs of words), can you
+optimize your solution?
 
 <hr/>
 
@@ -139,19 +223,25 @@ public class BiNode {
 }
 ```
 
-The data structure BiNode could be used to represent both a binary tree (where node1 is the left node and node2 is the right node) or a
-doubly linked list (where node` is the previous node and node2 is the next node). Implement a method to convert a binary search tree (
-implemented with BiNode) into a doubly linked list. The values should be kept in order and the operation should be performed in place (that
+The data structure BiNode could be used to represent both a binary tree (where node1 is the left node and node2 is the
+right node) or a
+doubly linked list (where node` is the previous node and node2 is the next node). Implement a method to convert a binary
+search tree (
+implemented with BiNode) into a doubly linked list. The values should be kept in order and the operation should be
+performed in place (that
 is, on the original data structure).
 
 <hr/>
 
 ## 13. Re-Space
 
-Oh, no! You have accidentally removed all spaces, punctuation, and capitalization in a lengthy document. A sentence like "I reset the
+Oh, no! You have accidentally removed all spaces, punctuation, and capitalization in a lengthy document. A sentence
+like "I reset the
 computer. It still didn't boot!"
-became "iresetthecomputeritstilldidntboot". You'll deal with the punctuation and capitalization later; right now you need to re-insert the
-spaces. Most of the words are in a dictionary, but a few are not. Given a dictionary (a list of strings) and the document (a string), design
+became "iresetthecomputeritstilldidntboot". You'll deal with the punctuation and capitalization later; right now you
+need to re-insert the
+spaces. Most of the words are in a dictionary, but a few are not. Given a dictionary (a list of strings) and the
+document (a string), design
 an algorithm to unconcatenate the document in a way that minimizes the number of unrecognized characters.
 
 ### Example
@@ -189,9 +279,12 @@ Output:
 
 ## 16. The Masseuse
 
-A popular masseuse receives a sequence of back-to-back appointment requests and is debating which ones to accept. She needs a 15-minute
-break between appointments and therefore she cannot accept any adjacent requests. Given a sequence of back to-back appointment requests (all
-multiples of 15 minutes, none overlap, and none can be moved), find the optimal (the highest total booked minutes) set the masseuse can honor.
+A popular masseuse receives a sequence of back-to-back appointment requests and is debating which ones to accept. She
+needs a 15-minute
+break between appointments and therefore she cannot accept any adjacent requests. Given a sequence of back to-back
+appointment requests (all
+multiples of 15 minutes, none overlap, and none can be moved), find the optimal (the highest total booked minutes) set
+the masseuse can honor.
 Return the number of minutes.
 
 ### Example
@@ -213,7 +306,8 @@ Given a string band an array of smaller strings T, design a method to search b f
 
 ## 18. Shortest Supersequence
 
-You are given two arrays, one shorter (with all distinct elements) and one longer. Find the shortest subarray in the longer array that
+You are given two arrays, one shorter (with all distinct elements) and one longer. Find the shortest subarray in the
+longer array that
 contains all the elements in the shorter array. The items can appear in any order.
 
 ### Example
@@ -230,20 +324,23 @@ Output:
 
 ## 19. Missing Two
 
-You are given an array with all the numbers from 1 to N appearing exactly once, except for one number that is missing. How can you find the
+You are given an array with all the numbers from 1 to N appearing exactly once, except for one number that is missing.
+How can you find the
 missing number in O(N) time and 0(1) space? What if there were two numbers missing?
 
 <hr/>
 
 ## 20. Continuous Median
 
-Numbers are randomly generated and passed to a method. Write a program to find and maintain the median value as new values are generated.
+Numbers are randomly generated and passed to a method. Write a program to find and maintain the median value as new
+values are generated.
 
 <hr/>
 
 ## 21. Volume of Histogram
 
-Imagine a histogram (bar graph). Design an algorithm to compute the volume of water it could hold if someone poured water across the top.
+Imagine a histogram (bar graph). Design an algorithm to compute the volume of water it could hold if someone poured
+water across the top.
 You can assume that each histogram bar has width 1.
 
 ### Example
@@ -265,7 +362,8 @@ Output:
 
 ## 22. Word Transformer
 
-Given two words of equal length that are in a dictionary, write a method to transform one word into another word by changing only one letter
+Given two words of equal length that are in a dictionary, write a method to transform one word into another word by
+changing only one letter
 at a time. The new word you get in each step must be in the dictionary.
 
 ### Example
@@ -282,7 +380,8 @@ Output:
 
 ## 23. Max Black Square
 
-Imagine you have a square matrix, where each cell (pixel) is either black or white Design an algorithm to find the maximum `subsquare` such
+Imagine you have a square matrix, where each cell (pixel) is either black or white Design an algorithm to find the
+maximum `subsquare` such
 that all four borders are filled with black pixels.
 
 <hr/>
@@ -295,20 +394,27 @@ Given an NxN matrix of positive and negative integers, write code to find the su
 
 ## 25. Word Rectangle
 
-Given a list of millions of words, design an algorithm to create the largest possible rectangle of letters such that every row forms a
-word (reading left to right) and every column forms a word (reading top to bottom). The words need not be chosen consecutively from the list
+Given a list of millions of words, design an algorithm to create the largest possible rectangle of letters such that
+every row forms a
+word (reading left to right) and every column forms a word (reading top to bottom). The words need not be chosen
+consecutively from the list
 but all rows must be the same length and all columns must be the same height.
 
 <hr/>
 
 ## 26. Sparse Similarity
 
-The similarity of two documents (each with distinct words) is defined to be the size of the intersection divided by the size of the union.
-For example, if the documents consist of integers, the similarity of { 1, 5, 3} and { 1, 7, 2, 3} is 0. 4, because the intersection has size
-2 and the union has size 5. 190 We have a long list of documents (with distinct values and each with an associated ID) where the similarity
-is believed to be "sparse:'That is, any two arbitrarily selected documents are very likely to have similarity 0. Design an algorithm that
+The similarity of two documents (each with distinct words) is defined to be the size of the intersection divided by the
+size of the union.
+For example, if the documents consist of integers, the similarity of { 1, 5, 3} and { 1, 7, 2, 3} is 0. 4, because the
+intersection has size
+2 and the union has size 5. 190 We have a long list of documents (with distinct values and each with an associated ID)
+where the similarity
+is believed to be "sparse:'That is, any two arbitrarily selected documents are very likely to have similarity 0. Design
+an algorithm that
 returns a list of pairs of document IDs and the associated similarity. Print only the pairs with similarity greater than 0. Empty documents
-should not be printed at all. For simplicity, you may assume each document is represented as an array of distinct integers.
+should not be printed at all. For simplicity, you may assume each document is represented as an array of distinct
+integers.
 
 ### Example
 
