@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![18%](https://progress-bar.xyz/18)
+![19%](https://progress-bar.xyz/19)
 
 ## 1. Add Without Plus
 
