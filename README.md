@@ -59,4 +59,4 @@ You will also be able to clone this project, compile and run my solutions.
 
 16. [Moderate](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/16-moderate) ![3%](https://progress-bar.xyz/3)
 
-17. [Hard](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/17-hard) ![15%](https://progress-bar.xyz/15)
+17. [Hard](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/17-hard) ![19%](https://progress-bar.xyz/19)
