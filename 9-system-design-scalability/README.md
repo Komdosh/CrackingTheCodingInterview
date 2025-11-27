@@ -39,6 +39,7 @@ Your service can use any technologies you wish, and can distribute the informati
 - Cost efficiency: Caching and autoscaling to minimize compute/storage cost
 
 ### Out of scope:
+- Data importing, it is provided by external service
 - Real-time / intraday quotes or streaming
 - Market data ingestion from exchanges / upstream sources
 - Batch / multi-ticker requests
@@ -98,6 +99,100 @@ Read-heavy system (need to think about CDN/Caching)
 Even with `x5` safety factor (indexes, meta, replicas) it will be less than 10Gb
 So it is a very small footprint (looks like SQL or NoSQL doesn't matter with this volume).
 
+</details>
+
+![Task 9.1 - System Design](https://github.com/Komdosh/CrackingTheCodingInterview/blob/main/9-system-design-scalability/Task%209.1%20-%20Ticker%20Data%20SD.jpeg?raw=true)
+
+<details>
+<summary>API</summary>
+  
+#### Base URL: /api/v1 - for maintability and backward compatibility in future
+
+#### Prices REST API
+
+```
+GET /prices/{ticker}?start_date=&end_date -- if no dates provided, latest will be fetched
+Headers: JWT (user session)
+Response Body:
+{
+  ticker: '',
+  data: [{ date: 'DD-MM-YYYY', open: 0, high: 0, low: 0, close: 0 }],
+  meta: {},
+  page: {} -- if needed
+}
+```
+
+#### Subscription API
+
+```
+POST wss://{DOMAIN_BASE_URL}/subscribe
+Headers: JWT (user session)
+Request Payload:
+{
+  action: 'subscribe'
+  tickers: [{MANY_TICKERS}]
+}
+Responses Flow (response by one ticker)
+{
+  ticker: '',
+  data: { date: 'DD-MM-YYYY', open: 0, high: 0, low: 0, close: 0 },
+  meta: {}
+}
+```
+  
+</details>
+
+<details>
+<summary>Arch Notes</summary>
+
+- There is no need to separate the cache. We can rely on DB caching because the data volume is small. Introducing a separate cache would increase cost unnecessarily.
+- Runtime: Let's use Kubernetes, as it is the most popular solution. It provides simple service configuration, service discovery, HPA, etc.
+- The API Gateway can be nginx Ingress. It could also be Kong or any cloud-native solution, but for Kubernetes, we’ll use nginx.
+- For the database, we’ll use a relational DB, as the data size is small (<10 GB over 7 years).
+- For temporary storage of external data, we’ll use Apache Kafka to support retries, partitioning (for future high load), and a dead-letter queue.
+- For the notification service, we’ll use RabbitMQ, as it supports many subscribers and can hold the latest records with TTL, effectively acting like a cache.
+- For observability, since we are on Kubernetes, we can leverage service mesh or ambient mesh solutions like istio or fluentd.
+- Every service is stateless, so it can be horizontally scaled over time or in response to bursts of requests.
+  
+</details>
+
+<details>
+<summary>Security, Observability, Maintability, Cost Efficiency</summary>
+  
+#### Security:
+- HTTPS + OAuth/API keys for client auth
+- DB encrypted at rest
+- RBAC & audit logs for subscriptions
+
+#### Observability:
+- Metrics: request count, latency, queue lag
+- Logs & tracing (correlation IDs)
+- Alerts for SLA breaches
+- Kubernetes HPA, liveness/readiness probes
+
+#### Maintainability:
+
+- Stateless API & dispatcher -> easy scaling
+- CI/CD with canary/blue-green deploys
+- API versioning for backward compatibility
+- Retry + DLQ for ingestion & notifications
+
+#### Cost Efficiency:
+
+- Auto-scaling REST API & dispatcher
+- Message queue smooths ingestion spikes
+- Right-sized Kubernetes resources
+  
+</details>
+
+<details>
+<summary>Scaling Load x10</summary>
+  
+- REST API: Horizontal pods, HPA, DB read replicas.
+- WebSocket Dispatcher: Horizontal scaling, connection broker, broadcast messages for shared tickers.
+- Data Ingestion: Multiple queue consumers, batch DB writes.
+- Message Queue: Add partitions/topics to handle throughput.
+  
 </details>
   
 </details>
