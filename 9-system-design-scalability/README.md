@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![12%](https://progress-bar.xyz/12.5)
+![12%](https://progress-bar.xyz/12)
 
 ## 1. Stock Data
 
