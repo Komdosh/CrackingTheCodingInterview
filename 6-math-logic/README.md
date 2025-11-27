@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![10%](https://progress-bar.xyz/10)
+![20%](https://progress-bar.xyz/20)
 
 ## 1. The Heavy Pill
 
@@ -42,6 +42,38 @@ Game 1: You get one shot to make the hoop.
 Game 2: You get three shots, and you have to make two of three shots.
 
 If `p` is the probability of making a particular shot, for which values of p should you pick one game or the other?
+
+<details>
+<summary>Solution</summary>
+
+Actually we need to calculate probability of each game. For Game 1 is easy, it is just a `p`. 
+But for Game 2 we need to calculate probability of cases: `exactly 2` and `all 3`. For `exactly 2` we need a binom `(3,2)p^2(1-p) = 3*p^2(1-p)`. All 3: `p^3`.
+So for the Game 2 probability of wining is `3*p^2-2*p^3`. 
+Then we need to solve two cases `Game 1 > Game 2` and `Game 2 > Game 1`. Let's dive in `Game 1 > Game 2` (another will be an inversion):
+```
+p > 3*p^2-2*p^3
+1 > 3*p-2*p^2
+2*p^2-3*p+1 > 0 # let's equal to 0 and solve this quadratic formula
+p = 1 or p = 1/2 # so there is 2 intervals 0 < p < 1/2 and 1/2 < p < 1 (p in 0..1 so inf we ommit)
+```
+
+In this case if `p<50%` we have to select Game 1, if `0.5<p<1` - Game 2. If `p = 50%` doesn't matter what game to choose.
+
+ ```python
+def game1(p):
+    return p
+
+def game2(p):
+    return 3*pow(p,2)-2*pow(p,3)
+
+p = 0.4
+if game1(p) > game2(p):
+    print("Pick first game")
+else:
+    print("Pick second game")
+ ```
+
+</details>
 
 <hr/>
 
