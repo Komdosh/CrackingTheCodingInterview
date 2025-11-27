@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![20%](https://progress-bar.xyz/20)
+![30%](https://progress-bar.xyz/30)
 
 ## 1. The Heavy Pill
 
