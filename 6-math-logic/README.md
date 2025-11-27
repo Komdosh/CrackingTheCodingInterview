@@ -2,12 +2,34 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.xyz/0)
+![10%](https://progress-bar.xyz/10)
 
 ## 1. The Heavy Pill
 
 You have 20 bottles of pills. 19 bottles have 1.0 gram pills, but one has pills of weight 1.1 grams. Given a scale that provides an exact
 measurement, how would you find the heavy bottle? You can only use the scale once.
+
+<details>
+<summary>Solution</summary>
+
+We take a number of pills equal to the index of each bottle.
+We don’t need an array here; we just have to compare the total weight with the normal weight (without any fake pills). 
+The difference will identify the bottle containing the 1.1-gram pills.
+
+ ```python
+  def measure(bottles):
+     return (bottles * (bottles+1))/bottles
+ 
+  bottlesCount = 20
+  knownFakeBottle = 12  # just for testing
+  fakeMeasure = measure(bottlesCount)+(knownFakeBottle/10)
+  
+  result = (fakeMeasure-measure(bottlesCount))*10
+  
+  print(round(result) == knownFakeBottle) # should be the same for testing
+ ```
+
+</details>
 
 <hr/>
 
