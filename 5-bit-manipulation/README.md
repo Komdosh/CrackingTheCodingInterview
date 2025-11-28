@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![36%](https://progress-bar.xyz/36)
+![48%](https://progress-bar.xyz/48)
 
 ## 1. Insertion
 
@@ -111,7 +111,7 @@ fn print_double_binary_frac(mut x: f64) -> String {
 
 ## 3. Flip Bit to Win
 
-You have an integer and you can flip exactly one bit from a 0 to a 1. Write code to find the length of the longest sequence of `1s` you
+You have an integer, and you can flip exactly one bit from a 0 to a 1. Write code to find the length of the longest sequence of `1s` you
 could create.
 
 ### Example
@@ -124,6 +124,33 @@ Output:
  8
 ```
 
+<details>
+<summary>Solution</summary>
+
+```rust
+fn longest_sequence_processor(mut n: u32) -> u32 {
+    if !n == 0 { return 32; } // all ones -> already max
+
+    let mut current_length = 0;
+    let mut previous_length = 0;
+    let mut max_length = 1; // we can always flip one bit
+
+    while n != 0 {
+        if n & 1 == 1 {
+            current_length += 1;
+        } else {
+            // if pre-previous bit is 0 (like 10100) then do not concatenate them
+            previous_length = if n & 2 == 0 { 0 } else { current_length };
+            current_length = 0;
+        }
+        max_length = max_length.max(previous_length + 1 + current_length);
+        n >>= 1;
+    }
+
+    max_length
+}
+```
+</details>
 <hr/>
 
 ## 4. Next Number
