@@ -135,7 +135,7 @@ representation.
 
 ## 5. Debugger
 
-Explain what the following code does: `(( n & ( n-1)) == 0)`.
+Explain what the following code does: `((n & (n-1)) == 0)`.
 
 <details>
 <summary>Solution</summary>
@@ -146,10 +146,10 @@ n and n-1 have no common bits set to 1
 ```rust
 pub(crate) fn debugger(){
     let n = 32;
-    println!("Is {} power of 2 or zero? - {}", n, (( n & ( n-1)) == 0));
+    println!("Is {} power of 2 or zero? - {}", n, ((n & (n-1)) == 0));
 
     let n = 31;
-    println!("Is {} power of 2 or zero? - {}", n, (( n & ( n-1)) == 0));
+    println!("Is {} power of 2 or zero? - {}", n, ((n & (n-1)) == 0));
 }
 ```
 </details>

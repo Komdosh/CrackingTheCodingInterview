@@ -31,7 +31,7 @@ You will also be able to clone this project, compile and run my solutions.
 
 ## Concepts and Algorithms
 
-5. [Bit Manipulation `Rust`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/5-bit-manipulation) ![12%](https://progress-bar.xyz/12)
+5. [Bit Manipulation `Rust`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/5-bit-manipulation) ![36%](https://progress-bar.xyz/36)
 
 6. [Math and Logic Puzzles `Python`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/6-math-logic) ![30%](https://progress-bar.xyz/30)
 
