@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![24%](https://progress-bar.xyz/24)
+![36%](https://progress-bar.xyz/36)
 
 ## 1. Insertion
 
@@ -45,6 +45,68 @@ fn insert_bits(n: u32, m: u32, i: u32, j: u32) -> u32 {
 Given a real number between 0 and 1 (e.g., 0.72) that is passed in as a double, print the binary representation. If the number cannot be
 represented accurately in binary with at most 32 characters, print "ERROR"
 
+<details>
+<summary>Solution</summary>
+
+```rust
+fn print_double_binary(mut x: f64) -> String {
+    if x <= 0.0 || x >= 1.0 {
+        return "ERROR".to_string();
+    }
+
+    let mut result = String::from("0.");
+
+    while x > 0.0 {
+        if result.len() >= 34 { // "0." + 32 chars = 34 total length
+            return "ERROR".to_string();
+        }
+
+        x *= 2.0;
+        if x >= 1.0 {
+            result.push('1');
+            x -= 1.0;
+        } else {
+            result.push('0');
+        }
+    }
+
+    result
+}
+```
+</details>
+
+<details>
+<summary>Another Solution</summary>
+
+Solution with fraction (0.5, 0.25, 0.625 etc.) check
+
+```rust
+fn print_double_binary_frac(mut x: f64) -> String {
+    if x <= 0.0 || x >= 1.0 {
+        return "ERROR".to_string();
+    }
+
+    let mut result = String::from("0.");
+
+    let mut frac = 0.5;
+    while x > 0.0 {
+        if result.len() >= 34 { // "0." + 32 chars = 34 total length
+            return "ERROR".to_string();
+        }
+
+        if x >= frac {
+            result.push('1');
+            x -= frac;
+        } else {
+            result.push('0');
+        }
+        frac /= 2.0;
+    }
+
+    result
+}
+```
+</details>
 <hr/>
 
 ## 3. Flip Bit to Win
