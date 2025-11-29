@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![0%](https://progress-bar.xyz/0)
+![28%](https://progress-bar.xyz/28)
 
 <details>
 <summary>DDL with Test Data</summary>
@@ -120,6 +120,15 @@ SELECT t FROM tenants t INNER JOIN AptTenants at ON t.TenantID = at.TenantID GRO
 
 Write a SQL query to get a list of all buildings and the number of open requests (Requests in which status equals 'Open').
 
+<details>
+<summary>Solution</summary>
+
+```SQL
+SELECT BuildingName, COALESCE(req.c,0) as "Count" FROM Buildings b LEFT JOIN
+(SELECT a.BuildingID, Count(*) as c FROM Requests r INNER JOIN apartments a ON a.AptID = r.AptID WHERE r.Status = 'Open' GROUP BY a.BuildingID) req
+ON b.BuildingID = req.BuildingID
+```
+</details>
 <hr/>
 
 ## 3. Close All Requests
