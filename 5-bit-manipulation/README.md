@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![60%](https://progress-bar.xyz/60)
+![72%](https://progress-bar.xyz/72)
 
 ## 1. Insertion
 
@@ -241,6 +241,30 @@ pub(crate) fn debugger(){
 ## 6. Conversion
 
 Write a function to determine the number of bits you would need to flip to convert integer A to integer B.
+
+<details>
+<summary>Solution</summary>
+
+if n = 2^x or 0 then result is 0, 1 otherwise
+n and n-1 have no common bits set to 1
+
+```rust
+pub(crate) fn bits_diff() {
+    let a = 5; // 101
+    let b = 7; // 111
+
+    let mut diff = a ^ b;
+
+    let mut count = 0;
+    while diff > 0 {
+        diff >>= 1;
+        count += diff & 1;
+    }
+
+    println!("{} bits difference", count);
+}
+```
+</details>
 
 <hr/>
 
