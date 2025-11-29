@@ -273,6 +273,36 @@ pub(crate) fn bits_diff() {
 Write a program to swap odd and even bits in an integer with as few instructions as possible (e.g., bit 0 and bit 1 are swapped, bit 2 and
 bit 3 are swapped, and so on).
 
+<details>
+<summary>Solution</summary>
+
+```rust
+const fn odd_bits_mask() -> u32 {
+    let mut x = 0xAA; // 1010_1010
+    x = x | (x << 8);
+    x = x | (x << 16);
+    x
+}
+const fn even_bits_mask() -> u32 {
+    let mut x = 0x55; // 0101_0101
+    x = x | (x << 8);
+    x = x | (x << 16);
+    x
+}
+
+pub(crate) fn swap_odd_even_bits() {
+    let n = 5; // 101
+
+    let odd_mask = odd_bits_mask();
+    let even_mask = even_bits_mask();
+    let result = (n & odd_mask) >> 1 | (n & even_mask) << 1;
+
+    println!("Original {:b}", n);
+    println!("Result {:b} ", result);
+}
+```
+</details>
+
 <hr/>
 
 ## 8. Draw Line

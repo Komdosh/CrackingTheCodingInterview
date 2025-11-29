@@ -1,5 +1,3 @@
-use crate::binary_string::to_binary_string;
-
 fn insert_bits(n: u32, m: u32, i: u32, j: u32) -> u32 {
     let all_ones = !0u32; // create a 0 u32 and invert all the bits
     let left = all_ones << (j + 1);  // set zeroes for j bit positions 
@@ -20,7 +18,7 @@ pub(crate) fn insertion() {
 
     let result = insert_bits(n, m, i, j);
 
-    println!("N:       {}", to_binary_string(n));
-    println!("M:       {}", to_binary_string(m));
-    println!("Result:  {}", to_binary_string(result));
+    println!("N:       {:b}", n);
+    println!("M:       {:b}", m);
+    println!("Result:  {:b}", result);
 }
