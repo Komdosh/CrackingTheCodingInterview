@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![48%](https://progress-bar.xyz/48)
+![60%](https://progress-bar.xyz/60)
 
 ## 1. Insertion
 
@@ -157,6 +157,62 @@ fn longest_sequence_processor(mut n: u32) -> u32 {
 
 Given a positive integer, print the next smallest and the next largest number that have the same number of 1 bits in their binary
 representation.
+
+<details>
+<summary>Solution</summary>
+
+```rust
+fn count_trailing_ones(mut n: u32) -> (u32, u32) {
+    let mut count = 0;
+    while n & 1 == 1 {
+        count += 1;
+        n >>= 1;
+    }
+    (count, n) // also return shifted number
+}
+
+fn count_trailing_zeros(mut n: u32) -> (u32, u32) {
+    let mut count = 0;
+    while n & 1 == 0 && n != 0 {
+        count += 1;
+        n >>= 1;
+    }
+    (count, n)
+}
+
+fn get_next(n: u32) -> Option<u32> {
+    let (c0, c) = count_trailing_zeros(n);
+    let (c1, _) = count_trailing_ones(c);
+
+    let p = c0 + c1;
+
+    // if all ones or all zeroes -> None
+    if p == 31 || p == 0 {
+        return None;
+    }
+
+    let mut result = n | (1 << p);
+    result &= !((1 << p) - 1);
+    result |= (1 << (c1 - 1)) - 1;
+    Some(result)
+}
+
+fn get_prev(n: u32) -> Option<u32> {
+    let (c1, c) = count_trailing_ones(n);
+    let (c0, _) = count_trailing_zeros(c);
+
+    if c == 0 {
+        return None;
+    }
+
+    let p = c0 + c1;
+    let mut result = n & (!0 << (p + 1));
+    let mask = (1 << (c1 + 1)) - 1;
+    result |= mask << (c0 - 1);
+    Some(result)
+}
+```
+</details>
 
 <hr/>
 
