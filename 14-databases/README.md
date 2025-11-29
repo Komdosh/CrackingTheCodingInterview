@@ -107,6 +107,13 @@ INSERT INTO Requests (AptID, Status, Description) VALUES
 
 Write a SQL query to get a list of tenants who are renting more than one apartment.
 
+<details>
+<summary>Solution</summary>
+
+```SQL
+SELECT t FROM tenants t INNER JOIN AptTenants at ON t.TenantID = at.TenantID GROUP BY t.TenantID HAVING count(t) > 1;
+```
+</details>
 <hr/>
 
 ## 2. Open Requests
