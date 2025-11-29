@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![72%](https://progress-bar.xyz/72)
+![87%](https://progress-bar.xyz/87)
 
 ## 1. Insertion
 
