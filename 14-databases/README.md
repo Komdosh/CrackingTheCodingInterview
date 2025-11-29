@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![28%](https://progress-bar.xyz/28)
+![42%](https://progress-bar.xyz/42)
 
 <details>
 <summary>DDL with Test Data</summary>
@@ -133,7 +133,15 @@ ON b.BuildingID = req.BuildingID
 
 ## 3. Close All Requests
 
-Building #11 is undergoing a major renovation. Implement a query to close all requests from apartments in this building.
+Building #1 is undergoing a major renovation. Implement a query to close all requests from apartments in this building.
+<details>
+<summary>Solution</summary>
+
+```SQL
+UPDATE Requests SET Status = 'Closed' WHERE AptID IN
+(SELECT AptID FROM Apartments WHERE BuildingID = '1');
+```
+</details>
 
 <hr/>
 
