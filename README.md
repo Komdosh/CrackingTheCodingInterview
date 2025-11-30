@@ -51,7 +51,7 @@ You will also be able to clone this project, compile and run my solutions.
 
 13. [Java `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/13-java) ![100%](https://progress-bar.xyz/100)
 
-14. [Databases `SQL`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/14-databases) ![0%](https://progress-bar.xyz/0)
+14. [Databases `SQL`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/14-databases) ![57%](https://progress-bar.xyz/57)
 
 15. [Threads and Locks `Go`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/15-threads-locks) ![0%](https://progress-bar.xyz/0)
 
