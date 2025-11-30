@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![42%](https://progress-bar.xyz/42)
+![57%](https://progress-bar.xyz/57)
 
 <details>
 <summary>DDL with Test Data</summary>
@@ -149,6 +149,54 @@ UPDATE Requests SET Status = 'Closed' WHERE AptID IN
 
 What are the different types of joins? Please explain how they differ and why certain types are better in certain situations.
 
+<details>
+<summary>Answer</summary>
+    
+### INNER JOIN
+
+Returns only rows that have matching keys in both tables.
+Used when you need intersecting data only.
+
+### LEFT JOIN (LEFT OUTER JOIN)
+
+Returns all rows from the left table and matching rows from the right table; unmatched rows from the right are returned as `NULL`.
+Used when all data from the primary table must be preserved.
+
+### RIGHT JOIN (RIGHT OUTER JOIN)
+
+Returns all rows from the right table and matching rows from the left table; unmatched rows from the left are returned as `NULL`.
+Same concept as LEFT JOIN but with the right table as the anchor. Less commonly used.
+
+### FULL OUTER JOIN
+
+Returns all rows from both tables. Matches are joined, and non-matching rows from either side are filled with `NULL`.
+Used when you need a complete union of both datasets.
+
+### CROSS JOIN
+
+Returns the Cartesian product of the two tables (each row in table A paired with each row in table B).
+Used for generating combinations; not dependent on matching keys.
+
+### SELF JOIN
+
+A table joined with itself, typically via aliases.
+Used to compare rows within the same table (e.g., hierarchical relationships like employee → manager) or handy for duplicate searches.
+
+### SEMI JOIN (`EXISTS`)
+
+Returns rows from table A when a match exists in table B but does not duplicate table A rows based on the number of matches.
+Used when you need to filter by existence without retrieving data from the joined table.
+
+### ANTI JOIN (`NOT EXISTS` / `LEFT JOIN … WHERE B IS NULL`)
+
+Returns rows from table A only when no match exists in table B.
+Used for finding missing/unmatched records.
+
+### NATURAL JOIN
+
+Rarelly used. Long story short: Inner Join without `ON` clause.
+
+</details>
 <hr/>
 
 ## 5. Denormalization
