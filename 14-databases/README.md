@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![57%](https://progress-bar.xyz/57)
+![71%](https://progress-bar.xyz/71)
 
 <details>
 <summary>DDL with Test Data</summary>
@@ -154,8 +154,7 @@ What are the different types of joins? Please explain how they differ and why ce
     
 ### INNER JOIN
 
-Returns only rows that have matching keys in both tables.
-Used when you need intersecting data only.
+Returns only rows that have matching keys in both tables. Used when you need intersecting data only.
 
 ### LEFT JOIN (LEFT OUTER JOIN)
 
@@ -202,6 +201,28 @@ Rarelly used. Long story short: Inner Join without `ON` clause.
 ## 5. Denormalization
 
 What is denormalization? Explain the pros. and cons.
+
+<details>
+<summary>Answer</summary>
+
+### Denormalization
+
+Denormalization is the intentional process of reversing database normalization by adding redundancy or merging tables to improve read performance. In other words, it moves a schema from higher normal forms toward lower normal forms to reduce the need for complex joins.
+
+### Pros
+
+- Faster read/query performance (fewer joins and lookups).
+- Better for analytics and reporting workloads.
+- Can reduce expensive JOIN operations in high-traffic systems.
+- Improves caching efficiency because data is grouped together.
+
+### Cons
+
+- Data redundancy increases → more storage required.
+- Higher risk of data inconsistency because the same data exists in multiple places.
+- More complex write operations due to the need to update redundant data.
+- Harder to maintain and enforce data integrity over time.
+</details>
 
 <hr/>
 
