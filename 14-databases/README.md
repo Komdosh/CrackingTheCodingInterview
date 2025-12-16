@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![71%](https://progress-bar.xyz/71)
+![87%](https://progress-bar.xyz/87)
 
 <details>
 <summary>DDL with Test Data</summary>
@@ -229,6 +229,12 @@ Denormalization is the intentional process of reversing database normalization b
 ## 6. Entity-Relationship Diagram
 
 Draw an entity-relationship diagram for a database with companies, people, and professionals (people who work for companies).
+
+<details>
+<summary>Answer</summary>
+    
+![ER](task14.6ER.jpeg)
+</details>
 
 <hr/>
 
