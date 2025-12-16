@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![87%](https://progress-bar.xyz/87)
+![100%](https://progress-bar.xyz/100)
 
 <details>
 <summary>DDL with Test Data</summary>
@@ -243,6 +243,135 @@ Draw an entity-relationship diagram for a database with companies, people, and p
 Imagine a simple database storing information for students' grades. Design what this database might look like and provide a SQL query to
 return a list of the honor roll students (top 10%), sorted by their grade point average.
 
+
+<details>
+<summary>Example Data</summary>
+    
+```sql
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS marks;
+
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50)
+);
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(100)
+);
+
+CREATE TABLE marks (
+    student_id INT,
+    course_id INT,
+    grade DECIMAL(3,2), -- 0.00–4.00 scale
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+INSERT INTO students (student_id, first_name, last_name) VALUES
+(1, 'Alice', 'Nguyen'),
+(2, 'Brian', 'Smith'),
+(3, 'Carla', 'Lopez'),
+(4, 'Daniel', 'Kim'),
+(5, 'Elena', 'Patel'),
+(6, 'Frank', 'Johnson'),
+(7, 'Grace', 'Chen'),
+(8, 'Henry', 'Brown'),
+(9, 'Isabella', 'Garcia'),
+(10, 'Jack', 'Wilson');
+
+
+INSERT INTO courses (course_id, course_name) VALUES
+(101, 'Mathematics'),
+(102, 'Computer Science'),
+(103, 'History'),
+(104, 'Physics');
+
+INSERT INTO marks (student_id, course_id, grade) VALUES
+-- Alice
+(1, 101, 4.00),
+(1, 102, 3.90),
+(1, 103, 3.80),
+
+-- Brian
+(2, 101, 3.20),
+(2, 102, 3.50),
+(2, 104, 3.40),
+
+-- Carla
+(3, 101, 3.90),
+(3, 102, 4.00),
+(3, 104, 3.80),
+
+-- Daniel
+(4, 101, 3.50),
+(4, 103, 3.60),
+(4, 104, 3.70),
+
+-- Elena
+(5, 101, 4.00),
+(5, 102, 4.00),
+(5, 103, 3.90),
+
+-- Frank
+(6, 101, 4.00),
+(6, 103, 4.00),
+(6, 104, 3.90),
+
+-- Grace
+(7, 101, 3.70),
+(7, 102, 3.80),
+(7, 104, 3.90),
+
+-- Henry
+(8, 101, 3.00),
+(8, 102, 3.20),
+(8, 103, 3.10),
+
+-- Isabella
+(9, 101, 3.85),
+(9, 102, 3.90),
+(9, 104, 4.00),
+
+-- Jack
+(10, 101, 3.40),
+(10, 103, 3.50),
+(10, 104, 3.60);
+```
+</details>
+
+<details>
+<summary>Solution</summary>
+
+```sql
+WITH gpa AS (
+    SELECT
+        s.student_id,
+        s.first_name,
+        s.last_name,
+        AVG(m.grade) AS gpa
+    FROM students s
+    JOIN marks m ON m.student_id = s.student_id
+    GROUP BY s.student_id, s.first_name, s.last_name
+)
+SELECT *
+FROM gpa
+WHERE gpa >= (
+    SELECT MIN(gpa)
+    FROM (
+        SELECT gpa
+        FROM gpa
+        ORDER BY gpa DESC
+        LIMIT CEILING((SELECT COUNT(*) FROM gpa) * 0.10)
+    ) t
+)
+ORDER BY gpa DESC;
+```
+</details>
 <hr/>
 
 
