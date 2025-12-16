@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![75%](https://progress-bar.xyz/75)
+![83%](https://progress-bar.xyz/83)
 
 ## 1. Route Between Nodes
 
@@ -853,6 +853,139 @@ static void shuffle(std::deque<const BinaryTreeNode *> &l, std::deque<const Bina
 T1 and T2 are two very large binary trees, with T1 much bigger than T2. Create an algorithm to determine if T2 is a
 subtree of T1. A tree T2 is a subtree of T1 if there exists a node n in Tl such that the subtree of n is identical to
 T2. That is, if you cut off the tree at node n, the two trees would be identical.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N * M)` - we have to traverse all possible subtrees for each node in T1 we have to check all in T2.
+- Space Complexity: `O(H)` - Where H is a height of tree
+
+#### Implementation
+
+```cpp
+void run() {
+    BinaryTree t1, t2;
+    t1.createDefiniteTree();
+    t2.createDefiniteTree();
+
+    std::cout << traverseSubtree(t1.root(), t2.root()) << std::endl;
+
+    BinaryTree t3, t4;
+    t3.createDefiniteTree();
+    t4.createBiDirectedBinaryTree();
+
+    std::cout << traverseSubtree(t3.root(), t4.root()) << std::endl;
+}
+
+static bool areIdentical(const BinaryTreeNode *t1, const BinaryTreeNode *t2) {
+    if (!t1 && !t2) return true;
+    if (!t1 || !t2) return false;
+
+    if (t1->getId() != t2->getId()) return false;
+
+    return areIdentical(t1->left(), t2->left()) &&
+           areIdentical(t1->right(), t2->right());
+}
+
+// Traverse T1 and try to match T2 at each node
+static bool traverseSubtree(const BinaryTreeNode *t1, const BinaryTreeNode *t2) {
+    if (!t1) return false;
+
+    if (t1->getId() == t2->getId()) {
+        if (areIdentical(t1, t2)) {
+            return true;
+        }
+    }
+
+    return traverseSubtree(t1->left(), t2) ||
+           traverseSubtree(t1->right(), t2);
+}
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(N + M)` - Hash every subtree of T1 and hash T2 tree then check in O(1)
+- Space Complexity: `O(N)` - Hashes of T1
+
+#### Implementation
+
+```cpp
+static constexpr uint64_t NULL_HASH = 0x9e3779b97f4a7c15ULL;
+static constexpr uint64_t FNV = 1099511628211ULL; // Fowler–Noll–Vo hash for 64 bits
+static constexpr uint64_t FNV_OFFSET = 1469598103934665603ULL;
+
+static uint64_t calculate_hash(const uint64_t left, const uint64_t right, const int id) {
+    uint64_t h = FNV_OFFSET;
+    h ^= static_cast<uint64_t>(id) + NULL_HASH;
+    h *= FNV;
+
+    h ^= left;
+    h *= FNV;
+
+    h ^= right;
+    h *= FNV;
+    return h;
+}
+
+static uint64_t hashNode(
+    const BinaryTreeNode* node,
+    std::unordered_set<uint64_t>& hashes
+) {
+    if (!node) return NULL_HASH;
+
+    const uint64_t left  = hashNode(node->left(), hashes);
+    const uint64_t right = hashNode(node->right(), hashes);
+
+    const uint64_t h = calculate_hash(left, right, node->getId());
+
+    hashes.insert(h);
+    return h;
+}
+
+static uint64_t hashTree(const BinaryTreeNode* node) {
+    if (!node) return NULL_HASH;
+
+    const uint64_t left  = hashTree(node->left());
+    const uint64_t right = hashTree(node->right());
+    
+    return calculate_hash(left, right, node->getId());
+}
+
+static bool isSubtree(const BinaryTreeNode* T1, const BinaryTreeNode* T2) {
+    if (!T2) return true;
+    if (!T1) return false;
+
+    std::unordered_set<uint64_t> subtreeHashes;
+    hashNode(T1, subtreeHashes);
+
+    const uint64_t t2Hash = hashTree(T2);
+
+    return subtreeHashes.contains(t2Hash);
+}
+
+void run() {
+    BinaryTree t1, t2;
+    t1.createDefiniteTree();
+    t2.createDefiniteTree();
+
+    std::cout << isSubtree(t1.root(), t2.root()) << std::endl;
+
+    BinaryTree t3, t4;
+    t3.createDefiniteTree();
+    t4.createBiDirectedBinaryTree();
+
+    std::cout << isSubtree(t3.root(), t4.root()) << std::endl;
+}
+```
+
+</details>
 
 <hr/>
 

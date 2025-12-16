@@ -33,7 +33,10 @@ int main() {
     // runTest(*new FirstCommonAncestorNaive());
     // runTest(*new FirstCommonAncestorOptimized());
 
-    runTest(*new BSTSequencesNaive());
+    // runTest(*new BSTSequencesNaive());
+
+    // runTest(*new CheckSubtreeNaive());
+    runTest(*new CheckSubtreeOptimized());
 
     return 0;
 }
