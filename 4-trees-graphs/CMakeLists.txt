@@ -5,4 +5,5 @@ project(4_trees_graphs)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(4_trees_graphs src/main.cpp src/runner.h src/graph.h)
+add_executable(4_trees_graphs src/main.cpp src/runner.h src/graph.h
+        src/RandomNode/RandomTreeNode.h)

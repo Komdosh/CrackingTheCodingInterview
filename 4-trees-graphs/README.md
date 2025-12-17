@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![83%](https://progress-bar.xyz/83)
+![91%](https://progress-bar.xyz/91)
 
 ## 1. Route Between Nodes
 
@@ -851,7 +851,7 @@ static void shuffle(std::deque<const BinaryTreeNode *> &l, std::deque<const Bina
 ## 10. Check Subtree
 
 T1 and T2 are two very large binary trees, with T1 much bigger than T2. Create an algorithm to determine if T2 is a
-subtree of T1. A tree T2 is a subtree of T1 if there exists a node n in Tl such that the subtree of n is identical to
+subtree of T1. A tree T2 is a subtree of T1 if there exists a node n in T1 such that the subtree of n is identical to
 T2. That is, if you cut off the tree at node n, the two trees would be identical.
 
 <details>
@@ -995,12 +995,73 @@ You are implementing a binary tree class from scratch which, in addition to inse
 getRandomNode() which returns a random node from the tree. All nodes should be equally likely to be chosen. Design and
 implement an algorithm for getRandomNode, and explain how you would implement the rest of the methods.
 
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+- Time Complexity: `O(H)` - H is a height of tree
+- Space Complexity: `O(N)` - 
+
+#### Implementation
+
+```cpp
+class RandomTreeNode {
+    int data = 0;
+    RandomTreeNode *left = nullptr;
+    RandomTreeNode *right = nullptr;
+    int size = 0;
+
+    RandomTreeNode *getNodeByIndex(const int index) {
+        const int leftSize = left != nullptr ? left->size : 0;
+        if (index < leftSize) {
+            if (left == nullptr) { return nullptr; }
+            return left->getNodeByIndex(index);
+        }
+        if (index == leftSize) {
+            return this;
+        }
+        return right->getNodeByIndex(index - (leftSize + 1));
+    }
+
+public:
+    [[nodiscard]] int getData() const { return data; }
+
+    explicit RandomTreeNode(const int data) {
+        this->data = data;
+        this->size = 1;
+    }
+
+    void insert(const int d) {
+        if (d <= data) {
+            if (left == nullptr) {
+                left = new RandomTreeNode(d);
+            } else {
+                left->insert(d);
+            }
+        } else {
+            if (right == nullptr) {
+                right = new RandomTreeNode(d);
+            } else {
+                right->insert(d);
+            }
+        }
+        size++;
+    }
+
+    RandomTreeNode *getRandomNode() {
+        const int index = rand() % size;
+        return getNodeByIndex(index);
+    }
+};
+```
+</details>
+
 <hr/>
 
 ## 12. Paths with Sum
 
 You are given a binary tree in which each node contains an integer value (which might be positive or negative). Design
 an algorithm to count the number of paths that sum to a given value. The path does not need to start or end at the root
-or a leaf, but it must go downwards
-(traveling only from parent nodes to child nodes).
+or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
 <hr/>

@@ -36,7 +36,9 @@ int main() {
     // runTest(*new BSTSequencesNaive());
 
     // runTest(*new CheckSubtreeNaive());
-    runTest(*new CheckSubtreeOptimized());
+    // runTest(*new CheckSubtreeOptimized());
+
+    runTest(*new RandomNodeOptimized());
 
     return 0;
 }

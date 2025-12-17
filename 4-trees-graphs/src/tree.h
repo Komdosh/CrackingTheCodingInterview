@@ -3,10 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <unordered_set>
-#include <iomanip>
 #include <queue>
-#include <stack>
 #include "graph.h"
 
 class TreeStatistics {
