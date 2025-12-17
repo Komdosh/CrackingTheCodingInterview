@@ -316,7 +316,49 @@ algorithm to show the shortest path between two people (e.g., Me -> Bob -> Susan
 
 <details>
 <summary>API</summary>
-  
+
+#### Base URL: /api/v1 - for maintability and backward compatibility in future
+
+#### Connections API
+
+Retrieve path from one user to another
+```
+GET /connections/shortest_path?from_user_id={id}&to_user_id={id}&max_depth={optional}
+Headers: JWT (user session)
+Response Body:
+{
+  from_user: { id: '', name: '' },
+  to_user: { id: '', name: '' },
+  path: [
+    { id: '', name: '' },  // first connection
+    { id: '', name: '' },  // second connection
+    ...
+  ],
+  meta: {
+    path_length: 4,
+    query_time_ms: 15
+  }
+}
+```
+
+Retrieve direct connections for user
+```
+GET /connections/{user_id}?depth={optional}
+Headers: JWT (user session)
+Response Body:
+{
+  user: { id: '', name: '' },
+  connections: [
+    { id: '', name: '' },
+    { id: '', name: '' },
+    ...
+  ],
+  meta: {
+    total_connections: 200,
+    depth: 1
+  }
+}
+```
   
 </details>
 
