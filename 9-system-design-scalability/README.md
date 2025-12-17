@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![12%](https://progress-bar.xyz/12)
+![24%](https://progress-bar.xyz/24)
 
 Note: I’ve slightly changed the rules for this section. The book presents problems with specific implementations, but I decided to move a bit away from that approach and instead treat the problems as system design tasks.
 
