@@ -313,6 +313,7 @@ algorithm to show the shortest path between two people (e.g., Me -> Bob -> Susan
 
 </details>
 
+![Task 9.2 - Social Network Connections](https://github.com/Komdosh/CrackingTheCodingInterview/blob/3db4fb42e49c19df2c514c6869068b074f73a9bb/9-system-design-scalability/Task%209.2%20-%20Social%20Network%20Connections%20SD.jpeg)
 
 <details>
 <summary>API</summary>
