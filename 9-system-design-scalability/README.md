@@ -4,6 +4,8 @@ Completed tasks:
 
 ![12%](https://progress-bar.xyz/12)
 
+Note: I’ve slightly changed the rules for this section. The book presents problems with specific implementations, but I decided to move a bit away from that approach and instead treat the problems as system design tasks.
+
 ## 1. Stock Data
 
 Imagine you are building some sort of service that will be called by up to 1,000 client applications to get simple end-of day stock price
