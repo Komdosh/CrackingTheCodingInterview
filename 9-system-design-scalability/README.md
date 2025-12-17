@@ -206,6 +206,141 @@ Responses Flow (response by one ticker)
 How would you design the data structures for a very large social network like Facebook or LinkedIn? Describe how you would design an
 algorithm to show the shortest path between two people (e.g., Me -> Bob -> Susan -> Jason -> You).
 
+<details>
+<summary>Solution</summary>
+
+<details>
+<summary>Requirements</summary>
+
+### Functional Requirements
+
+- User Profiles:
+    - Store user details: name, ID, email, work history, education, etc.
+    - Support profile updates and privacy settings
+- Friendship / Connections:
+    - Users can send/accept connection requests
+    - Users can see their connections/friends
+    - Given two users, find the **shortest chain of connections** between them
+      - Example: `Me -> Bob -> Susan -> Jason -> You`
+- Query Capabilities
+    - Efficiently query connections (direct and indirect)
+    - Possibly support degree of separation queries (e.g., friends of friends)
+
+### Non-Functional Requirements
+
+- Must handle billions of users and trillions of connections.
+- Support horizontal scaling (sharding or partitioning the graph).
+- Querying the shortest path should be fast (sub-second if possible for reasonable distances)
+- Read-heavy system: connections are queried more often than updated
+- High availability, ideally 99.99% uptime, because users expect social graph access anytime
+- Eventual consistency is acceptable for connection requests
+- Strong consistency for sensitive operations like blocking users
+- Graph data can be massive; data structures must be optimized for memory/storage
+- Respect privacy settings (e.g., do not show paths through private connections)
+
+ 
+### Out of scope
+
+- Notify users when someone connects with their friends (can affect graph traversal priorities).
+- Support degrees of separation queries (e.g., "show me people within 2 hops").
+- Support friend recommendations based on graph traversal
+- Handle real-time updates to the social graph
+
+</details>
+
+<details>
+<summary>Workload Estimation</summary>
+
+### Assumptions
+
+- Total users: ~1 billion (Facebook/LinkedIn scale)
+- Average connections per user: ~200 (friends/connections)
+- Client applications: 1000 internal/external apps querying the service
+- Requests per client: queries shortest path between two users
+- Peak usage: mostly during daytime hours (~2-hour peak)
+- Historical queries: occasionally, clients may query past snapshots (slightly bigger payloads)
+- Graph updates: friend requests/acceptances happen throughout the day
+
+### Load
+
+- Assume 1-2 requests per client per day -> 1k–2k requests/day
+- Some internal jobs may query multiple shortest paths for analytics or recommendations -> 5k–10k requests/day
+- Each client could perform up to 50 shortest-path queries/day -> 50k requests/day
+
+### Peak Request Rate
+
+- Assume 80% of requests happen during a 2-hour peak window:
+
+```
+50000 * 0.8 / 2 hours ≈ 20000 req/hour ≈ 333 req/min ≈ 5.5 RPS
+```
+
+- Add margin for retries, bursts, and growth -> target 1000 RPS for scalability headroom
+
+### Response Payload Size
+
+- Each response: sequence of user IDs/names along the path
+- Average path length: ~4 connections (Me -> Bob -> Susan -> Jason -> You)
+- Each node info: ~200 bytes (ID, name, profile snippet)
+- Total payload: 4 * 200 bytes ≈ 800 bytes
+- With JSON formatting/overhead: ~1 KB per request
+
+```
+1 KB * 5,5 RPS ≈ 5.5 kb/s ≈ 20 MB/hour
+```
+
+- For 1000 RPS limit:
+
+```
+1 KB * 1000 rps ≈ 1 MB/sec ≈ 3.6 GB/hour (Peak Data Transfer)
+```
+
+- Very manageable for network bandwidth, but cache can help speed up repeated queries
+
+### Storage
+
+- Total users: 1B
+- Average connections: 200
+- Total edges: 1B × 200 / 2 ≈ 100B edges (divide by 2 to avoid duplicate counting)
+- Store edges as (user_id_1, user_id_2) tuples: 16 bytes + indexing/meta ~ 32 bytes per edge
+
+```
+100B edges × 32 bytes ≈ 3.2 TB
+```
+
+- Add replica/fault tolerance factor ×3 -> ~10 TB for graph storage
+- Vertices: 1B × 200 bytes (user info summary) ≈ 200 GB
+
+</details>
+
+
+<details>
+<summary>API</summary>
+  
+  
+</details>
+
+<details>
+<summary>Arch Notes</summary>
+
+  
+</details>
+
+<details>
+<summary>Security, Observability, Maintability, Cost Efficiency</summary>
+  
+
+  
+</details>
+
+<details>
+<summary>Scaling Load x10</summary>
+  
+  
+</details>
+  
+</details>
+
 <hr/>
 
 ## 3. Web Crawler
