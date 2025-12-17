@@ -44,7 +44,7 @@ You can clone this repository, compile the code, and run all solutions locally. 
 
 8. [Recursion and Dynamic Programming `Go`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/8-recursion-dynamic) ![0%](https://progress-bar.xyz/0)
 
-9. [System Design and Scalability](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/9-system-design-scalability) ![12%](https://progress-bar.xyz/12)
+9. [System Design and Scalability](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/9-system-design-scalability) ![24%](https://progress-bar.xyz/24)
 
 10. [Sorting and Searching `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/10-sorting-searching) ![0%](https://progress-bar.xyz/0)
 
