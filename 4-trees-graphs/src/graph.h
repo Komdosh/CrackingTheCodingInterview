@@ -103,6 +103,8 @@ public:
 
 class Graph {
 public:
+    virtual ~Graph() = default;
+
     std::vector<Node *> roots;
 
     Node *createRoot() {

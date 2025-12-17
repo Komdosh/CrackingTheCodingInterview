@@ -58,7 +58,7 @@ public:
 class TreePrinter;
 
 class Tree : public Graph {
-    PrintTreeStatistics *evaluateStatistics() const {
+    [[nodiscard]] PrintTreeStatistics *evaluateStatistics() const {
         int currentLevelChildren = 1;
         int nextLevelChildren = 0;
         int depth = 0;
@@ -94,7 +94,7 @@ class Tree : public Graph {
     }
 
 public:
-    Node *root() const {
+    [[nodiscard]] virtual Node *root() const {
         return roots.back();
     }
 
@@ -102,7 +102,7 @@ public:
         roots.push_back(node);
     }
 
-    void createDefiniteTree() {
+    virtual void createDefiniteTree() {
         //              0
         //      1               2
         //                  3   4   5
@@ -148,11 +148,11 @@ public:
     }
 
 
-    bool findPath(
+    static bool findPath(
         const std::vector<Node *> &providedRoots,
         std::queue<Node *> &path,
         const int id
-    ) const {
+    ) {
         for (const auto root: providedRoots) {
             if (root == nullptr) {
                 return false;
@@ -179,7 +179,7 @@ public:
         printGraph();
     }
 
-    void printNode(Node *current) const {
+    void printNode(Node *current) const override {
         std::vector<Node *> *currentConnectedNodes = &current->connectedNodes;
         if (!currentConnectedNodes->empty()) {
             std::cout << "--------" << std::endl;
@@ -199,7 +199,7 @@ public:
         }
     }
 
-    void printNumberAlign(const int value, int spaceSize) {
+    static void printNumberAlign(const int value, int spaceSize) {
         int valueSize = value == 0 ? 1 : 0;
         int tmpValue = value;
         while (tmpValue > 0) {
@@ -213,16 +213,16 @@ public:
         printSpaces(spaces);
     };
 
-    void printSpaces(int spaces) {
+    static void printSpaces(int spaces) {
         for (int i = 0; i < spaces; ++i) {
             std::cout << " ";
         }
     }
 };
 
-class BinaryTree : public Tree {
+class BinaryTree final : public Tree {
 public:
-    BinaryTreeNode *root() {
+    [[nodiscard]] BinaryTreeNode *root() const override {
         return (BinaryTreeNode *) roots.back();
     }
 
@@ -253,7 +253,7 @@ public:
         nId10->connect(new BinaryTreeNode(9, 3));
     }
 
-    void createDefiniteTree() {
+    void createDefiniteTree() override {
         //                  0
         //      1                     2
         //                      3           4

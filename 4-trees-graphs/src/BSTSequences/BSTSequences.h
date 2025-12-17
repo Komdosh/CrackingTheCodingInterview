@@ -4,9 +4,9 @@
 #include <queue>
 #include <vector>
 
-class BSTSequencesNaive {
+class BSTSequences {
 public:
-    void run() {
+    static void run() {
         BinaryTree tree;
         tree.createBSTree();
 
@@ -69,7 +69,7 @@ public:
             return;
         }
 
-        // backtracking algorigthm (delete, process, recover)
+        // backtracking algorithm (delete, process, recover)
         const BinaryTreeNode *leftHead = l.front();
         l.pop_front();
         current.push_back(leftHead);

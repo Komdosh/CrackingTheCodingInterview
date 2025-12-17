@@ -1,9 +1,7 @@
 #ifndef INC_4_TREES_GRAPHS_VALIDATEBST_OPTIMIZED_H
 #define INC_4_TREES_GRAPHS_VALIDATEBST_OPTIMIZED_H
 
-#include <queue>
 #include <vector>
-#include <unordered_set>
 
 class ValidateBSTOptimized {
     int *lastValue = nullptr;
@@ -24,7 +22,7 @@ public:
         std::cout << "Is binary search tree: " << checkBSTWithArray(nonBST.root()) << " should be 0" << std::endl;
     }
 
-    bool checkBST(BinaryTreeNode *n) {
+    bool checkBST(const BinaryTreeNode *n) {
         if (n == nullptr) return true;
 
         if (!checkBST(n->left())) {
@@ -44,11 +42,11 @@ public:
         return true;
     }
 
-    bool checkBSTMinMax(BinaryTreeNode *n) {
+    static bool checkBSTMinMax(BinaryTreeNode *n) {
         return checkBSTMinMax(n, nullptr, nullptr);
     }
 
-    bool checkBSTMinMax(BinaryTreeNode *n, int *min, int *max) {
+    static bool checkBSTMinMax(BinaryTreeNode *n, int *min, int *max) {
         if (n == nullptr) {
             return true;
         }
@@ -63,7 +61,7 @@ public:
         return true;
     }
 
-    bool checkBSTWithArray(BinaryTreeNode *node) {
+    static bool checkBSTWithArray(BinaryTreeNode *node) {
         std::vector<int> array;
         copyBST(node, &array);
         if (array.empty()) {
@@ -77,7 +75,7 @@ public:
         return true;
     }
 
-    void copyBST(BinaryTreeNode *node, std::vector<int> *array) {
+    static void copyBST(BinaryTreeNode *node, std::vector<int> *array) {
         if (node == nullptr) {
             return;
         }

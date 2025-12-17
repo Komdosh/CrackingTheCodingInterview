@@ -4,7 +4,7 @@
 #include "RandomTreeNode.h"
 #include <random>
 
-class RandomNodeOptimized {
+class RandomNode {
 public:
     void run() {
         RandomTreeNode r(3);

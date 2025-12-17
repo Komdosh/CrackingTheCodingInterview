@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 
-class BuildOrderNaive {
+class BuildOrder {
     static Node *getProjectNode(char projectName, std::unordered_map<char, Node *> *projectsStore) {
         Node *projectNode;
         if (!projectsStore->contains(projectName)) {

@@ -1,10 +1,6 @@
 #ifndef INC_4_TREES_GRAPHS_VALIDATEBST_NAIVE_H
 #define INC_4_TREES_GRAPHS_VALIDATEBST_NAIVE_H
 
-#include <queue>
-#include <vector>
-#include <unordered_set>
-
 class ValidateBSTNaive {
 
 public:
@@ -19,7 +15,7 @@ public:
         std::cout << "Is binary search tree: " << isBinarySearchTree(nonBST.root()) << " should be 0" << std::endl;
     }
 
-    bool isBinarySearchTree(BinaryTreeNode *node) {
+    static bool isBinarySearchTree(const BinaryTreeNode *node) {
         if (node == nullptr) {
             return true;
         }

@@ -3,7 +3,7 @@
 
 #include <queue>
 
-class FirstCommonAncestorNaive {
+class FirstCommonAncestor {
 public:
     void run() {
         Tree tree;

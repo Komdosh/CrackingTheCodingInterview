@@ -11,34 +11,34 @@ void runTest(GraphTaskRunner auto &runner) {
 }
 
 int main() {
-    // runTest(*new RouteBetweenNodesNaive());
-    // runTest(*new RouteBetweenNodesOptimized());
+    runTest(*new RouteBetweenNodesNaive());
+    runTest(*new RouteBetweenNodesOptimized());
 
-    // runTest(*new MinimalTree());
+    runTest(*new MinimalTree());
 
-    // runTest(*new ListOfDepthsNaive());
-    // runTest(*new ListOfDepthsOptimized());
+    runTest(*new ListOfDepthsNaive());
+    runTest(*new ListOfDepthsOptimized());
 
-    // runTest(*new CheckBalancedNaive());
-    // runTest(*new CheckBalancedOptimized());
+    runTest(*new CheckBalancedNaive());
+    runTest(*new CheckBalancedOptimized());
 
-    // runTest(*new ValidateBSTNaive());
-    // runTest(*new ValidateBSTOptimized());
+    runTest(*new ValidateBSTNaive());
+    runTest(*new ValidateBSTOptimized());
 
-    // runTest(*new Successor());
+    runTest(*new Successor());
 
-    // runTest(*new BuildOrderNaive());
-    // runTest(*new BuildOrderOptimized());
+    runTest(*new BuildOrder());
 
-    // runTest(*new FirstCommonAncestorNaive());
-    // runTest(*new FirstCommonAncestorOptimized());
+    runTest(*new FirstCommonAncestor());
 
-    // runTest(*new BSTSequencesNaive());
+    runTest(*new BSTSequences());
 
-    // runTest(*new CheckSubtreeNaive());
-    // runTest(*new CheckSubtreeOptimized());
+    runTest(*new CheckSubtreeNaive());
+    runTest(*new CheckSubtreeOptimized());
 
-    runTest(*new RandomNodeOptimized());
+    runTest(*new RandomNode());
+
+    runTest(*new PathsWithSum());
 
     return 0;
 }
