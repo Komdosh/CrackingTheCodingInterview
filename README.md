@@ -1,23 +1,28 @@
 # Cracking The Coding Interview
 
-## This repo shows my own programming skills.
+## About this Repository
 
-I took these tasks from the great book "_Cracking The Coding Interview_" written by **Gayle Laakmann McDowell**.
+This repository showcases my problem-solving and programming skills through exercises from the excellent book
+“_Cracking the Coding Interview_” by **Gayle Laakmann McDowell**.
 
-## How to work with this repo?
+## How This Repository Is Organized
 
-You can see a links below with language tag and progress bar.
+Below, you’ll find links to different sections of the book, each tagged with the programming language used, and a progress indicator showing how many problems have been completed.
 
-Each section was solved in a specific programming language. Progress means how far I have come, what tasks have been
-completed.
+Each section is implemented in a specific programming language and contains its own README with implementation details.
 
-There you can find a readme file with implementation details. Each task has a naive (mine) and an optimized (described
-in the book) implementation. Does this mean that the naive will always be worse than the optimized one? — No, it's just
-my own solution. First, I try to solve the problem on my own, this is how a naive implementation was created, then I read
-the solution described in the book and implement it in a specific language. Sometimes I have exactly the same point of view, then
-the task will have one solution.
+## Naive vs. Optimized Solutions
 
-You will also be able to clone this project, compile and run my solutions.
+For most problems, you’ll find two implementations:
+
+* Naive solution — my own initial attempt, created before reading the book’s explanation.
+* Optimized solution — an implementation based on the approach described in the book.
+  
+There are also cases where the book does not present a clear “naive vs. optimized” distinction. In those situations, my implementation is simply aligned with the book’s solution, and no separate naive version exists.
+
+## Running the Code
+
+You can clone this repository, compile the code, and run all solutions locally. Each section includes instructions where necessary.
 
 ## Data Structures
 
@@ -27,7 +32,7 @@ You will also be able to clone this project, compile and run my solutions.
 
 3. [Stacks and Queues `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/3-stacks-queues) ![100%](https://progress-bar.xyz/100)
 
-4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![91%](https://progress-bar.xyz/91)
+4. [Trees and Graphs `C/C++`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/4-trees-graphs) ![100%](https://progress-bar.xyz/100)
 
 ## Concepts and Algorithms
 
