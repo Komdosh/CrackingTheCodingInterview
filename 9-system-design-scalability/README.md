@@ -366,19 +366,68 @@ Response Body:
 <details>
 <summary>Arch Notes</summary>
 
+- We separate User Connections and Shortest Path into two microservices
+- Both services share the same DB to ensure data consistency and avoid duplication
+- A queue is used for:
+   - Asynchronous graph updates to decouple write-heavy events from reads
+   - Supports retries, partitioning, and future scaling for high load
+- Each microservice has its own Redis cache: Cache is optional but highly recommended due to expensive BFS traversal and read-heavy workload
+- Distributed Graph DB (JanusGraph with Cassandra persistent layer) is used
+  - Supports sharding, replications and parallel traversal
+  - Capable of handling billions of nodes and edges
   
 </details>
 
 <details>
 <summary>Security, Observability, Maintability, Cost Efficiency</summary>
-  
 
+#### Security
+
+- HTTPS + JWT for client authentication
+- Graph DB encrypted at rest and in transit
+- RBAC & audit logs for sensitive operations (e.g., path queries, connection updates)
+- Rate limiting at API Gateway to prevent abuse
+
+#### Observability
+
+- Metrics: request count, latency, cache hit/miss ratio, queue lag
+- Logs and tracing with correlation IDs / Request ID across microservices
+- Alerts for SLA breaches, high cache miss rates, or DB shard lag
+- Kubernetes HPA with liveness/readiness probes
+
+#### Maintainability
+
+* Stateless microservices - easy horizontal scaling
+* CI/CD with canary / blue-green deployments
+* API versioning (`/api/v1`) for backward compatibility
+* Retry + Dead-Letter Queue (DLQ) for graph update events
+* Separation of concerns: Shortest Path vs User Connections service
+
+#### Cost Efficiency
+
+- Auto-scaling REST API servers and microservices based on load
+- Caching frequently requested paths and user connections reduces Graph DB load
+- Message queue smooths bursts of graph updates and cache invalidation events
+- Right-sized Kubernetes resources to avoid overprovisioning
   
 </details>
 
 <details>
 <summary>Scaling Load x10</summary>
-  
+
+- Horizontal scaling via Kubernetes pods with HPA
+- Graph DB read replicas to distribute query load for read-heavy operations
+- Redis cluster with sharding to handle larger request volume
+- Add partitions/topics to increase throughput
+- Multiple consumers to process cache invalidation and graph update events concurrently
+- Ensure DLQ and retries scale with higher load
+- Add additional shards for nodes and edges. Multiregion?
+- Distribute traversals across shards for shortest-path queries
+- Replicate hot partitions to reduce cross-shard traversal latency
+- Scale horizontally to handle 10x incoming requests
+- Maintain rate limiting and circuit breakers to protect backend
+- Increase metric granularity and sampling for high throughput
+- Ensure alerting thresholds scale with higher request volume
   
 </details>
   
