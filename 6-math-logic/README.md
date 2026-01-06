@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![40%](https://progress-bar.xyz/40)
+![50%](https://progress-bar.xyz/50)
 
 ## 1. The Heavy Pill
 
@@ -155,8 +155,8 @@ A collision-free situation occurs only if all ants choose the same direction:
 - All clockwise
 - All counterclockwise
 
-As we need to calculate collisions, we can go from inversion. So even in Nth polygon we have: 2/(2^n)=1/(2^(n-1)) safe ways without collisions
-And for collisions we just need to get invert probability: 1-1/(2^(n-1))
+As we need to calculate collisions, we can use the complement approach. Even for a Nth polygon we have: 2/(2^n)=1/(2^(n-1)) collision-free outcomes.
+To get the probability of collisions, we simply take the inverse probability:  1-1/(2^(n-1))
 
 ```python
 def collision_probability(n):
@@ -174,6 +174,54 @@ print(collision_probability(5))
 
 You have a five-quart jug, a three-quart jug, and an unlimited supply of water (but no measuring cups). How would you come up with exactly
 four quarts of water? Note that the jugs are oddly shaped, such that filling up exactly "half" of the jug would be impossible.
+
+<details>
+<summary>Solution</summary>
+
+The idea is to use the difference between the two jug sizes. In fact, three and five are relatively prime numbers, so we can obtain any amount from 1 to 5 quarts.
+
+Steps:
+
+1. Fill the 5 jug completely
+2. Pour water from 5 to 3 (5-quart jug now has 2 quarts left, 3 is full)
+3. Empty 3 jug
+4. Pour the remaining 2 quarts from the 5 into the 3 (the 3 jug now has 2 quarts).
+5. Fill the 5 jug completely
+6. Pour water from the 5 jug into the 3 jug until it is full - the 5 will then contain exactly 4 quarts.
+
+```python
+five = 0
+three = 0
+
+five = 5
+print(f"Fill 5-quart jug: five={five}, three={three}")
+
+transfer = min(five, 3 - three)
+five -= transfer
+three += transfer
+print(f"Pour into 3-quart jug: five={five}, three={three}")
+
+three = 0
+print(f"Empty 3-quart jug: five={five}, three={three}")
+
+transfer = min(five, 3)
+five -= transfer
+three += transfer
+print(f"Pour remaining into 3-quart jug: five={five}, three={three}")
+
+five = 5
+print(f"Refill 5-quart jug: five={five}, three={three}")
+
+transfer = min(five, 3 - three)
+five -= transfer
+three += transfer
+print(f"Final pour: five={five}, three={three}")
+
+print("Result: 5-quart jug has exactly 4 quarts")
+```
+
+</details>
+
 
 <hr/>
 
