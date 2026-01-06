@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![30%](https://progress-bar.xyz/30)
+![40%](https://progress-bar.xyz/40)
 
 ## 1. The Heavy Pill
 
@@ -144,6 +144,29 @@ else:
 There are three ants on different vertices of a triangle. What is the probability of collision (between any two or all of them) if they
 start walking on the sides of the triangle? Assume that each ant randomly picks a direction, with either direction being equally likely to
 be chosen, and that they walk at the same speed. Similarly, find the probability of collision with n ants on an n-vertex polygon.
+
+<details>
+<summary>Solution</summary>
+
+The total number of possible direction combinations for triangle is 8 (each ant can go only one way left or right, so 2^3).
+For Nth polygon we have 2^n total directions. 
+
+A collision-free situation occurs only if all ants choose the same direction:
+- All clockwise
+- All counterclockwise
+
+As we need to calculate collisions, we can go from inversion. So even in Nth polygon we have: 2/(2^n)=1/(2^(n-1)) safe ways without collisions
+And for collisions we just need to get invert probability: 1-1/(2^(n-1))
+
+```python
+def collision_probability(n):
+    return 1 - 1/(2**(n-1))
+
+print(collision_probability(3))  # 0.75
+print(collision_probability(5))
+```
+
+</details>
 
 <hr/>
 
