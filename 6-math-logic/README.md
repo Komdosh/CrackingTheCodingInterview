@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![50%](https://progress-bar.xyz/50)
+![60%](https://progress-bar.xyz/60)
 
 ## 1. The Heavy Pill
 
@@ -163,7 +163,6 @@ def collision_probability(n):
     return 1 - 1/(2**(n-1))
 
 print(collision_probability(3))  # 0.75
-print(collision_probability(5))
 ```
 
 </details>
@@ -231,6 +230,48 @@ A bunch of people are living on an island, when a visitor comes with a strange o
 possible. There will be a flight out at 8:00 pm every evening. Each person can see everyone else's eye color, but they do not know their
 own (nor is anyone allowed to tell them). Additionally, they do not know how many people have blue eyes, although they do know that at least
 one person does. How many days will it take the blue-eyed people to leave?
+
+<details>
+<summary>Solution</summary>
+
+Number of days equals the number of blue-eyed people minus one.
+
+Why? On each day, every person calculates how many blue-eyed people are on the island.
+
+Base case:
+
+If only one person has blue eyes, he sees zero blue-eyed people and leaves the island on the first day.
+
+If two blue-eyed people see each other, there are two possibilities: the base case (one blue-eyed person) or both of them being blue-eyed. Since no one leaves on the first day, both conclude they are blue-eyed and leave on the second day.
+
+If there are three blue-eyed people, no one leaves on the first or second day.
+
+The interesting part is what happens at the end. What if I am a green-eyed person but confused? This is not a problem. I calculate (for example) that there are five blue-eyed people. I might assume that I am blue-eyed as well, so my calculation suggests that the departure day would be day five. However, I observe that they all leave on day four, which is consistent with me being green-eyed.
+
+```python
+def simulate_blue_eyes(total_people, blue_eyed):
+    days = 0
+    remaining_blue = blue_eyed
+
+    print(f"Initial state: {blue_eyed} blue-eyed people\n")
+
+    while remaining_blue > 0:
+        days += 1
+        print(f"Day {days}:")
+
+        if days == remaining_blue:
+            print(f"  {remaining_blue} blue-eyed people leave the island")
+            remaining_blue = 0
+        else:
+            print("  Nobody leaves")
+
+    print(f"\nAll blue-eyed people left on day {days}")
+    print(f"="*20)
+
+simulate_blue_eyes(total_people=10, blue_eyed=1)
+```
+
+</details>
 
 <hr/>
 
