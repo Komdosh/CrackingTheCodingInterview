@@ -38,7 +38,7 @@ You can clone this repository, compile the code, and run all solutions locally. 
 
 5. [Bit Manipulation `Rust`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/5-bit-manipulation) ![100%](https://progress-bar.xyz/100)
 
-6. [Math and Logic Puzzles `Python`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/6-math-logic) ![80%](https://progress-bar.xyz/80)
+6. [Math and Logic Puzzles `Python`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/6-math-logic) ![100%](https://progress-bar.xyz/100)
 
 7. [Object-Oriented Design `Java`](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/7-object-oriented-design) ![0%](https://progress-bar.xyz/0)
 
