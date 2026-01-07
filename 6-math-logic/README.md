@@ -318,7 +318,72 @@ print(f"Girls: {girls} ({girls/total:.2%})")
 ## 8. The Egg Drop Problem
 
 There is a building of 100 floors. If an egg drops from the Nth floor or above, it will break. If it's dropped from any floor below, it will
-not break. You're given two eggs. Find N, while minimizing the number of drops for the worst case
+not break. You're given two eggs. Find N, while minimizing the number of drops for the worst case.
+
+<details>
+<summary>Solution</summary>
+
+The optimal strategy is to drop the first egg in decreasing step sizes so that the total number of drops is balanced in the worst case.
+
+- First drop the egg from floor `k`
+- Then from floor `k + (k - 1)`
+- Then from floor `k + (k - 1) + (k - 2)`
+- Continue decreasing the step by 1 each time
+
+If the first egg breaks on any drop, the second egg is used to test the floors below one by one.  
+In the worst case, the total number of drops (first egg drops + second egg drops) will always be `k`.
+
+So we need the smallest `k` such that the total number of floors covered is at least 100.
+
+1 + 2 + 3 + ... + k = k * (k + 1) / 2. For 100 floors we need 14. 14*15/2=105 - covers 100.
+
+```python
+def optimal_step_size(max_floors):
+    total = 0
+    k = 0
+
+    while total < max_floors:
+        k += 1
+        total += k
+
+    return k
+
+def find_breaking_floor(break_floor, max_floors):
+    drops = 0
+    current_floor = 0
+    step = optimal_step_size(max_floors)
+    
+    while current_floor + step <= max_floors:
+        current_floor += step
+        drops += 1
+
+        if current_floor >= break_floor:
+            current_floor -= step
+            break
+
+        step -= 1
+
+    for floor in range(current_floor + 1, break_floor):
+        drops += 1
+
+    return drops
+
+worst_case = 0
+worst_floor = None
+
+floors = 105
+
+for n in range(1, floors+1):
+    attempts = find_breaking_floor(n, floors)
+    if attempts > worst_case:
+        worst_case = attempts
+        worst_floor = n
+
+print(f"Worst case drops: {worst_case}") # 14
+print(f"Worst case occurs at floor: {worst_floor}") # 14
+```
+
+</details>
 
 <hr/>
 
