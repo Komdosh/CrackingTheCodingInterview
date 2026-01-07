@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![90%](https://progress-bar.xyz/90)
+![100%](https://progress-bar.xyz/100)
 
 ## 1. The Heavy Pill
 
@@ -437,5 +437,45 @@ You can put any number of drops on a test strip at once and you can reuse a test
 as you'd like (as long as the results are negative). However, you can only run tests once per day and
 it takes seven days to return a result. How would you figure out the poisoned bottle in as few days
 as possible? Write code to simulate your approach.
+
+<details>
+<summary>Solution</summary>
+
+Let's say that each bottle has a unique number from 0 to 999. We can convert this number into binary to get a sequence of zeroes and ones. Arrange the test strips in a row, with each strip representing a bit (10 strips can represent 2^10 = 1024, which covers all 1000 bottles).
+
+For each bottle, place a drop on a strip if the corresponding bit in the bottle's binary number is 1.
+
+After 7 days, the test strips will show which ones turned positive. Each activated strip represents a 1 in the binary number of the poisoned bottle. By reading the strips as a binary number, we can decode it to identify the poisoned bottle.
+
+```python
+import random
+
+def find_poisoned_bottle(num_bottles=1000, num_strips=10):
+    poisoned = random.randint(0, num_bottles - 1)
+    
+    # Convert bottle numbers to binary
+    test_results = [0] * num_strips  # 0 = negative, 1 = positive
+
+    for bottle in range(num_bottles):
+        binary = format(bottle, f'0{num_strips}b')
+        if bottle == poisoned:
+            # Put drops on strips corresponding to 1s in binary
+            for i, bit in enumerate(binary):
+                if bit == '1':
+                    test_results[i] = 1  # Strip turns positive
+
+
+    binary_result = ''.join(str(bit) for bit in test_results)
+    identified = int(binary_result, 2)
+
+    return poisoned, identified
+
+poisoned, identified = find_poisoned_bottle()
+print(f"Poisoned bottle: {poisoned}")
+print(f"Identified bottle: {identified}")
+print(f"Success: {poisoned == identified}")
+```
+ 
+</details>
 
 <hr/>
