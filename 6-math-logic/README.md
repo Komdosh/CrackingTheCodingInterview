@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![80%](https://progress-bar.xyz/80)
+![90%](https://progress-bar.xyz/90)
 
 ## 1. The Heavy Pill
 
@@ -393,6 +393,39 @@ There are 100 closed lockers in a hallway. A man begins by opening all 100 locke
 pass, he toggles every third locker (closes it if it is open or opens it if it is closed). This process continues for 100 passes, such that
 on each pass i, the man toggles every ith locker. After his 100th pass in the hallway, in which he toggles only locker №100, how many
 lockers are open?
+
+<details>
+<summary>Solution</summary>
+
+A locker is toggled once for every divisor of its locker number.
+
+For example:
+- Locker 6 is toggled on passes 1, 2, 3, and 6 (four times)
+- 10 - 1, 2, 5, 10
+
+Perfect squares are different. One divisor pair collapses into a single number.
+For example, locker 16 has the divisors 1, 2, 4, 8, and **16**.
+
+Because perfect squares have an odd number of divisors, they are toggled an odd number of times and therefore remain open.
+For 100 the answer is: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 (10 lockers)
+
+```python
+def open_lockers(n=100):
+    lockers = [False] * (n + 1)  # False = closed, True = open
+
+    for step in range(1, n + 1):
+        for locker in range(step, n + 1, step):
+            lockers[locker] = not lockers[locker]
+
+    return [i for i in range(1, n + 1) if lockers[i]]
+
+
+open = open_lockers()
+print(open)
+print(f"Number of open lockers: {len(open)}")
+```
+ 
+</details>
 
 <hr/>
  
