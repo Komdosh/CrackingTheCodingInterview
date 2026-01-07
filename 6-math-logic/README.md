@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![60%](https://progress-bar.xyz/60)
+![70%](https://progress-bar.xyz/70)
 
 ## 1. The Heavy Pill
 
@@ -283,6 +283,36 @@ have children until they have one girl, at which point they immediately stop-wha
 that the odds of someone having a boy or a girl on any given pregnancy is equal.) Solve this out logically and then write a computer
 simulation of it.
 
+<details>
+<summary>Solution</summary>
+
+Actually, the overall distribution will be the same, since the probability of having a girl or a boy is 50/50. Families with a large number of boys are offset by families with a small number of boys (who have a girl early).
+
+```python
+import random
+
+def simulate_families(num_families=100_000):
+    boys = 0
+    girls = 0
+
+    for _ in range(num_families):
+        while True:
+            if random.random() < 0.5:
+                girls += 1
+                break
+            else:
+                boys += 1
+
+    return boys, girls
+
+boys, girls = simulate_families()
+
+total = boys + girls
+print(f"Boys: {boys} ({boys/total:.2%})")
+print(f"Girls: {girls} ({girls/total:.2%})")
+```
+
+</details>
 <hr/>
 
 ## 8. The Egg Drop Problem
