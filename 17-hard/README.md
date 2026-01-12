@@ -447,14 +447,14 @@ Output:
 <details>
 <summary>Naive Solution</summary>
 
-### Complexity
+#### Complexity
 
 Time Complexity: `O(N)`
 - Let `S` be the number of synonym pairs. The dominant operation is union. Each union performs two find operations, so the total number of find calls is `2S + N`.
 
 Space Complexity: `O(N)`
 
-### Solution
+#### Implementation
 
 ```kotlin
 class UnionFind {
@@ -499,6 +499,186 @@ fun mergeNamesNaive(
 
 </details>
 
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N*log(N))`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+class NameSet(name: String, freq: Int) {
+
+    private val names: MutableSet<String> = mutableSetOf()
+    var frequency: Int = 0
+        private set
+    var rootName: String
+        private set
+
+    init {
+        names.add(name)
+        frequency = freq
+        rootName = name
+    }
+
+    fun copyNamesWithFrequency(more: Set<String>, freq: Int) {
+        names.addAll(more)
+        frequency += freq
+    }
+
+    fun getNames(): Set<String> = names
+    fun size(): Int = names.size
+}
+
+fun convertToMap(
+    groups: MutableMap<String, NameSet>
+): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+
+    for (group in groups.values) {
+        result[group.rootName] = group.frequency
+    }
+
+    return result
+}
+
+fun constructGroups(
+    names: Map<String, Int>
+): MutableMap<String, NameSet> {
+    val groups = mutableMapOf<String, NameSet>()
+
+    for ((name, frequency) in names) {
+        val group = NameSet(name, frequency)
+        groups[name] = group
+    }
+
+    return groups
+}
+
+fun mergeClasses(
+    groups: MutableMap<String, NameSet>,
+    synonyms: Array<Pair<String, String>>
+) {
+    for ((name1, name2) in synonyms) {
+        val set1 = groups[name1]
+        val set2 = groups[name2]
+
+        if (set1 != null && set2 != null && set1 !== set2) {
+            val smaller = if (set2.size() < set1.size()) set2 else set1
+            val bigger = if (set2.size() < set1.size()) set1 else set2
+            val otherNames = smaller.getNames()
+            val frequency = smaller.frequency
+            bigger.copyNamesWithFrequency(otherNames, frequency)
+
+            for (name in otherNames) {
+                groups[name] = bigger
+            }
+        }
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+### Complexity
+
+Time Complexity: `O(N)`
+
+Space Complexity: `O(N)`
+
+### Implementation
+
+```kotlin
+class GraphNode(
+    val name: String,
+    val frequency: Int
+) {
+    private val neighbors: MutableList<GraphNode> = mutableListOf()
+    var visited: Boolean = false
+
+    fun addNeighbor(node: GraphNode) {
+        neighbors.add(node)
+    }
+
+    fun getNeighbors(): List<GraphNode> = neighbors
+}
+
+class Graph {
+
+    private val nodes: MutableMap<String, GraphNode> = mutableMapOf()
+
+    fun createNode(name: String, frequency: Int) {
+        if (!nodes.containsKey(name)) {
+            nodes[name] = GraphNode(name, frequency)
+        }
+    }
+
+    fun addEdge(name1: String, name2: String) {
+        val node1 = nodes[name1]
+        val node2 = nodes[name2]
+
+        if (node1 != null && node2 != null) {
+            node1.addNeighbor(node2)
+            node2.addNeighbor(node1)
+        }
+    }
+
+    fun getNodes(): Collection<GraphNode> = nodes.values
+}
+
+fun getComponentFrequency(node: GraphNode): Int {
+    if (node.visited) return 0
+
+    node.visited = true
+
+    var sum = node.frequency
+    for (child in node.getNeighbors()) {
+        sum += getComponentFrequency(child)
+    }
+
+    return sum
+}
+
+fun getTrueFrequencies(graph: Graph): Map<String, Int> {
+    val rootNames = mutableMapOf<String, Int>()
+
+    for (node in graph.getNodes()) {
+        if (!node.visited) {
+            val frequency = getComponentFrequency(node)
+            val name = node.name
+            rootNames[name] = frequency
+        }
+    }
+
+    return rootNames
+}
+
+fun connectEdges(
+    graph: Graph,
+    synonyms: Array<Pair<String, String>>
+) {
+    for ((name1, name2) in synonyms) {
+        graph.addEdge(name1, name2)
+    }
+}
+
+fun constructGraph(names: Map<String, Int>): Graph {
+    val graph = Graph()
+    for ((name, frequency) in names) {
+        graph.createNode(name, frequency)
+    }
+    return graph
+}
+```
+
+</details>
 
 <hr/>
 

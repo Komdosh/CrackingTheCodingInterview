@@ -40,14 +40,6 @@ fun mergeNamesNaive(
     return result
 }
 
-
-/**
- * Input:
- *     Names: John (15), Jon (12), Chris (13), Kris (4), Christopher (19)
- *     Synonyms: (Jon, John), (John, Johnny), (Chris, Kris), (Chris, Christopher)
- * Output:
- *     John (27), Kris (36)
- */
 fun main() {
     val result = mergeNamesNaive(
         mapOf(
