@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![19%](https://progress-bar.xyz/19)
+![23%](https://progress-bar.xyz/23)
 
 ## 1. Add Without Plus
 
@@ -310,7 +310,7 @@ Given an array filled with letters and numbers, find the longest subarray with a
 
 ## 6. Count of 2s
 
-Write a method to count the number of 2s that appear in all the numbers between O and n (inclusive).
+Write a method to count the number of 2s that appear in all the numbers between 0 and n (inclusive).
 
 ### Example
 
@@ -321,6 +321,36 @@ Input:
 Output: 
     9 (2, 12, 20, 21, 22, 23, 24 and 25. Note that 22 counts for two 2s.)
 ```
+
+<details>
+<summary>Solution</summary>
+
+```kotlin
+fun countOfTwos(n: Int): Int {
+    if (n < 2) return 0
+
+    var count = 0
+    var factor = 1
+
+    while (n / factor != 0) {
+        val lower = n % factor
+        val current = (n / factor) % 10
+        val higher = n / (factor * 10)
+
+        count += when {
+            current < 2 -> higher * factor
+            current == 2 -> higher * factor + lower + 1
+            else -> (higher + 1) * factor
+        }
+
+        factor *= 10
+    }
+
+    return count
+}
+```
+
+</details>
 
 <hr/>
 
