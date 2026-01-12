@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![27%](https://progress-bar.xyz/27)
+![31%](https://progress-bar.xyz/31)
 
 ## 1. Add Without Plus
 
@@ -319,6 +319,159 @@ fun missingNumber(array: List<BitInteger>, index: Int): Int {
 ## 5. Letters and Numbers
 
 Given an array filled with letters and numbers, find the longest subarray with an equal number of letters and numbers.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+fun longestBalancedSubarray(arr: Array<Char>): Pair<Int, Int> {
+    val deltas = Array(arr.size) { -1 }
+
+    var prefixSum = 0
+    var maxLen = 0
+    var result: Pair<Int, Int> = Pair(0, 0)
+
+    for (i in arr.indices) {
+        if (arr[i].isLetter()) ++prefixSum else --prefixSum
+
+        val currentDelta = deltas[prefixSum]
+        if (currentDelta != -1) {
+            val start = currentDelta + 1
+            val length = i - currentDelta
+            if (length > maxLen) {
+                maxLen = length
+                result = Pair(start, i)
+            }
+        } else {
+            deltas[prefixSum] = i
+        }
+    }
+
+    return result
+}
+```
+
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N^2)`
+
+Space Complexity: `O(1)`
+
+#### Implementation
+
+```kotlin
+fun findLongestSubarray(array: CharArray): CharArray? {
+    for (len in array.size downTo 2) {
+        for (i in 0..array.size - len) {
+            val end = i + len - 1
+            if (hasEqualLettersNumbers(array, i, end)) {
+                return extractSubarray(array, i, end)
+            }
+        }
+    }
+    return null
+}
+
+fun hasEqualLettersNumbers(
+    array: CharArray,
+    start: Int,
+    end: Int
+): Boolean {
+    var counter = 0
+    for (i in start..end) {
+        if (array[i].isLetter()) counter++ else counter--
+    }
+    return counter == 0
+}
+
+fun extractSubarray(
+    array: CharArray,
+    start: Int,
+    end: Int
+): CharArray {
+    val subarray = CharArray(end - start + 1)
+    for (i in start..end) {
+        subarray[i - start] = array[i]
+    }
+    return subarray
+}
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+fun findLongestSubarrayOptimized(array: CharArray): CharArray {
+    val deltas = computeDeltaArray(array)
+    val match = findLongestMatch(deltas)
+    return extractSubarray(array, match[0] + 1, match[1])
+}
+
+fun findLongestMatch(deltas: IntArray): IntArray {
+    val map = mutableMapOf<Int, Int>()
+    map[0] = -1
+
+    val max = IntArray(2)
+
+    for (i in deltas.indices) {
+        if (!map.containsKey(deltas[i])) {
+            map[deltas[i]] = i
+        } else {
+            val match = map[deltas[i]]!!
+            val distance = i - match
+            val longest = max[1] - max[0]
+
+            if (distance > longest) {
+                max[1] = i
+                max[0] = match
+            }
+        }
+    }
+
+    return max
+}
+
+
+fun computeDeltaArray(array: CharArray): IntArray {
+    val deltas = IntArray(array.size)
+    var delta = 0
+
+    for (i in array.indices) {
+        when {
+            array[i].isLetter() -> delta++
+            array[i].isDigit() -> delta--
+        }
+        deltas[i] = delta
+    }
+
+    return deltas
+}
+```
+
+</details>
 
 <hr/>
 
