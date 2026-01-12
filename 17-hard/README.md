@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![23%](https://progress-bar.xyz/23)
+![27%](https://progress-bar.xyz/27)
 
 ## 1. Add Without Plus
 
@@ -15,7 +15,9 @@ At first, we can show a naive solution that interviewers will probably not accep
 requirements.
 
 #### Complexity
-Time Complexity: `O(1)` 
+
+Time Complexity: `O(1)`
+
 Space Complexity: `O(1)`
 
 #### Implementation
@@ -33,7 +35,9 @@ We can iterate over the bits in the numbers and make a logical sum. It is not th
 The main problem is to handle the carry bit.
 
 #### Complexity
+
 Time Complexity: `O(1)` - we have a loop, but it is always in const range of bits
+
 Space Complexity: `O(1)`
 
 #### Implementation
@@ -90,7 +94,9 @@ We can iterate over the bits in the numbers and make a logical sum. It is not th
 The main problem is to handle the carry bit.
 
 #### Complexity
+
 Time Complexity: `O(1)` - we have a loop, but it is always in const range of bits
+
 Space Complexity: `O(1)`
 
 #### Implementation
@@ -124,6 +130,7 @@ the deck has to be equally likely. Assume that you are given a random number gen
 We can rely on kotlin (JVM) implementation.
 
 #### Complexity
+
 Time Complexity: `O(N)`
 Space Complexity: `O(N)`
 
@@ -138,9 +145,10 @@ fun stupidShuffleCards(cards: List<Int>): List<Int> = cards.shuffled()
 <details>
 <summary>Naive Real Solution</summary>
 
-
 #### Complexity
+
 Time Complexity: `O(N)` - we iterate over cards list and then remove one element from it until list is not empty
+
 Space Complexity: `O(N)`
 
 #### Implementation
@@ -164,8 +172,10 @@ fun shuffleCards(cards: MutableList<Int>): List<Int> {
 <summary>Optimized Solution</summary>
 
 #### Complexity
+
 Time Complexity: `O(N)` - we iterate over cards list and then remove one element from it until list is not empty
-Space Complexity: `O(1)` 
+
+Space Complexity: `O(1)`
 
 #### Implementation
 
@@ -194,10 +204,10 @@ probability of being chosen.
 <details>
 <summary>Naive Solution</summary>
 
-
 #### Complexity
 
 Time Complexity: `O(m)`
+
 Space Complexity: `O(m)`
 
 #### Implementation
@@ -226,7 +236,9 @@ fun randomSubset(nums: List<Int>, m: Int): List<Int> {
 <summary>Optimized Solution</summary>
 
 #### Complexity
+
 Time Complexity: `O(N)`
+
 Space Complexity: `O(m)`
 
 #### Implementation
@@ -259,15 +271,17 @@ fun optimizedRandomSubset(nums: List<Int>, m: Int): List<Int> {
 ## 4. Missing Number
 
 An array `A` contains all the integers from 0 to n, except for one number which is missing. In this problem, we cannot
-access an entire integer in A with a single operation. The elements of A are represented in binary, and the only 
-operation we can use to access them is `fetch the j-th bit of A[i]`, which takes constant time. 
+access an entire integer in A with a single operation. The elements of A are represented in binary, and the only
+operation we can use to access them is `fetch the j-th bit of A[i]`, which takes constant time.
 Write code to find the missing integer. Can you do it in `O(N)` time?
 
 <details>
 <summary>Solution</summary>
 
 #### Complexity
+
 Time Complexity: `O(N)`
+
 Space Complexity: `O(N*log(N))`
 
 #### Implementation
@@ -325,6 +339,14 @@ Output:
 <details>
 <summary>Naive Solution</summary>
 
+#### Complexity
+
+Time Complexity: `O(Len(N))` - where Len(N) - it is a number of 10th factors in N
+
+Space Complexity: `O(1)`
+
+#### Implementation
+
 ```kotlin
 fun countOfTwos(n: Int): Int {
     if (n < 2) return 0
@@ -355,12 +377,20 @@ fun countOfTwos(n: Int): Int {
 <details>
 <summary>Solution</summary>
 
+#### Complexity
+
+Time Complexity: `O(Len(N))` - where Len(N) - it is a number of 10th factors in N
+
+Space Complexity: `O(1)`
+
+#### Implementation
+
 ```kotlin
 fun countOfTwosFromBook(n: Int): Int {
     var count = 0
     val len = n.toString().length
     for (digit in 0..<len) {
-        count += count2sInRangeAtDigit(n, digit);
+        count += count2sInRangeAtDigit(n, digit)
     }
 
     return count
@@ -413,6 +443,62 @@ Input:
 Output: 
     John (27), Kris (36) 
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+### Complexity
+
+Time Complexity: `O(N)`
+- Let `S` be the number of synonym pairs. The dominant operation is union. Each union performs two find operations, so the total number of find calls is `2S + N`.
+
+Space Complexity: `O(N)`
+
+### Solution
+
+```kotlin
+class UnionFind {
+    private val namesMap = mutableMapOf<String, String>()
+
+    fun find(name: String): String {
+        namesMap.putIfAbsent(name, name)
+        if (namesMap[name] != name) {
+            namesMap[name] = find(namesMap[name]!!)
+        }
+        return namesMap[name]!!
+    }
+
+    fun union(first: String, second: String) {
+        val left = find(first)
+        val right = find(second)
+        if (left != right) {
+            namesMap[right] = left
+        }
+    }
+}
+
+fun mergeNamesNaive(
+    names: Map<String, Int>,
+    synonyms: List<Pair<String, String>>
+): Map<String, Int> {
+    val unionFind = UnionFind()
+
+    for ((first, second) in synonyms) {
+        unionFind.union(first, second)
+    }
+
+    val result = mutableMapOf<String, Int>()
+    for ((name, freq) in names) {
+        val root = unionFind.find(name)
+        result[root] = result.getOrDefault(root, 0) + freq
+    }
+
+    return result
+}
+```
+
+</details>
+
 
 <hr/>
 
@@ -530,6 +616,7 @@ Design an algorithm to find the smallest K numbers in an array.
 <summary>Naive Solution</summary>
 
 #### Complexity
+
 Time Complexity: `O(N*LogN)`
 Space Complexity: `O(K)`
 
@@ -561,6 +648,7 @@ fun smallestKWithHeap(original: Array<Int>, k: Int): Array<Int> {
 <summary>Naive Optimized Solution</summary>
 
 #### Complexity
+
 Time Complexity: `O(N*K)` - we have a loop, but it is always in const range of bits
 Space Complexity: `O(K)`
 
@@ -599,6 +687,7 @@ fun smallestK(original: Array<Int>, k: Int): Array<Int> {
 <summary>Optimized Solution</summary>
 
 #### Complexity
+
 Time Complexity: `O(N)`
 Space Complexity: `O(K)`
 
@@ -826,7 +915,8 @@ intersection has size
 where the similarity
 is believed to be "sparse:'That is, any two arbitrarily selected documents are very likely to have similarity 0. Design
 an algorithm that
-returns a list of pairs of document IDs and the associated similarity. Print only the pairs with similarity greater than 0. Empty documents
+returns a list of pairs of document IDs and the associated similarity. Print only the pairs with similarity greater than
+0. Empty documents
 should not be printed at all. For simplicity, you may assume each document is represented as an array of distinct
 integers.
 
