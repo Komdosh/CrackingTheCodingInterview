@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![31%](https://progress-bar.xyz/31)
+![35%](https://progress-bar.xyz/35)
 
 ## 1. Add Without Plus
 
@@ -282,7 +282,7 @@ Write code to find the missing integer. Can you do it in `O(N)` time?
 
 Time Complexity: `O(N)`
 
-Space Complexity: `O(N*log(N))`
+Space Complexity: `O(N log N)`
 
 #### Implementation
 
@@ -657,7 +657,7 @@ fun mergeNamesNaive(
 
 #### Complexity
 
-Time Complexity: `O(N*log(N))`
+Time Complexity: `O(N log N)`
 
 Space Complexity: `O(N)`
 
@@ -853,6 +853,263 @@ Output:
     (56, 90) (60,95) (65,100) (68,110) (70,150) (75,190)
 ```
 
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N^2)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+fun longestTower(people: List<Pair<Int, Int>>): List<Pair<Int, Int>> {
+    if (people.isEmpty()) return emptyList()
+
+    val sorted = people.sortedWith(
+        compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second }
+    )
+
+    val n = sorted.size
+    val dp = IntArray(n) { 1 }
+    val prev = IntArray(n) { -1 }
+
+    var maxIndex = 0
+
+    for (i in 0 until n) {
+        for (j in 0 until i) {
+            if (sorted[j].second < sorted[i].second && dp[j] + 1 > dp[i]) {
+                dp[i] = dp[j] + 1
+                prev[i] = j
+            }
+        }
+        if (dp[i] > dp[maxIndex]) {
+            maxIndex = i
+        }
+    }
+
+    val result = mutableListOf<Pair<Int, Int>>()
+    var curr = maxIndex
+    while (curr != -1) {
+        result.add(sorted[curr])
+        curr = prev[curr]
+    }
+
+    return result.reversed()
+}
+```
+
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N^2)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+data class HtWt(
+    val height: Int,
+    val weight: Int
+) : Comparable<HtWt> {
+
+    override fun compareTo(other: HtWt): Int {
+        return if (height != other.height) {
+            height.compareTo(other.height)
+        } else {
+            weight.compareTo(other.weight)
+        }
+    }
+
+    fun isBefore(other: HtWt): Boolean {
+        return height < other.height && weight < other.weight
+    }
+
+    override fun toString(): String {
+        return "($height, $weight)"
+    }
+}
+
+fun longestIncreasingSeq(items: MutableList<HtWt>): List<HtWt> {
+    items.sort()
+    return bestSeqAtIndex(items, ArrayList(), 0)
+}
+
+fun canAppend(
+    solution: List<HtWt>,
+    value: HtWt
+): Boolean {
+    if (solution.isEmpty()) return true
+
+    val last = solution[solution.size - 1]
+    return last.isBefore(value)
+}
+
+fun bestSeqAtIndex(
+    array: MutableList<HtWt>,
+    sequence: List<HtWt>,
+    index: Int
+): List<HtWt> {
+    if (index >= array.size) return sequence
+
+    val value = array[index]
+
+    var bestWith: List<HtWt>? = null
+
+    if (canAppend(sequence, value)) {
+        val sequenceWith = ArrayList(sequence)
+        sequenceWith.add(value)
+        bestWith = bestSeqAtIndex(array, sequenceWith, index + 1)
+    }
+
+    val bestWithout = bestSeqAtIndex(array, sequence, index + 1)
+
+    return if (bestWith == null || bestWithout.size > bestWith.size) {
+        bestWithout
+    } else {
+        bestWith
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N^2)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+fun max(
+    seq1: ArrayList<HtWt>?,
+    seq2: ArrayList<HtWt>?
+): ArrayList<HtWt> {
+    return when {
+        seq1 == null -> seq2 ?: ArrayList()
+        seq2 == null -> seq1
+        seq1.size > seq2.size -> seq1
+        else -> seq2
+    }
+}
+
+fun longestIncreasingSeq(array: ArrayList<HtWt>): ArrayList<HtWt> {
+    array.sort()
+
+    val solutions = ArrayList<ArrayList<HtWt>>()
+    var bestSequence: ArrayList<HtWt>? = null
+
+    for (i in array.indices) {
+        val longestAtIndex = bestSeqAtIndex(array, solutions, i)
+        solutions.add(i, longestAtIndex)
+        bestSequence = max(bestSequence, longestAtIndex)
+    }
+
+    return bestSequence ?: ArrayList()
+}
+
+
+fun bestSeqAtIndex(
+    array: ArrayList<HtWt>,
+    solutions: ArrayList<ArrayList<HtWt>>,
+    index: Int
+): ArrayList<HtWt> {
+
+    val value = array[index]
+    var bestSequence = ArrayList<HtWt>()
+
+    for (i in 0 until index) {
+        val solution = solutions[i]
+        if (canAppend(solution, value)) {
+            bestSequence = max(solution, bestSequence)
+        }
+    }
+
+    val best = ArrayList(bestSequence)
+    best.add(value)
+
+    return best
+}
+```
+
+</details>
+
+<details>
+<summary>Very Optimized Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N log N)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+Fun fact: all the solutions above have O(N²) time complexity. Here, we partially store the tails and use binary search.
+
+```kotlin
+fun longestTowerTails(people: List<Pair<Int, Int>>): List<Pair<Int, Int>> {
+    if (people.isEmpty()) return emptyList()
+
+    val sorted = people.sortedWith(
+        compareBy<Pair<Int, Int>> { it.first }.thenBy { it.second }
+    )
+
+    val n = sorted.size
+    val tails = IntArray(n)
+    val prev = IntArray(n) { -1 }
+
+    var size = 0
+
+    for (i in 0 until n) {
+        var left = 0
+        var right = size
+
+        while (left < right) {
+            val mid = (left + right) / 2
+            if (sorted[tails[mid]].second < sorted[i].second) {
+                left = mid + 1
+            } else {
+                right = mid
+            }
+        }
+
+        if (left > 0) {
+            prev[i] = tails[left - 1]
+        }
+
+        tails[left] = i
+
+        if (left == size) {
+            size++
+        }
+    }
+
+    val result = ArrayList<Pair<Int, Int>>()
+    var index = tails[size - 1]
+
+    while (index != -1) {
+        result.add(sorted[index])
+        index = prev[index]
+    }
+
+    return result.reversed()
+}
+```
+</details>
+
 <hr/>
 
 ## 9. Kth Multiple
@@ -950,7 +1207,7 @@ Design an algorithm to find the smallest K numbers in an array.
 
 #### Complexity
 
-Time Complexity: `O(N*LogN)`
+Time Complexity: `O(N log N)`
 Space Complexity: `O(K)`
 
 #### Implementation
