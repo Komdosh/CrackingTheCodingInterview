@@ -64,4 +64,4 @@ You can clone this repository, compile the code, and run all solutions locally. 
 
 16. [Moderate](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/16-moderate) ![3%](https://progress-bar.xyz/3)
 
-17. [Hard](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/17-hard) ![31%](https://progress-bar.xyz/31)
+17. [Hard](https://github.com/Komdosh/CrackingTheCodingInterview/tree/main/17-hard) ![46%](https://progress-bar.xyz/46)
