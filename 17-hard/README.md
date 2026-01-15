@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![35%](https://progress-bar.xyz/35)
+![38%](https://progress-bar.xyz/38)
 
 ## 1. Add Without Plus
 
@@ -1125,6 +1125,143 @@ factors, but it should not have any other prime factors. For example, the first 
 Output: 
     the first several multiples would be (in order) 1, 3, 5, 7, 9, 15, 21
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(K)`
+Space Complexity: `O(K)`
+
+#### Implementation
+
+```kotlin
+fun kthMultiple(k: Int): Array<Int> {
+    val dp = Array(k) { 1 }
+
+    var i3 = 0
+    var i5 = 0
+    var i7 = 0
+
+    var next3 = 3
+    var next5 = 5
+    var next7 = 7
+
+    for(i in 1..<k){
+        val min = min(min(next3, next5), next7)
+
+        dp[i] = min
+
+        if (min == next3) next3 = dp[++i3] * 3
+        if (min == next5) next5 = dp[++i5] * 5
+        if (min == next7) next7 = dp[++i7] * 7
+    }
+
+    return dp
+}
+```
+
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(K^3 log(K^3))`
+Space Complexity: `O(K)`
+
+#### Implementation
+
+```kotlin
+fun dumbKthMultiple(k: Int): List<Int> {
+    val possibilities = allPossibleKFactors(k)
+    possibilities.sort()
+    return possibilities.take(k)
+}
+
+fun allPossibleKFactors(k: Int): MutableList<Int> {
+    val values = mutableListOf<Int>()
+
+    for (a in 0..k) { // loop for 3
+        val powA = 3.0.pow(a.toDouble()).toInt()
+
+        for (b in 0..k) { // loop for 5
+            val powB = 5.0.pow(b.toDouble()).toInt()
+
+            for (c in 0..k) { // loop for 7
+                val powC = 7.0.pow(c.toDouble()).toInt()
+
+                var value = powA * powB * powC
+
+                // Overflow check
+                if (value < 0 ||
+                    powA == Int.MAX_VALUE ||
+                    powB == Int.MAX_VALUE ||
+                    powC == Int.MAX_VALUE
+                ) {
+                    value = Int.MAX_VALUE
+                }
+
+                values.add(value)
+            }
+        }
+    }
+    return values
+}
+```
+</details>
+
+<details>
+<summary>Optimized Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(K)`
+Space Complexity: `O(K)`
+
+#### Implementation
+
+```kotlin
+fun getKthMagicNumber(k: Int): Int {
+    var value = 0
+
+    val queue3: Queue<Int> = LinkedList()
+    val queue5: Queue<Int> = LinkedList()
+    val queue7: Queue<Int> = LinkedList()
+
+    queue3.add(1)
+
+    repeat(k) {
+        val v3 = queue3.peek()
+        val v5 = if (queue5.isNotEmpty()) queue5.peek() else Int.MAX_VALUE
+        val v7 = if (queue7.isNotEmpty()) queue7.peek() else Int.MAX_VALUE
+
+        value = minOf(v3, v5, v7)
+
+        when (value) {
+            v3 -> {
+                queue3.poll()
+                queue3.add(3 * value)
+                queue5.add(5 * value)
+            }
+            v5 -> {
+                queue5.poll()
+                queue5.add(5 * value)
+            }
+            v7 -> {
+                queue7.poll()
+            }
+        }
+
+        queue7.add(7 * value)
+    }
+
+    return value
+}
+```
+</details>
 
 <hr/>
 
