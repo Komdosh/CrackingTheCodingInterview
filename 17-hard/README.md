@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![38%](https://progress-bar.xyz/38)
+![41%](https://progress-bar.xyz/41)
 
 ## 1. Add Without Plus
 
@@ -1219,6 +1219,7 @@ fun allPossibleKFactors(k: Int): MutableList<Int> {
 #### Complexity
 
 Time Complexity: `O(K)`
+
 Space Complexity: `O(K)`
 
 #### Implementation
@@ -1279,6 +1280,55 @@ Input:
 Output: 
     5
 ```
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N)`
+
+Space Complexity: `O(1)`
+
+#### Implementation
+
+```kotlin
+fun findMajorityElement(array: IntArray): Int {
+    val candidate = getCandidate(array)
+    return if (validate(array, candidate)) candidate else -1
+}
+
+fun getCandidate(array: IntArray): Int {
+    var majority = 0
+    var count = 0
+
+    for (n in array) {
+        if (count == 0) { // no dominant element
+            majority = n
+        }
+
+        if (n == majority) {
+            count++
+        } else {
+            count--
+        }
+    }
+    return majority
+}
+
+fun validate(array: IntArray, majority: Int): Boolean {
+    var count = 0
+
+    for (n in array) {
+        if (n == majority) {
+            count++
+        }
+    }
+
+    return count > array.size / 2
+}
+```
+</details>
 
 <hr/>
 
