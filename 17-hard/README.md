@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![46%](https://progress-bar.xyz/46)
+![50%](https://progress-bar.xyz/50)
 
 ## 1. Add Without Plus
 
@@ -1409,12 +1409,126 @@ public class BiNode {
 ```
 
 The data structure BiNode could be used to represent both a binary tree (where node1 is the left node and node2 is the
-right node) or a
-doubly linked list (where node` is the previous node and node2 is the next node). Implement a method to convert a binary
-search tree (
-implemented with BiNode) into a doubly linked list. The values should be kept in order and the operation should be
-performed in place (that
-is, on the original data structure).
+right node) or a doubly linked list (where node` is the previous node and node2 is the next node). 
+Implement a method to convert a binary search tree (implemented with BiNode) into a doubly linked list. 
+The values should be kept in order and the operation should be performed in place (that is, on the original data structure).
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N)`
+
+Space Complexity: `O(H)` - recursion. H - height of the tree.
+
+#### Implementation
+
+```kotlin
+class BiNode(
+    var data: Int,
+    var node1: BiNode? = null,
+    var node2: BiNode? = null
+)
+
+class BSTToDoublyLinkedList {
+    private var prev: BiNode? = null
+    private var head: BiNode? = null
+
+    fun toDoubleLinkedList(root: BiNode?): BiNode? {
+        inorder(root)
+        return head
+    }
+
+    private fun inorder(node: BiNode?) {
+        if (node == null) return
+
+        inorder(node.node1)
+
+        val currentPrev = prev
+        if (currentPrev == null) {
+            head = node
+        } else {
+            currentPrev.node2 = node
+            node.node1 = currentPrev
+        }
+        prev = node
+
+        inorder(node.node2)
+    }
+}
+```
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N)`
+
+Space Complexity: `O(H)` - recursion. H - height of the tree.
+
+#### Implementation
+
+```kotlin
+class BiNode(
+    var data: Int,
+    var node1: BiNode? = null,
+    var node2: BiNode? = null
+)
+
+fun convert(root: BiNode?): BiNode? {
+    val head = convertToCircular(root) ?: return null
+
+    // Break the circular links
+    head.node1!!.node2 = null
+    head.node1 = null
+
+    return head
+}
+
+private fun convertToCircular(root: BiNode?): BiNode? {
+    if (root == null) return null
+
+    val part1 = convertToCircular(root.node1)
+    val part3 = convertToCircular(root.node2)
+
+    if (part1 == null && part3 == null) {
+        root.node1 = root
+        root.node2 = root
+        return root
+    }
+
+    /* Connect left part with root */
+    if (part1 == null) {
+        concat(part3!!.node1!!, root)
+    } else {
+        concat(part1.node1!!, root)
+    }
+
+    /* Connect right part with root */
+    if (part3 == null) {
+        concat(root, part1!!)
+    } else {
+        concat(root, part3)
+    }
+
+    val tail3 = part3?.node1
+    /* Connect right part with left part */
+    if (part1 != null && part3 != null) {
+        concat(tail3!!, part1)
+    }
+
+    return part1 ?: root
+}
+
+private fun concat(a: BiNode, b: BiNode) {
+    a.node2 = b
+    b.node1 = a
+}
+```
+</details>
 
 <hr/>
 
