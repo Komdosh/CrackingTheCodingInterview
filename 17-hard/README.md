@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![50%](https://progress-bar.xyz/50)
+![54%](https://progress-bar.xyz/54)
 
 ## 1. Add Without Plus
 
@@ -1552,6 +1552,119 @@ Output:
     jess looked just like tim her brother (7 unrecognized characters)
     ----                  ---
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N^2)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+fun reSpace(dictionary: Set<String>, document: String): Pair<String, Int> {
+    val length = document.length
+    val dp = IntArray(length + 1) { Int.MAX_VALUE }
+    val next = IntArray(length + 1) { -1 }
+
+    dp[length] = 0
+
+    for (i in length - 1 downTo 0) {
+        var current = ""
+        for (j in i until length) {
+            current += document[j]
+            val unrecognized = if (dictionary.contains(current)) 0 else current.length
+            if (dp[j + 1] != Int.MAX_VALUE && dp[i] > unrecognized + dp[j + 1]) {
+                dp[i] = unrecognized + dp[j + 1]
+                next[i] = j + 1
+            }
+        }
+    }
+
+    val result = StringBuilder()
+    var i = 0
+    while (i < length) {
+        val j = next[i]
+        val word = document.substring(i, j)
+        result.append(word)
+        result.append(" ")
+        i = j
+    }
+
+    return Pair(result.toString(), dp[0])
+}
+```
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N^2)`
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+data class ParseResult(
+    var invalid: Int = Int.MAX_VALUE,
+    var parsed: String = ""
+)
+
+fun bestSplit(dictionary: Set<String>, sentence: String): String {
+    val memo = arrayOfNulls<ParseResult>(sentence.length)
+    val result = split(dictionary, sentence, 0, memo)
+    return result.parsed
+}
+
+fun split(
+    dictionary: Set<String>,
+    sentence: String,
+    start: Int,
+    memo: Array<ParseResult?>
+): ParseResult {
+
+    if (start >= sentence.length) {
+        return ParseResult(0, "")
+    }
+
+    memo[start]?.let { return it }
+
+    var bestInvalid = Int.MAX_VALUE
+    var bestParsing: String? = null
+    val partial = StringBuilder()
+
+    var index = start
+    while (index < sentence.length) {
+        partial.append(sentence[index])
+        val word = partial.toString()
+
+        val invalid = if (dictionary.contains(word)) 0 else word.length
+
+        if (invalid < bestInvalid) {
+            val result = split(dictionary, sentence, index + 1, memo)
+
+            if (invalid + result.invalid < bestInvalid) {
+                bestInvalid = invalid + result.invalid
+                bestParsing = word + " " + result.parsed
+                
+                if (bestInvalid == 0) break
+            }
+        }
+        index++
+    }
+
+    val finalResult = ParseResult(bestInvalid, bestParsing ?: "")
+    memo[start] = finalResult
+    return finalResult
+}
+```
+</details>
 
 <hr/>
 
