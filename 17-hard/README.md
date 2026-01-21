@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![54%](https://progress-bar.xyz/54)
+![57%](https://progress-bar.xyz/57)
 
 ## 1. Add Without Plus
 
@@ -1837,6 +1837,122 @@ Input:
 Output: 
     dogwalker
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(2^L)` - where L is a length of max length word
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+fun backtrack(remaining: String, memo: MutableMap<String, Boolean>, wordSet: Set<String>): Boolean {
+    if (remaining.isEmpty()) return true
+
+    val existing = memo[remaining]
+    if (existing != null) return existing
+
+    for (i in 1..remaining.length) {
+        val prefix = remaining.substring(0, i)
+        val suffix = remaining.substring(i)
+
+        if (wordSet.contains(prefix)) {
+            if (backtrack(suffix, memo, wordSet)) {
+                memo[remaining] = true
+                return true
+            }
+        }
+    }
+
+    memo[remaining] = false
+    return false
+}
+
+fun longestWord(words: List<String>): String {
+    val wordSet = words.toMutableSet()
+
+    val sortedWords = words.sortedByDescending(String::length)
+
+    val memo: MutableMap<String, Boolean> = hashMapOf()
+
+    for (word in sortedWords) {
+        wordSet.remove(word)
+        memo.clear()
+
+        if (backtrack(word, memo, wordSet)) {
+            return word
+        }
+
+        wordSet.add(word)
+    }
+
+    return ""
+}
+```
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N*L^2)` - where L is a length of max length word
+
+Space Complexity: `O(N)`
+
+#### Implementation
+
+```kotlin
+fun printLongestWord(arr: Array<String>): String {
+    val map = mutableMapOf<String, Boolean>()
+
+    // Put all words in the map
+    for (str in arr) {
+        map[str] = true
+    }
+
+    // Sort by descending length
+    arr.sortByDescending(String::length)
+
+    for (s in arr) {
+        if (canBuildWord(s, true, map)) {
+            println(s)
+            return s
+        }
+    }
+
+    return ""
+}
+
+fun canBuildWord(
+    str: String,
+    isOriginalWord: Boolean,
+    map: MutableMap<String, Boolean>
+): Boolean {
+
+    if (map.containsKey(str) && !isOriginalWord) {
+        return map[str] == true
+    }
+
+    for (i in 1 until str.length) {
+        val left = str.substring(0, i)
+        val right = str.substring(i)
+
+        if (map[left] == true && canBuildWord(right, false, map)) {
+            return true
+        }
+    }
+
+    map[str] = false
+    return false
+}
+
+```
+</details>
 
 <hr/>
 
