@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![60%](https://progress-bar.xyz/60)
+![65%](https://progress-bar.xyz/65)
 
 ## 1. Add Without Plus
 
@@ -2071,6 +2071,146 @@ fun maxMinutes(massages: IntArray): Int {
 ## 17. Multi Search
 
 Given a string band an array of smaller strings T, design a method to search b for each small string in T.
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(b*mT+S)` - where b - length of the search string, mT - max word length in T, S - number of chars in T
+
+Space Complexity: `O(S)` - where S - number of chars in T
+
+#### Implementation
+
+```kotlin
+data class TrieNode(
+    val children: MutableMap<Char, TrieNode> = mutableMapOf(),
+    var word: String? = null
+)
+
+fun buildTrie(words: Array<String>): TrieNode {
+    val root = TrieNode()
+
+    for (word in words) {
+        var node = root
+        for (c in word) {
+            node = node.children.getOrPut(c) { TrieNode() }
+        }
+        node.word = word
+    }
+    return root
+}
+
+fun searchAll(b: String, words: Array<String>): Set<String> {
+    val root = buildTrie(words)
+    val found = mutableSetOf<String>()
+
+    for (i in b.indices) {
+        var node = root
+        var j = i
+
+        while (j < b.length) {
+            val c = b[j]
+            node = node.children[c] ?: break
+
+            node.word?.let(found::add)
+
+            j++
+        }
+    }
+    return found
+}
+```
+
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(k*t+b*k)` - where k length of the longest word in T, b - length of the search string, t - number of words in T
+
+Space Complexity: `O(S)` - where S - number of chars in T
+
+#### Implementation
+
+```kotlin
+class TrieNode {
+    val children = mutableMapOf<Char, TrieNode>()
+    var terminates = false
+
+    fun getChild(c: Char): TrieNode? = children[c]
+}
+
+class Trie {
+    val root = TrieNode()
+
+    fun insertString(s: String, index: Int) {
+        var node = root
+        var i = index
+
+        while (i < s.length) {
+            val c = s[i]
+            node = node.children.getOrPut(c) { TrieNode() }
+            i++
+        }
+        node.terminates = true
+    }
+}
+
+
+fun searchAllTrie(big: String, smalls: Array<String>): MutableMap<String, MutableList<Int>> {
+    val lookup = mutableMapOf<String, MutableList<Int>>()
+    val maxLen = big.length
+
+    val root = createTreeFromStrings(smalls, maxLen).root
+
+    for (i in big.indices) {
+        val strings = findStringsAtLoc(root, big, i)
+        insertIntoHashMap(strings, lookup, i)
+    }
+
+    return lookup
+}
+
+fun createTreeFromStrings(smalls: Array<String>, maxLen: Int): Trie {
+    val tree = Trie()
+
+    for (s in smalls) {
+        if (s.length <= maxLen) {
+            tree.insertString(s, 0)
+        }
+    }
+    return tree
+}
+
+fun findStringsAtLoc(root: TrieNode, big: String, start: Int): List<String> {
+    val strings = mutableListOf<String>()
+    var node: TrieNode? = root
+    var index = start
+
+    while (index < big.length && node != null) {
+        node = node.getChild(big[index])
+        if (node == null) break
+
+        if (node.terminates) {
+            strings.add(big.substring(start, index + 1))
+        }
+        index++
+    }
+    return strings
+}
+
+fun insertIntoHashMap(strings: List<String>, lookup: MutableMap<String, MutableList<Int>>, index: Int) {
+    for (s in strings) {
+        lookup.computeIfAbsent(s) { mutableListOf() }.add(index)
+    }
+}
+```
+
+</details>
 
 <hr/>
 
