@@ -2,7 +2,7 @@
 
 Completed tasks:
 
-![65%](https://progress-bar.xyz/65)
+![69%](https://progress-bar.xyz/69)
 
 ## 1. Add Without Plus
 
@@ -2216,9 +2216,9 @@ fun insertIntoHashMap(strings: List<String>, lookup: MutableMap<String, MutableL
 
 ## 18. Shortest Supersequence
 
-You are given two arrays, one shorter (with all distinct elements) and one longer. Find the shortest subarray in the
-longer array that
-contains all the elements in the shorter array. The items can appear in any order.
+You are given two arrays, one shorter (with all distinct elements) and one longer. 
+Find the shortest subarray in the longer array that contains all the elements in the shorter array. 
+The items can appear in any order.
 
 ### Example
 
@@ -2229,6 +2229,140 @@ Input:
 Output: 
     [7, 10] (the underlined portion above) 
 ```
+
+<details>
+<summary>Naive Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(N)` 
+
+Space Complexity: `O(K)` - k - size of shortest seq
+
+#### Implementation
+
+```kotlin
+fun shortestSubarrayContainingAll(shorter: IntArray, longer: IntArray): Pair<Int, Int>? {
+    val required = shorter.toSet()
+    val countMap = mutableMapOf<Int, Int>()
+    var foundSize = 0
+    val needSize = required.size
+
+    var left = 0
+    var start = -1
+    var end = -1
+    var currentLength = Int.MAX_VALUE
+
+    for (right in longer.indices) {
+        val v = longer[right]
+        if (v in required) {
+            countMap[v] = (countMap[v] ?: 0) + 1
+            if (countMap[v] == 1) foundSize++
+        }
+        
+        while (foundSize == needSize) {
+            if (right - left + 1 < currentLength) {
+                currentLength = right - left + 1
+                start = left
+                end = right
+            }
+
+            val lv = longer[left]
+            if (lv in required) {
+                countMap[lv] = countMap[lv]!! - 1
+                if (countMap[lv] == 0) foundSize--
+            }
+            left++
+        }
+    }
+
+    return if (start == -1) null else start to end
+}
+```
+
+</details>
+
+<details>
+<summary>Solution</summary>
+
+#### Complexity
+
+Time Complexity: `O(B log S)` - B - big array, s - small array
+
+Space Complexity: `O(K)` - k - size of shortest seq
+
+#### Implementation
+
+```kotlin
+data class Range(val start: Int, val end: Int)
+data class HeapNode(var location: Int, val listId: Int)
+
+fun shortestSupersequence(array: IntArray, elements: IntArray): Range? {
+    val locations = getLocationsForElements(array, elements) ?: return null
+    return getShortestClosure(locations)
+}
+
+/* Get list of queues containing indices for each element in small array */
+fun getLocationsForElements(big: IntArray, small: IntArray): ArrayList<Queue<Int>>? {
+    val allLocations = ArrayList<Queue<Int>>()
+
+    for (e in small) {
+        val locations = getLocations(big, e)
+        if (locations.isEmpty()) return null
+        allLocations.add(locations)
+    }
+    return allLocations
+}
+
+/* Get all indices where small appears in big */
+fun getLocations(big: IntArray, small: Int): Queue<Int> {
+    val locations: Queue<Int> = LinkedList()
+    for (i in big.indices) {
+        if (big[i] == small) {
+            locations.add(i)
+        }
+    }
+    return locations
+}
+
+fun getShortestClosure(queues: ArrayList<Queue<Int>>): Range {
+    val minHeap = PriorityQueue(compareBy(HeapNode::location))
+    var currentMax = Int.MIN_VALUE
+
+    // Insert first element from each list
+    for (i in queues.indices) {
+        val head = queues[i].remove()
+        minHeap.add(HeapNode(head, i))
+        currentMax = max(currentMax, head)
+    }
+
+    var bestMin = minHeap.peek().location
+    var bestMax = currentMax
+
+    while (true) {
+        val node = minHeap.poll()
+        val min = node.location
+
+        // Update best range
+        if (currentMax - min < bestMax - bestMin) {
+            bestMin = min
+            bestMax = currentMax
+        }
+
+        val list = queues[node.listId]
+        if (list.isEmpty()) break
+
+        // Push next element from same list
+        node.location = list.remove()
+        minHeap.add(node)
+        currentMax = max(currentMax, node.location)
+    }
+
+    return Range(bestMin, bestMax)
+}
+```
+
+</details>
 
 <hr/>
 
